@@ -1,0 +1,65 @@
+html,body,div,h1,h2,h3,h4,h5,h6,ul,ol,li,s,i,img,a,dl,dt,dd,p,input,select,
+option,span,form,label,pre,fieldset, textarea,header,footer,nav{margin: 0;padding: 0;font-weight: normal;}
+html,body{width: 100%;margin:0 auto;height:auto;font-family:PingFang-SC-Bold,Arial,Helvetica,STHeiTi,sans-serif;color: #000;}
+em,i{font-style:normal;}
+img{border: none;width:100%;vertical-align: top;}
+strong,h4,h5{font-weight: normal;}
+ul,ol{list-style:none;}
+input,textarea,select,option,button{font-family:"STXihei", Arial, Helvetica, sans-serif;resize:none;background:none;
+    outline: none;border: none;border-radius:0;-webkit-appearance: none;background-color:transparent;}
+input[type=checkbox]{-webkit-appearance:checkbox;}
+*{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+a{text-decoration:none;font-size:100%;color:inherit;outline: none;}
+::-webkit-input-placeholder{font-size:12px;color:#ccc;} 
+:-ms-input-placeholder{font-size:12px;color:#ccc;} 
+.fr{float: right;}
+.fl{float: left;}
+.clearFix{overflow: auto;}
+.pa{position: absolute;}
+.pr{position: relative;}
+.tr{text-align: right;}
+.ofellipsis{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.ofellipsis2{display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;overflow: hidden;}
+html{font-size:20px;background:#eee;}
+body{ background: #f0f0f0; -webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;overflow-x:hidden;padding-bottom: constant(safe-area-inset-bottom);padding-bottom: env(safe-area-inset-bottom);}
+
+.wbox {display: -webkit-flex;display: -webkit-box;display: box;display: flex;}
+.wbox-flex {-webkit-flex: 1!important;-webkit-box-flex: 1;}
+*{box-sizing: border-box;}
+@media screen and (min-width: 320px){  html {font-size: 17.06px;}  }
+@media screen and (min-width: 360px){  html {font-size: 19.2px;}  }
+@media screen and (min-width: 375px){  html {font-size: 20px;}  }
+@media screen and (min-width: 384px){  html {font-size: 20.48px;}  }
+@media screen and (min-width: 400px){  html {font-size: 21.33px;}  }
+@media screen and (min-width: 414px){  html {font-size: 22.08px;}  }
+@media screen and (min-width: 424px){  html {font-size: 22.6px;}  }
+@media screen and (min-width: 480px){  html {font-size: 25.6px;}  }
+@media screen and (min-width: 540px){  html {font-size: 28.8px;}  }
+@media screen and (min-width: 720px){  html {font-size: 38.4px;}  }
+@media screen and (min-width: 750px){  html {font-size: 40px;}  }
+.mui-bar{background-color:rgba(255,255,255,1);margin:0 auto;}
+.mui-bar-nav{-webkit-box-shadow:none;box-shadow:none;padding:0 15px;}
+.mui-bar-transparent{background-color:rgba(255,255,255,0);}
+.mui-bar-transparent.mui-active{-webkit-box-shadow: 0 -1px 10px #dcdce6;}
+.mui-bar-nav .logo{width:30px;height: 30px;margin-top:7px;}
+.mui-bar-nav .mui-title{color:#000;font-weight:600;font-size:18px; }
+.mui-bar-nav.mui-bar .mui-icon{font-size:28px;color:#353535;margin-top:-2px;margin-left:-20px;}
+.mui-bar .mui-btn-link{color: #333;font-size: 14px;}
+.mui-bar-nav .m-icon-news{width:22px;height: 22px;background: url(../images/icon2.png) no-repeat -5px -85px;background-size:30px;margin-top:11px;position:relative;}
+.mui-bar-nav .m-icon-news.cur:after{content: '';position: absolute;right:-4px;top:-4px;width:8px;height:8px;background-color:#00a43e;border-radius:50%;}
+/* fixedNav */
+.fixed-bottom-nav{background-color: #fff;-webkit-box-shadow: 0 -1px 10px #dcdce6;
+    box-shadow: 0 -1px 10px #dcdce6;margin-bottom: constant(safe-area-inset-bottom);margin-bottom: env(safe-area-inset-bottom)}
+.mui-bar-tab .mui-tab-item{color:#333;}
+.fixed-bottom-nav .mui-icon{width: 20px;height:20px;background: url(../images/icon-fixednav.png) no-repeat -5px -5px;background-size:60px;}
+.fixed-bottom-nav .m-icon-set{background-position-y:-35px;}
+.fixed-bottom-nav .m-icon-cart{background-position-y:-65px;}
+.fixed-bottom-nav .m-icon-mine{background-position-y:-95px;}
+.fixed-bottom-nav .mui-tab-item.mui-active{color:#00a43e;font-weight:600;}
+.fixed-bottom-nav .mui-tab-item.mui-active .mui-icon{background-position-x:-35px;}
+.fixed-bottom-nav .m-icon-cart{position:relative;}
+.fixed-bottom-nav .m-icon-cart .icon-num{position: absolute;top:-5px;left:10px;padding:3px 4px 2px 4px;line-height:10px;
+background-color:#00a43e;color:#fff;font-size:12px;border-radius:10px;}
+
+body.ofhidden{overflow: hidden;}
+.mui-content{margin:0 auto;padding-bottom: constant(safe-area-inset-bottom);padding-bottom: env(safe-area-inset-bottom)}

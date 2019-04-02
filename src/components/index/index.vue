@@ -2,7 +2,7 @@
   <div class="index">
     <header class="mui-bar mui-bar-nav index-header">
         <a class="mui-pull-left logo">
-            <img src="../index/logo.png">
+            <img src="static/images/logo.png">
         </a>
         <h1 class="mui-title">姜力品牌</h1>
         <a class="m-icon-news mui-pull-right cur" href="systemMessage.html"></a>
@@ -21,13 +21,13 @@
             <li class="mui-table-view-cell mui-media mui-col-xs-4">
                 <a href="#">
                     <span class="m-icon m-icon2"></span>
-                    <div class="mui-media-body">发货追踪</div>
+                    <div class="mui-media-body">转发推广</div>
                 </a>
             </li>
             <li class="mui-table-view-cell m-media mui-col-xs-4">
                 <a href="#">
                     <span class="m-icon m-icon3"></span>
-                    <div class="mui-media-body">鉴别真伪</div>
+                    <div class="mui-media-body">订单管理</div>
                 </a>
             </li>
         </ul>
@@ -58,15 +58,20 @@
 <script>
 import Slider from "base/slider/slider"
 import mFooter from "component/footer/footer"
-import FilterDialog from "component/filter/filter"
-import goodsList from "base/goodsList/goodsList"
+import GoodsList from "base/goodsList/goodsList"
+import FilterDialog from "base/filter/filter"
+import Storage from 'good-storage'  
+//storage.get(key, val)
+ // sessionStorage
+ //storage.session.set(key, val)
 
 export default {
   components: { 
     Slider,
     mFooter,
+    GoodsList,
     FilterDialog,
-    goodsList
+    Storage
   },
   data(){
       return{
@@ -117,17 +122,15 @@ export default {
   }
 }
 </script>
-<style lang="">
+<style lang="" scope>
 .m-index{padding-bottom:60px;max-width: 640px;margin:0 auto;}
 .mui-bar{background-color:rgba(255,255,255,1);margin:0 auto;}
 .mui-bar-nav{-webkit-box-shadow:none;box-shadow:none;padding:0 15px;}
-.mui-bar-transparent{background-color:rgba(255,255,255,0);}
-.mui-bar-transparent.mui-active{-webkit-box-shadow: 0 -1px 10px #dcdce6;box-shadow: 0 -1px 10px #dcdce6;}
 .mui-bar-nav .logo{width:30px;height: 30px;margin-top:7px;}
 .mui-bar-nav .mui-title{color:#000;font-weight:600;font-size:18px; }
 .mui-bar-nav.mui-bar .mui-icon{font-size:28px;color:#353535;margin-top:-2px;margin-left:-20px;}
 .mui-bar .mui-btn-link{color: #333;font-size: 14px;}
-.mui-bar-nav .m-icon-news{width:22px;height: 22px;background: url(../index/icon2.png) no-repeat -5px -85px;background-size:30px;margin-top:11px;position:relative;}
+.mui-bar-nav .m-icon-news{width:22px;height: 22px;background: url(../../common/images/icon2.png) no-repeat -5px -85px;background-size:30px;margin-top:11px;position:relative;}
 .mui-bar-nav .m-icon-news.cur:after{content: '';position: absolute;right:-4px;top:-4px;width:8px;height:8px;background-color:#00a43e;border-radius:50%;}
 .mui-pull-caption{font-size:13px}
 .mui-spinner{width:16px;height:16px;}
@@ -135,7 +138,7 @@ export default {
 
 .mui-grid-view.m-center-nav{background-color:#fff;border:none;margin-top:-10px;margin-bottom:10px;}
 .mui-grid-view.m-center-nav .mui-table-view-cell{border:none;padding:6px 15px;}
-.mui-grid-view.m-center-nav .m-icon{display: block;width:35px;height:35px;background: url(../index/icon1-index.png) no-repeat -5px -5px;background-size:45px;margin:0 auto;}
+.mui-grid-view.m-center-nav .m-icon{display: block;width:35px;height:35px;background: url(../../common/images/icon1-index.png) no-repeat -5px -5px;background-size:45px;margin:0 auto;}
 .mui-grid-view.m-center-nav .m-icon2{background-position-y:-50px;}
 .mui-grid-view.m-center-nav .m-icon3{background-position-y:-95px;}
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size:13px;}
@@ -157,9 +160,9 @@ export default {
 .m-recomand-list .filtered-list{max-width:90%;overflow: hidden;height: 25px;}
 .m-recomand-list .filter-btn{font-size:12px;}
 .m-recomand-list .filter-btn .icon-filter{display:inline-block;vertical-align: middle;font-size:0;width:15px;height:20px;
-background: url(../index/icon2.png) no-repeat -11px -45px;background-size:40px;}
+background: url(../../common/images/icon2.png) no-repeat -11px -45px;background-size:40px;}
 .m-recomand-list .filtered-list .item{float:right;height:20px;line-height:20px;padding:0 5px;
 border:1px solid #ddd;border-radius:3px;font-size:12px;color:#666;margin-right:5px;}
-.m-recomand-list .filtered-list .item .icon-del{float: right;width:15px;height:18px;background: url(../index/icon2.png) no-repeat -3px -2px;background-size:26px;}
+.m-recomand-list .filtered-list .item .icon-del{float: right;width:15px;height:18px;background: url(../../common/images/icon2.png) no-repeat -3px -2px;background-size:26px;}
 
 </style>

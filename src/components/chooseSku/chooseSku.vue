@@ -19,13 +19,16 @@
 		<div class="line"><p></p></div>
 		<div class="mui-scroll-wrapper bd">
 			<div class="mui-scroll filter-groups">
-				<div class="scroll-cont">
-					<dl class="item">
-						<dt class="tit">品牌筛选</dt>
+				<div class="scroll-cont" >
+					<dl class="item"  v-if="skuList.length != 0" v-for="list in skuList" >
+						<dt class="tit" :data-id="list.sku_id">{{list.sku_str}}</dt>
 						<dd class="list clearFix">
-							<span class="s-item cur">全部</span>
-							<span class="s-item">1111</span>
-							<span class="s-item">2222</span>
+							<span class="s-item" :class="{cur:currentSkuIndex==index}"
+                                    v-for="(item,index) in list.sku_list" 
+                                    :key="item.skuv_id"
+                                    :data-sid="item.skuv_id"
+                                    @click="chooseSkuItem(index)"
+                                    >{{item.sku_value_str}}</span>
 						</dd>
 					</dl>
 					<dl class="buy-num">
@@ -47,7 +50,21 @@
 </template>
 <script>
 export default {
-    props:['show'],
+    props:{
+        show:{
+            type:Boolean,
+            default:false
+        },
+        skuList:{
+            type:Array,
+            default:[]
+        }
+    },
+    data(){
+        return{
+            currentSkuIndex:0
+        }
+    },
     created(){
         this.$nextTick(()=>{
             mui('.mui-scroll-wrapper').scroll({
@@ -56,6 +73,9 @@ export default {
         })
     },
     methods:{
+        chooseSkuItem(index){
+            this.currentSkuIndex = index
+        },
         closeShowFn(){    
             this.$emit('closeDialog',false)
         },
@@ -69,7 +89,7 @@ export default {
 .sku-dialog{background-color:#fff;position:fixed;left:0;right:0;bottom:0;z-index:51;margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset-bottom);
 min-height:400px;max-height:475px;-webkit-transform:translateY(500px);transform:translateY(500px);-webkit-transition:transform .3s;transition:transform .3s;}
 .show .sku-dialog{-webkit-transform:translateY(0);transform:translateY(0)}
-.icon-close{position: absolute;top:5px;right:5px;width:30px;height:30px;background: url(../index/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
+.icon-close{position: absolute;top:5px;right:5px;width:30px;height:30px;background: url(../../common/images/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
 .sku-dialog .hd{width:100%;padding:15px;}
 .sku-dialog .hd .img{margin-top:-30px;margin-right:10px;background-color:#fff;z-index:10;
 -webkit-border-radius:5px;border-radius:5px;width:100px;height:100px;overflow: hidden;}

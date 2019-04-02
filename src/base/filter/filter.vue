@@ -8,19 +8,25 @@
 					<dl class="item brand" v-if="brand.length != 0">
 						<dt class="tit">品牌筛选</dt>
 						<dd class="list clearFix">
-                            <span class="s-item cur" v-for="item in brand" :data-id="item.id">{{item.brand_name}}</span>
+                            <span class="s-item" :class="{cur:currentBrandIndex==index}" 
+                                                 v-for="(item,index) in brand" 
+                                                 :data-id="item.id" 
+                                                 @click="chooseBrandItem(index)">{{item.brand_name}}</span>
                         </dd>
 					</dl>
 					<dl class="item tag" v-if="tag.length != 0">
 						<dt class="tit">产品分类</dt>
 						<dd class="list clearFix" >
-                            <span class="s-item cur" v-for="item in tag" :data-id="item.id">{{item.tag_name}}</span>
+                            <span class="s-item" :class="{cur:currentTagIndex==index}" 
+                                                 v-for="(item,index) in tag" 
+                                                 :data-id="item.id" 
+                                                 @click="chooseTagItem(index)">{{item.tag_name}}</span>
                         </dd>
 					</dl>
 				</div>	
 			</div>
-		<div class="mui-scrollbar mui-scrollbar-vertical"><div class="mui-scrollbar-indicator" style="transition-duration: 0ms; display: none; height: 362px; transform: translate3d(0px, 26px, 0px) translateZ(0px);"></div></div></div>
-		<div class="dialog-btn">
+		</div>
+		<div class="dialog-btn bdt">
 			<div class="wrap wbox">
 				<a class="wbox-flex btn reset" href="javascript:;">重置</a>
 				<a class="wbox-flex btn sure" href="javascript:;">确定</a>
@@ -47,13 +53,9 @@ export default {
     },
     data(){
         return{
-            bd:[]
-        }
-    },
-    watch:{
-        brand(val){
-            this.bds = val
-            console.log(this.bds)
+            currentBrandIndex:0,
+            currentTagIndex:0,
+            choosedSkuItem:{}
         }
     },
     created(){
@@ -67,6 +69,15 @@ export default {
         closeShowFn(){
             this.$emit('closeDialog',false)
         },
+        chooseBrandItem(index){
+            this.currentBrandIndex = index
+        },
+        chooseTagItem(index){
+            this.currentTagIndex = index
+        },
+        sureFn(){
+
+        },
     }
 }
 </script>
@@ -77,7 +88,7 @@ export default {
 .dialog-body{background-color:#fff;position:absolute;left:0;right:0;bottom:0;top:30%;z-index:51;border-radius:10px 10px 0 0;
 margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset-bottom);-webkit-transform:translateY(500px);transform:translateY(500px);-webkit-transition:transform .3s;transition:transform .3s;}
 .show .dialog-body{-webkit-transform:translateY(0);transform:translateY(0)}
-.icon-close{position: absolute;top:5px;right:5px;width:30px;height:30px;background: url(../index/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
+.icon-close{position: absolute;top:10px;right:10px;width:30px;height:30px;background: url(../../common/images/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
 .filter-content.show .dialog-body{top:50%;}
 .filter-content .dialog-body .mui-scroll-wrapper{top:15px;padding-top:15px}
 .filter-content .mui-scroll-wrapper{bottom:66px;top:20px;}
@@ -85,9 +96,9 @@ margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset
 .filter-content .dialog-btn .wrap{width:100%;border-radius:5px;overflow: hidden;}
 .filter-content .dialog-btn .btn{display: block;width:50%;height:40px;line-height:40px;background: #f0f0f0;font-size:16px;color:#333;text-align: center;border-radius:0;}
 .filter-content .dialog-btn .sure{color:#fff;background-color:#00a43e;}
-.filter-groups{padding-right:15px;padding-left:5px;font-size:13px;box-sizing: border-box;}
+.filter-groups{padding-right:15px;padding-left:5px;font-size:13px;}
 .filter-groups .scroll-cont{padding-bottom:20px;}
-.filter-groups .item{margin-bottom:10px;}
+.filter-groups .item{margin-bottom:20px;}
 .filter-groups .item .tit{color:#999;line-height:13px;margin-bottom:15px;padding:0 10px;}
 .filter-groups .item .s-item{float:left;color:#333;line-height:14px;padding:8px 15px;text-align: center;min-width:80px;margin-left:10px;margin-bottom:10px;
 border-radius:5px;background-color:#f0f0f0;}

@@ -3,18 +3,18 @@
 		<div class="mui-slider">
 			<div class="mui-slider-group mui-slider-loop" v-if="lists.length">
 				<!-- 复制最后一张 -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
+				<div class="mui-slider-item mui-slider-item-duplicate" v-if="lists.length>1">
 					<a href=""><img :src="lists[lists.length-1].src"></a>
 				</div>
 				<div class="mui-slider-item" v-for="(item,index) in lists" :key="index">
 					<a href=""><img :src="item.src"></a>
 				</div>
 				<!-- 复制第一张 -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
+				<div class="mui-slider-item mui-slider-item-duplicate" v-if="lists.length>1">
 					<a href=""><img :src="lists[0].src"></a>
 				</div>
 			</div>
-			<div class="mui-slider-indicator">
+			<div class="mui-slider-indicator" v-if="lists.length>1">
 				<div class="mui-indicator mui-active"></div>
 				<div class="mui-indicator"></div>
 			</div>    
@@ -33,6 +33,9 @@ export default {
       return{  
       }
   },
+  created(){
+      console.log(this.lists)
+  }
 
 //   watch:{
 //       lists(val){

@@ -1,48 +1,17 @@
 <template>
   <div class="">
     <div class="mui-content goodsDetail">
-      <div class="slider-wrap">
-        <div class="mui-slider">
-          <div class="mui-slider-group mui-slider-loop">
-            <!-- 复制最后一张 -->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-              <img
-                src="https://m.360buyimg.com/mobilecms/s843x843_jfs/t1/20457/22/461/180375/5c09e8c9Ed4b9a2a7/2da2dc4abb8e378c.jpg!q70.dpg.webp"
-              >
-            </div>
-            <div class="mui-slider-item">
-              <img
-                src="https://m.360buyimg.com/mobilecms/s750x750_jfs/t2137/275/1244152823/168585/4c30efff/564e8dcfNd54bf5dd.jpg!q80.dpg.webp"
-              >
-            </div>
-            <div class="mui-slider-item">
-              <img
-                src="https://m.360buyimg.com/mobilecms/s843x843_jfs/t1/20457/22/461/180375/5c09e8c9Ed4b9a2a7/2da2dc4abb8e378c.jpg!q70.dpg.webp"
-              >
-            </div>
-            <!-- 复制第一张 -->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-              <img
-                src="https://m.360buyimg.com/mobilecms/s750x750_jfs/t2137/275/1244152823/168585/4c30efff/564e8dcfNd54bf5dd.jpg!q80.dpg.webp"
-              >
-            </div>
-          </div>
-          <div class="mui-slider-indicator">
-            <div class="mui-indicator mui-active"></div>
-            <div class="mui-indicator"></div>
-          </div>
-        </div>
-      </div>
+      <slider :lists="bannerImgs"></slider>
       <div class="goods-desc">
-        <div class="name ofellipsis2">姜力原生洗发水</div>
+        <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
         <div class="price-wrap clearFix">
           <span class="price">
-            <em>￥</em>234
+            <em>￥</em>{{goodsInfo.price}}
           </span>
           <s class="old-price">
-            <em>￥</em>211
+            <em>￥</em>{{goodsInfo.market_price}}
           </s>
-          <span class="sale-num fr">月销售10万笔</span>
+          <span class="sale-num fr">月销售{{goodsInfo.monthSellNum}}笔</span>
         </div>
         <ul class="rules mui-row">
           <li class="mui-table-view-cell mui-col-xs-4">
@@ -82,24 +51,51 @@
         </div>
       </div>
     </div>
-    <choose-sku :show='dialogShow' @closeDialog='closeDialog'></choose-sku>
+    <choose-sku :show='dialogShow' 
+                :skuList='skuList'
+                @closeDialog='closeDialog'></choose-sku>
   </div>
 </template>
 <script>
+import Slider from "base/slider/slider"
 import ChooseSku from "component/chooseSku/chooseSku";
 export default {
   components: {
-    ChooseSku
+      Slider,
+      ChooseSku
   },
   data(){
       return{
-          dialogShow:false
+          dialogShow:false,
+          goodsInfo:{},
+          bannerImgs:[], //banner 图片
+          skuList:[]
       }
+  },
+  watch:{
+      goodsInfo(val){
+          this.bannerImgs.push({src:val.imgs})
+          this.skuList = val.sku
+      }
+  },
+  created(){
+      this._getGoodsList()
   },
   updated(){
       console.log(this.dialogShow)
   },
   methods:{
+      _getGoodsList(){
+          this.$get('api/shop/item',{main_goods_id:1})
+          .then((result) => {
+              let  info = result.data 
+              if(info){
+                  this.goodsInfo = info
+              }
+          }).catch((err) => {
+              
+          })
+      },
       closeDialog(val){
           this.dialogShow = val
       }
@@ -145,8 +141,8 @@ export default {
 .buy-wrap .btn{font-size:16px;height:40px;line-height:40px;background: #333;text-align: center;color:#fff;}
 .buy-wrap .to-buy{background:#00A43E;color:#fff;}
 .buy-wrap .item{width:13.5%;background: #fff;text-align: center;}
-.buy-wrap .item .icon{display: block;width:22px;height:20px;background:url(../footer/icon-fixednav.png) no-repeat -5px -65px;background-size:60px;margin:0 auto;}
-.buy-wrap .togift .icon{background: url(../goodsDetail/prise.png) no-repeat 0 0;background-size:22px;}
+.buy-wrap .item .icon{display: block;width:22px;height:20px;background:url(../../common/images/icon-fixednav.png) no-repeat -5px -65px;background-size:60px;margin:0 auto;}
+.buy-wrap .togift .icon{background: url(../../common/images/prise.png) no-repeat 0 0;background-size:22px;}
 .buy-wrap .item .txt{font-size:11px;color:#333;display:block;height:12px;}
 
 </style>

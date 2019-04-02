@@ -9,7 +9,7 @@
     </header>
     <div class="mui-content m-index">
 
-        <slider></slider>
+        <slider :lists="bannerList"></slider>
       
         <ul class="mui-table-view mui-grid-view mui-grid-9 m-center-nav">
             <li class="mui-table-view-cell mui-media mui-col-xs-4">
@@ -45,52 +45,77 @@
                     </div>
                 </div>
             </div>
-            <ul class="list-wrap clearFix">
-                <li class="item mui-pull-left">
-                    <div class="hd">
-                        <a href="/goodsDetail">
-                            <img src="http://starokay.b0.upaiyun.com/star/goods/2018-12-07/5c0a12a0c7a50.jpg">
-                        </a>
-                    </div>
-                    <div class="dec">
-                        <p class="ofellipsis name">全秘精油唇膏</p>
-                        <p class="price">
-                            <span><em>￥</em>108.00</span>
-                            <s class="old-price"><em>￥</em>200</s>
-                        </p>
-                    </div>
-                </li>
-            </ul>
+            <goods-list :lists="goodsList"></goods-list>
         </div>
     </div>
     <m-footer></m-footer>
-    <filter-dialog :show="dialogShow" @closeDialog="closeDialog"></filter-dialog>
+    <filter-dialog  @closeDialog="closeDialog" 
+                    :show="dialogShow"
+                    :brand="brandList"
+                    :tag="tagList"></filter-dialog>
 </div>
 </template>
 <script>
-import Slider from "component/slider/slider.vue"
-import mFooter from "component/footer/footer.vue"
-import FilterDialog from "component/filter/filter.vue"
+import Slider from "base/slider/slider"
+import mFooter from "component/footer/footer"
+import FilterDialog from "component/filter/filter"
+import goodsList from "base/goodsList/goodsList"
+
 export default {
-  components: {
+  components: { 
     Slider,
     mFooter,
-    FilterDialog
+    FilterDialog,
+    goodsList
   },
   data(){
       return{
-          dialogShow:false
+          dialogShow:false,
+          goodsList:[],
+          bannerList:[],
+          brandList:[],
+          tagList:[]
       }
   },
-  updated(){
-
+  created(){
+      this._getGoodsList()
+      this._getIndexData()
   },
   methods:{
+       _getIndexData(){
+        this.$post('api/index/index')
+        .then((result) => {
+            if(result.banner.length){
+                this.bannerList = result.banner
+            }
+            if(result.brand.length){
+                this.brandList = result.brand
+            }
+            if(result.tag.length){
+                this.tagList = result.tag
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+      },
+      _getGoodsList(){
+        this.$post('api/index/goodslist')
+        .then((result) => {
+            let lists = result.list
+            if(lists.length){
+            this.goodsList = lists
+            }else{
+                throw ('没有数据')
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+      },
       closeDialog(val){
           this.dialogShow = val
       }
   }
-};
+}
 </script>
 <style lang="">
 .m-index{padding-bottom:60px;max-width: 640px;margin:0 auto;}

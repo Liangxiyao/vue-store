@@ -28,7 +28,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'component': resolve('src/components'),
-      'basefile': resolve('src/base'),
+      'base': resolve('src/base'),
+      'common': resolve('src/common'),
       'mui': path.resolve(__dirname, '../src/common/js/mui.min.js') 
     }
   },

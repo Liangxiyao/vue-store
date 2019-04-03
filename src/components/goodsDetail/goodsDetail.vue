@@ -1,15 +1,17 @@
 <template>
-  <div class="">
+  <div class="goodsDetail">
     <div class="mui-content goodsDetail">
       <slider :lists="bannerImgs"></slider>
       <div class="goods-desc">
         <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
         <div class="price-wrap clearFix">
           <span class="price">
-            <em>￥</em>{{goodsInfo.price}}
+            <em>￥</em>
+            {{goodsInfo.price}}
           </span>
           <s class="old-price">
-            <em>￥</em>{{goodsInfo.market_price}}
+            <em>￥</em>
+            {{goodsInfo.market_price}}
           </s>
           <span class="sale-num fr">月销售{{goodsInfo.monthSellNum}}笔</span>
         </div>
@@ -51,54 +53,51 @@
         </div>
       </div>
     </div>
-    <choose-sku :show='dialogShow' 
-                :skuList='skuList'
-                @closeDialog='closeDialog'></choose-sku>
+    <choose-sku :show="dialogShow" :skuDialog="skuDialog" @closeDialog="closeDialog"></choose-sku>
   </div>
 </template>
 <script>
-import Slider from "base/slider/slider"
+import Slider from "base/slider/slider";
 import ChooseSku from "component/chooseSku/chooseSku";
 export default {
   components: {
-      Slider,
-      ChooseSku
+    Slider,
+    ChooseSku
   },
-  data(){
-      return{
-          dialogShow:false,
-          goodsInfo:{},
-          bannerImgs:[], //banner 图片
-          skuList:[]
-      }
+  data() {
+    return {
+      dialogShow: false,
+      goodsInfo: {},
+      bannerImgs: [], //banner 图片
+      skuDialog: {}
+    };
   },
-  watch:{
-      goodsInfo(val){
-          this.bannerImgs.push({src:val.imgs})
-          this.skuList = val.sku
-      }
+  watch: {
+    goodsInfo(val) {
+      this.bannerImgs.push({ src: val.imgs });
+      this.skuDialog = val;
+    }
   },
-  created(){
-      this._getGoodsList()
+  created() {
+    this._getGoodsList();
   },
-  updated(){
-      console.log(this.dialogShow)
+  updated() {
+    console.log(this.dialogShow);
   },
-  methods:{
-      _getGoodsList(){
-          this.$get('api/shop/item',{main_goods_id:1})
-          .then((result) => {
-              let  info = result.data 
-              if(info){
-                  this.goodsInfo = info
-              }
-          }).catch((err) => {
-              
-          })
-      },
-      closeDialog(val){
-          this.dialogShow = val
-      }
+  methods: {
+    _getGoodsList() {
+      this.$get("api/shop/item", { main_goods_id: 1 })
+        .then(result => {
+          let info = result.data;
+          if (info) {
+            this.goodsInfo = info;
+          }
+        })
+        .catch(err => {});
+    },
+    closeDialog(val) {
+      this.dialogShow = val;
+    }
   }
 };
 </script>
@@ -113,17 +112,20 @@ export default {
 .goodsDetail-header .mui-segmented-control .mui-control-item{line-height:42px;}
 .goodsDetail-header .mui-icon:before{display: block;width: 33px;height:33px;line-height:33px;background:rgba(255,255,255,.4);border-radius:50%;text-align: center;font-size:20px;}
 .goodsDetail-header .mui-action-back:before{font-size:24px;}
-
-.goodsDetail .mui-slider  .mui-slider-item{padding:0;padding-top:100%;}
-.goodsDetail .mui-slider  .mui-slider-item img{position:absolute;top:0;left:0;-webkit-box-shadow:none;box-shadow:none;}
+.slider-wrap{background-color:#fff;}
+.mui-slider{max-width:640px;max-height:640px;margin:0 auto;}
+.goodsDetail .mui-slider  .mui-slider-item{padding:100% 0 0 0;}
+.goodsDetail .mui-slider  .mui-slider-item img{position:absolute;top:0;left:0;-webkit-box-shadow:none;box-shadow:none;border-radius:0}
 .goodsDetail .goods-desc,.sku-enter{background-color:#fff;padding:15px;}
 .goodsDetail .goods-desc .name{font-size:15px;color:#333;margin-bottom:10px;}
-.goodsDetail .goods-desc .price-wrap{margin-bottom:10px;font-size:12px;color:#ccc;}
+.goodsDetail .goods-desc .price-wrap{padding-bottom:10px;font-size:12px;color:#ccc;}
 .goodsDetail .goods-desc .price-wrap .price{font-size:20px;color:#333;font-weight:600;}
 .goodsDetail .goods-desc .price-wrap .price em{font-size:17px;}
 .goodsDetail .goods-desc .price-wrap .old-price{font-size:13px;padding-left:5px;}
-.goodsDetail .rules{border-top:1px solid #ddd;font-size:12px;color:#333;}
+.goodsDetail .rules{font-size:12px;color:#333;}
 .goodsDetail .rules .mui-table-view-cell{padding:13px 0 0 0;line-height:24px;}
+.goodsDetail .rules .mui-table-view-cell:nth-of-type(2){text-align: center;}
+.goodsDetail .rules .mui-table-view-cell:nth-of-type(3){text-align: right;}
 .goodsDetail .rules .mui-table-view-cell:after{display: none;}
 .goodsDetail .rules .mui-table-view-cell .iconfont{padding-right:2px;font-size:13px}
 .goodsDetail .sku-enter{margin:10px auto;padding:15px;height:50px;}
@@ -131,7 +133,7 @@ export default {
 .goodsDetail .sku-enter.mui-table-view-cell{line-height:20px;font-size:15px;color: #333;}
 .goodsDetail .sku-enter.mui-table-view-cell .mui-navigate-right{margin-top:-15px;}
 .goodsDetail .sku-enter.mui-table-view-cell .mui-navigate-right:after{font-size:20px;}
-.goodsDetail .details{padding-bottom:60px;}
+.goodsDetail .details{padding-bottom:80px;}
 .goodsDetail .details .tit{background-color: #fff;height:50%;line-height:50px;padding:0 15px;font-size:15px;color:#333;position: relative;}
 .goodsDetail .details .tit:before{display: inline-block;vertical-align:middle;content:'';width:2px;height:15px;background-color:#00a43e;margin-top:-4px;margin-right:10px;}
 .goodsDetail-header.mui-bar .mui-icon{padding-top:6px;}

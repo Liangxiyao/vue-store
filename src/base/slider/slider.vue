@@ -31,11 +31,24 @@ export default {
   },
   data(){
       return{  
+          objectClass:{
+              muiSliderLoop:'mui-slider-loop'
+          }
       }
   },
-  created(){
-      console.log(this.lists)
-  }
+  updated(){
+     
+          this.sliderFn()
+     
+   
+  },
+   methods:{
+       sliderFn() {
+            mui('.mui-slider').slider({
+                interval: 3000 //自动轮播周期
+            });	
+        },
+   }
 
 //   watch:{
 //       lists(val){
@@ -45,7 +58,7 @@ export default {
 //   }
 }
 </script>
-<style lang="">
+<style>
 .slider-wrap{background-color:#fff;}
 .mui-slider{max-width:640px;max-height:640px;margin:0 auto;background-color:#fff;}
 .mui-slider .mui-slider-item{padding:10px 15px;}

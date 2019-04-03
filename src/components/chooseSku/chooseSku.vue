@@ -1,26 +1,25 @@
 <template>
- <div class="m-mask" :class="{show:show}">
-	<div class="sku-dialog">
-		<i class="icon-close" @click="closeShowFn"></i>
+<div class="m-mask chooseSku" :class="{show:show}">
+	<div class="dialog-body">
+		<i class="icon-close"  @click="closeShowFn"></i>
 		<div class="hd wbox">
-		    <div class="img">
-		        <img src="http://starokay.b0.upaiyun.com/star/goods/2017-12-05/5a2658f4b2e4f.jpg_thumb" alt="">        
+		    <div class="img" v-if="dialogInfo.imgs">
+		        <img  :src="dialogInfo.imgs[0]" alt="">        
 		    </div> 
 		    <div class="content wbox-flex">
 		        <div class="price-wrap"> 
-		             <span class="price">¥250</span>
-					 <s class="old-price">¥330</s>
+		             <span class="price">¥{{dialogInfo.price}}</span>
+					 <s class="old-price">¥{{dialogInfo.market_price}}</s>
 		        </div>
 		        <div class="sku-dtips">已选择: 
 		              <span id="skuTipsContent1627207" class="showsku">包装规格:500ml&nbsp;</span>
 		        </div>
 		    </div> 
 		</div>
-		<div class="line"><p></p></div>
-		<div class="mui-scroll-wrapper bd">
-			<div class="mui-scroll filter-groups">
-				<div class="scroll-cont" >
-					<dl class="item"  v-if="skuList.length != 0" v-for="list in skuList" >
+		<div class="mui-scroll-wrapper bd" data-scroll="1">
+			<div class="mui-scroll filter-groups" style="transform: translate3d(0px, 0px, 0px) translateZ(0px); transition-duration: 0ms;">
+				<div class="scroll-cont">
+					<dl class="item"  v-if="dialogInfo.sku" v-for="list in dialogInfo.sku" >
 						<dt class="tit" :data-id="list.sku_id">{{list.sku_str}}</dt>
 						<dd class="list clearFix">
 							<span class="s-item" :class="{cur:currentSkuIndex==index}"
@@ -31,22 +30,22 @@
                                     >{{item.sku_value_str}}</span>
 						</dd>
 					</dl>
-					<dl class="buy-num">
+					<dl class="buy-item buy-num bdt">
 						<dt class="tit fl">购买数量</dt>
 						<dd class="wrap fr">
-							<span id="cut" class="cut no">-</span>
-							<input id="goodsNum" class="fl num"  type="text" readonly="readonly" value="1" />
-							<span id="add" class="add">+</span>
+							<span id="cut" class="btn cut" :class="{no:buyNum >= 1}" @click="numCut()">-</span>
+							<input class="fl num goodsNum" type="text" readonly="readonly" :value="buyNum">
+							<span id="add" class="btn add" @click="numAdd()">+</span>
 						</dd>
 					</dl>
 				</div>	
 			</div>
-		</div>		
+        </div>		
 		<div class="dialog-btn">
 			<div class="btn sure-btn">确定</div>	
 		</div>
 	</div>
-</div>   
+</div>
 </template>
 <script>
 export default {
@@ -55,16 +54,23 @@ export default {
             type:Boolean,
             default:false
         },
-        skuList:{
-            type:Array,
-            default:[]
+        skuDialog:{
+            type:Object,
+            default:{}
         }
     },
     data(){
         return{
-            currentSkuIndex:0
+            currentSkuIndex:0,
+            dialogInfo:{},
+            buyNum:1,
         }
     },
+    watch:{
+        skuDialog(val){
+            this.dialogInfo = val
+        }
+    }, 
     created(){
         this.$nextTick(()=>{
             mui('.mui-scroll-wrapper').scroll({
@@ -76,49 +82,60 @@ export default {
         chooseSkuItem(index){
             this.currentSkuIndex = index
         },
+        numAdd(){
+            this.buyNum++
+        },
+        numCut(){
+            this.buyNum--
+            if(this.buyNum < 1){
+                this.buyNum = 1
+            }
+        },
         closeShowFn(){    
             this.$emit('closeDialog',false)
         },
+
     }
 }
 </script>
 
 <style>
-.m-mask{width:100%;height:100%;position:fixed;background-color:rgba(0,0,0,.5);top:100%;left:0;z-index:50;}
+.m-mask{width:100%;height:100%;position:fixed;background-color:rgba(0,0,0,.5);top:120%;left:0;z-index:50;}
 .m-mask.show{top:0}
-.sku-dialog{background-color:#fff;position:fixed;left:0;right:0;bottom:0;z-index:51;margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset-bottom);
-min-height:400px;max-height:475px;-webkit-transform:translateY(500px);transform:translateY(500px);-webkit-transition:transform .3s;transition:transform .3s;}
-.show .sku-dialog{-webkit-transform:translateY(0);transform:translateY(0)}
-.icon-close{position: absolute;top:5px;right:5px;width:30px;height:30px;background: url(../../common/images/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
-.sku-dialog .hd{width:100%;padding:15px;}
-.sku-dialog .hd .img{margin-top:-30px;margin-right:10px;background-color:#fff;z-index:10;
+.dialog-body{background-color:#fff;position:absolute;left:0;right:0;bottom:0;top:30%;z-index:51;border-radius:10px 10px 0 0;
+margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset-bottom);-webkit-transform:translateY(500px);transform:translateY(500px);-webkit-transition:transform .3s;transition:transform .3s;}
+.show .dialog-body{-webkit-transform:translateY(0);transform:translateY(0)}
+.dialog-body .hd{width:100%;padding:15px;position:relative;}
+.dialog-body .hd:after{content:'';position:absolute;bottom:0;left:15px;right:15px;height: 1px;-webkit-transform: scaleY(.5);transform: scaleY(.5);background-color: #ddd;}
+.dialog-body .hd .img{margin-top:-30px;margin-right:10px;background-color:#fff;z-index:10;
 -webkit-border-radius:5px;border-radius:5px;width:100px;height:100px;overflow: hidden;}
-.sku-dialog .hd .img img{width:100%;height:100%;display:block;-webkit-border-radius:4px;border-radius:4px;}
-.sku-dialog .hd .content{overflow:hidden;display: -webkit-flex;display: flex;-webkit-flex-wrap: wrap;flex-wrap: wrap;
+.dialog-body .hd .img img{width:100%;height:100%;display:block;-webkit-border-radius:4px;border-radius:4px;}
+.dialog-body .hd .content{overflow:hidden;display: -webkit-flex;display: flex;-webkit-flex-wrap: wrap;flex-wrap: wrap;
 -webkit-align-content: space-between;align-content: space-between;flex-direction:row;margin-top:10px;}
-.sku-dialog .hd .content .price-wrap{font-size:20px;width:100%;}
-.sku-dialog .hd .content .price-wrap .old-price{color:#ccc;font-size:15px;padding-left:5px;}
-.sku-dialog .hd .content .sku-dtips{color:#333;font-size:15px;margin-bottom:10px;}
-.sku-dialog .hd .content .sku-dtips span{padding-left:5px}
-.sku-dialog .line{padding:0 15px;}
-.sku-dialog .line p{width:100%;height:15px;border-top:1px solid #ddd;}
-.sku-dialog .mui-scroll-wrapper{top:102px;bottom:62px;padding-top:15px;}
-.dialog-btn{position:absolute;bottom:0;left:0;right:0;padding:10px 15px;text-align: center;font-size:15px;color:#fff;border-top:1px solid #ddd;}
+.dialog-body .hd .content .price-wrap{font-size:20px;width:100%;}
+.dialog-body .hd .content .price-wrap .old-price{color:#ccc;font-size:15px;padding-left:5px;}
+.dialog-body .hd .content .sku-dtips{color:#333;font-size:15px;margin-bottom:10px;}
+.dialog-body .hd .content .sku-dtips span{padding-left:5px}
+.dialog-body .mui-scroll-wrapper{top:102px;bottom:62px;padding-top:15px;}
+.dialog-btn{position:absolute;bottom:0;left:0;right:0;padding:10px 15px;text-align: center;font-size:15px;color:#fff;}
+.dialog-btn:before{position: absolute;right: 0;top:-1px;left:0;height: 1px;content: '';-webkit-transform: scaleY(.5);transform: scaleY(.5);background-color: #ddd;}
 .dialog-btn .btn{width:100%;height:40px;line-height:40px;background-color:#00A43E;border-radius:5px;}
-.sku-dialog .filter-groups .item .tit{font-size:15px;color:#333;}
-.sku-dialog .buy-num{border-top:1px solid #ddd;margin-left:15px;padding-top:15px;clear:both;overflow: hidden;margin-bottom:15px;line-height:30px;}
-.sku-dialog .buy-num .tit{font-size:15px;color:#333;}
-.sku-dialog .buy-num .wrap{height:28px;line-height:27px;border:1px solid #ccc;border-radius:2px;box-sizing: border-box;}
-.sku-dialog .buy-num span{float:left;padding:0 10px;text-align: center;color:#333;font-size:16px;}
-.sku-dialog .buy-num .cut{line-height:27px;}
-.sku-dialog .buy-num .no{color:#ccc;}
-.sku-dialog .buy-num .num{width:40px;height:100%;line-height:100%;border: none;font-size:14px;line-height:25px;text-align: center;}
-.filter-groups{padding-right:15px;font-size:13px;box-sizing: border-box;}
+.dialog-body .filter-groups .item .tit{font-size:15px;color:#333;}
+.dialog-body .buy-item{margin-left:10px;padding-top:15px;clear:both;overflow: hidden;line-height:30px;}
+.dialog-body .buy-item .tit{font-size:15px;color:#333;}
+.dialog-body .buy-item .wrap{height:28px;line-height:27px;border:1px solid #ccc;border-radius:2px;box-sizing: border-box;}
+.dialog-body .buy-item .btn{float:left;padding:0 10px;text-align: center;color:#333;font-size:16px;}
+.dialog-body .buy-item .cut{line-height:27px;}
+.dialog-body .buy-item .no{color:#ccc;}
+.dialog-body .buy-item .num{width:40px;height:100%;border: none;font-size:14px;line-height:25px;text-align: center;padding:0;}
+.filter-groups{padding-right:15px;padding-left:5px;font-size:13px;box-sizing: border-box;}
+.filter-groups .scroll-cont{padding-bottom:20px;}
 .filter-groups .item{margin-bottom:10px;}
-.filter-groups .item .tit{color:#999;line-height:13px;margin-bottom:15px;padding:0 15px;}
-.filter-groups .item .s-item{float:left;color:#333;line-height:14px;padding:8px 0;text-align: center;min-width:80px;margin-left:15px;margin-bottom:10px;
+.filter-groups .item .tit{color:#999;line-height:13px;margin-bottom:15px;padding:0 10px;}
+.filter-groups .item .s-item{float:left;color:#333;line-height:14px;padding:8px 15px;text-align: center;min-width:80px;margin-left:10px;margin-bottom:10px;
 border-radius:5px;background-color:#f0f0f0;}
 .filter-groups .item .s-item.cur{background-color:#e3f6eb;color:#009933;}
+
 
 </style>
 

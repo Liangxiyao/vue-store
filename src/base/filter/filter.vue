@@ -5,7 +5,7 @@
 		<div class="mui-scroll-wrapper " data-scroll="1">
 			<div class="mui-scroll filter-groups" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
 				<div class="scroll-cont">
-					<dl class="item brand" v-if="brand.length != 0">
+					<dl class="item brand" v-if="brand">
 						<dt class="tit">品牌筛选</dt>
 						<dd class="list clearFix">
                             <span class="s-item" :class="{cur:currentBrandIndex==index}" 
@@ -14,7 +14,7 @@
                                                  @click="chooseBrandItem(index)">{{item.brand_name}}</span>
                         </dd>
 					</dl>
-					<dl class="item tag" v-if="tag.length != 0">
+					<dl class="item tag" v-if="tag">
 						<dt class="tit">产品分类</dt>
 						<dd class="list clearFix" >
                             <span class="s-item" :class="{cur:currentTagIndex==index}" 

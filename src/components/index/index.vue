@@ -87,7 +87,7 @@ export default {
       this._getIndexData()
   },
   methods:{
-       _getIndexData(){
+    _getIndexData(){
         this.$post('api/index/index')
         .then((result) => {
             if(result.banner.length){
@@ -102,8 +102,8 @@ export default {
         }).catch((err) => {
             console.log(err)
         })
-      },
-      _getGoodsList(){
+    },
+    _getGoodsList(){
         this.$post('api/index/goodslist')
         .then((result) => {
             let lists = result.list
@@ -115,10 +115,11 @@ export default {
         }).catch((err) => {
             console.log(err)
         })
-      },
-      closeDialog(val){
-          this.dialogShow = val
-      }
+    },
+    
+    closeDialog(val){
+        this.dialogShow = val
+    }
   }
 }
 </script>

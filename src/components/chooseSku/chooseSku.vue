@@ -12,7 +12,7 @@
 					 <s class="old-price">¥{{dialogInfo.market_price}}</s>
 		        </div>
 		        <div class="sku-dtips">已选择: 
-		              <span id="skuTipsContent1627207" class="showsku">包装规格:500ml&nbsp;</span>
+		              <span class="showsku" v-for="">500ml</span>
 		        </div>
 		    </div> 
 		</div>
@@ -64,6 +64,7 @@ export default {
             currentSkuIndex:0,
             dialogInfo:{},
             buyNum:1,
+            selectedSkuItem:[] //选择的sku
         }
     },
     watch:{
@@ -71,7 +72,7 @@ export default {
             this.dialogInfo = val
         }
     }, 
-    created(){
+    updated(){
         this.$nextTick(()=>{
             mui('.mui-scroll-wrapper').scroll({
                 deceleration: 0.0005
@@ -81,6 +82,7 @@ export default {
     methods:{
         chooseSkuItem(index){
             this.currentSkuIndex = index
+           // this.selectedItem.push({})
         },
         numAdd(){
             this.buyNum++
@@ -92,7 +94,7 @@ export default {
             }
         },
         closeShowFn(){    
-            this.$emit('closeDialog',false)
+            this.$emit('toggleDialog',false)
         },
 
     }
@@ -105,6 +107,7 @@ export default {
 .dialog-body{background-color:#fff;position:absolute;left:0;right:0;bottom:0;top:30%;z-index:51;border-radius:10px 10px 0 0;
 margin-bottom:constant(safe-area-inset-bottom);margin-bottom:env(safe-area-inset-bottom);-webkit-transform:translateY(500px);transform:translateY(500px);-webkit-transition:transform .3s;transition:transform .3s;}
 .show .dialog-body{-webkit-transform:translateY(0);transform:translateY(0)}
+.icon-close{position: absolute;top:10px;right:10px;width:30px;height:30px;background: url(../../common/images/icon2.png) no-repeat 0 -2px;background-size:35px;z-index: 100;}
 .dialog-body .hd{width:100%;padding:15px;position:relative;}
 .dialog-body .hd:after{content:'';position:absolute;bottom:0;left:15px;right:15px;height: 1px;-webkit-transform: scaleY(.5);transform: scaleY(.5);background-color: #ddd;}
 .dialog-body .hd .img{margin-top:-30px;margin-right:10px;background-color:#fff;z-index:10;

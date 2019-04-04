@@ -2,7 +2,7 @@
     <ul class="list-wrap clearFix">
         <li class="item mui-pull-left" v-for="item in lists" :key="item.main_goods_id">
             <div class="hd">
-                <a href="/goodsDetail">
+                <a :href="'/goodsDetail?id='+item.main_goods_id">
                     <img :src="item.pics">
                 </a>
             </div>

@@ -1,68 +1,78 @@
 <template>
-  <div class="goodsDetail">
-    <div class="mui-content goodsDetail">
-      <slider :lists="bannerImgs"></slider>
-      <div class="goods-desc">
-        <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
-        <div class="price-wrap clearFix">
-          <span class="price">
-            <em>￥</em>
-            {{goodsInfo.price}}
-          </span>
-          <s class="old-price">
-            <em>￥</em>
-            {{goodsInfo.market_price}}
-          </s>
-          <span class="sale-num fr">月销售{{goodsInfo.monthSellNum}}笔</span>
+<div class="goodsDetail">
+    <m-header class="mui-bar-transparent">  
+        <div slot="header-cont" id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+            <a class="mui-control-item mui-active" href="javascript:;"><span>商品</span></a>
+            <a class="mui-control-item" href="order1.html"><span>详情</span></a>
+            <a class="mui-control-item" href="order2.html"><span>须知</span></a>
         </div>
-        <ul class="rules mui-row">
-          <li class="mui-table-view-cell mui-col-xs-4">
-            <i class="iconfont icon-rules"></i>官方正品保障
-          </li>
-          <li class="mui-table-view-cell mui-col-xs-4">
-            <i class="iconfont icon-rules"></i>七天无理由退货
-          </li>
-          <li class="mui-table-view-cell mui-col-xs-4">
-            <i class="iconfont icon-rules"></i>满199包邮
-          </li>
-        </ul>
-      </div>
-      <div class="sku-enter mui-table-view-cell">
-        <a class="mui-navigate-right" href="javascript:;" @tap="dialogShow = true">选择商品规格</a>
-      </div>
-      <div class="details">
-        <div class="tit">图文详情</div>
-        <div class="cont">
-          <img src="http://starokay.b0.upaiyun.com/star/editorImg/2017-11-07/5a0173a418ede.jpg">
+        <a slot="header-right" class="mui-icon  mui-pull-right iconfont icon-share" href="javascript:;"></a>
+    </m-header>
+    <div class="mui-content">
+        <slider :lists="bannerImgs"></slider>
+        <div class="goods-desc">
+            <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
+            <div class="price-wrap clearFix">
+                <span class="price">
+                    <em>￥</em>{{goodsInfo.price}}
+                </span>
+                <s class="old-price">
+                    <em>￥</em>{{goodsInfo.market_price}}
+                </s>
+                <span class="sale-num fr">月销售{{goodsInfo.monthSellNum}}笔</span>
+            </div>
+            <ul class="rules mui-row">
+                <li class="mui-table-view-cell mui-col-xs-4">
+                    <i class="iconfont icon-rules"></i>官方正品保障
+                </li>
+                <li class="mui-table-view-cell mui-col-xs-4">
+                    <i class="iconfont icon-rules"></i>七天无理由退货
+                </li>
+                <li class="mui-table-view-cell mui-col-xs-4">
+                    <i class="iconfont icon-rules"></i>满199包邮
+                </li>
+            </ul>
         </div>
-      </div>
-      <div class="buy-wrap pr wbox">
-        <div class="item togift">
-          <i class="icon"></i>
-          <span class="txt">送礼</span>
+        <div class="sku-enter mui-table-view-cell">
+            <a class="mui-navigate-right" href="javascript:;" @tap="dialogShow = true">选择商品规格</a>
         </div>
-        <div class="item addCart">
-          <a href="shopCart.html">
-            <i class="icon"></i>
-            <span class="txt">购物车</span>
-          </a>
+        <div class="details">
+            <div class="tit">图文详情</div>
+            <div class="cont">
+                <img src="http://starokay.b0.upaiyun.com/star/editorImg/2017-11-07/5a0173a418ede.jpg">
+            </div>
         </div>
-        <div class="btns-groups wbox-flex wbox">
-          <a class="btn to-car wbox-flex" href="javascript:;" @tap="dialogShow = true">加入购物车</a>
-          <a class="btn to-buy wbox-flex" href="javascript:;" @tap="dialogShow = true">立即购买</a>
+        <div class="buy-wrap pr wbox">
+            <div class="item togift">
+                <i class="icon"></i>
+                <span class="txt">送礼</span>
+            </div>
+            <div class="item addCart">
+                <a href="/shopCart">
+                    <i class="icon"></i>
+                    <span class="txt">购物车</span>
+                </a>
+            </div>
+            <div class="btns-groups wbox-flex wbox">
+                <a class="btn to-car wbox-flex" href="javascript:;" @tap="dialogShow = true">加入购物车</a>
+                <a class="btn to-buy wbox-flex" href="javascript:;" @tap="dialogShow = true">立即购买</a>
+            </div>
         </div>
-      </div>
     </div>
-    <choose-sku :show="dialogShow" :skuDialog="skuDialog" @closeDialog="closeDialog"></choose-sku>
-  </div>
+    <choose-sku :show="dialogShow" :skuDialog="skuDialog" @toggleDialog="toggleDialog"></choose-sku>
+</div>
 </template>
 <script>
-import Slider from "base/slider/slider";
-import ChooseSku from "component/chooseSku/chooseSku";
+import mHeader from 'base/header/header'
+import Slider from "base/slider/slider"
+import ChooseSku from "component/chooseSku/chooseSku"
+import {GetQueryString} from "common/js/common.js"
+import {apiGoodsDetail} from "api/api"
 export default {
   components: {
-    Slider,
-    ChooseSku
+      mHeader,
+      Slider,
+      ChooseSku
   },
   data() {
     return {
@@ -79,23 +89,28 @@ export default {
     }
   },
   created() {
-    this._getGoodsList();
+    this._getGoodsDetail();
   },
   updated() {
     console.log(this.dialogShow);
   },
   methods: {
-    _getGoodsList() {
-      this.$get("api/shop/item", { main_goods_id: 1 })
-        .then(result => {
-          let info = result.data;
-          if (info) {
-            this.goodsInfo = info;
-          }
+    _getGoodsDetail() {
+        let id = GetQueryString('id');
+        apiGoodsDetail({
+            main_goods_id: id
         })
-        .catch(err => {});
+        .then(result => {
+            let info = result.data;
+            if (info) {
+                this.goodsInfo = info;
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        });
     },
-    closeDialog(val) {
+    toggleDialog(val) {
       this.dialogShow = val;
     }
   }
@@ -103,17 +118,18 @@ export default {
 </script>
 
 <style>
-.goodsDetail-header .mui-title .mui-segmented-control{width:160px;margin:0 auto;opacity:0;transition:transform 1s;}
-.goodsDetail-header.mui-active .mui-segmented-control{opacity:1;}
-.goodsDetail-header .tab-header .mui-segmented-control{top:0}
-.goodsDetail-header .mui-segmented-control .mui-control-item{color:#666;}
+.goodsDetail .mui-title .mui-segmented-control{width:160px;margin:0 auto;opacity:0;transition:transform 1s;}
+.goodsDetail .mui-active .mui-segmented-control{opacity:1;}
+.goodsDetail .mui-segmented-control{top:0}
+.goodsDetail .mui-bar-nav.mui-bar .mui-icon{padding-top:6px;margin-left:-10px}
+.mui-segmented-control .mui-control-item{color:#666;}
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{border:none;}
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active span{display:inline-block;border-bottom:2px solid #00A43E;color:#333;}
-.goodsDetail-header .mui-segmented-control .mui-control-item{line-height:42px;}
-.goodsDetail-header .mui-icon:before{display: block;width: 33px;height:33px;line-height:33px;background:rgba(255,255,255,.4);border-radius:50%;text-align: center;font-size:20px;}
-.goodsDetail-header .mui-action-back:before{font-size:24px;}
-.slider-wrap{background-color:#fff;}
-.mui-slider{max-width:640px;max-height:640px;margin:0 auto;}
+.mui-segmented-control .mui-control-item{line-height:42px;}
+.mui-icon:before{display: block;width: 33px;height:33px;line-height:33px;background:rgba(255,255,255,.4);border-radius:50%;text-align: center;font-size:20px;}
+.mui-action-back:before{font-size:24px;}
+
+.goodsDetail .mui-content{padding-top:0}
 .goodsDetail .mui-slider  .mui-slider-item{padding:100% 0 0 0;}
 .goodsDetail .mui-slider  .mui-slider-item img{position:absolute;top:0;left:0;-webkit-box-shadow:none;box-shadow:none;border-radius:0}
 .goodsDetail .goods-desc,.sku-enter{background-color:#fff;padding:15px;}

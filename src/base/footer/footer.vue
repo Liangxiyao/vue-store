@@ -1,14 +1,14 @@
 <template>
   <nav class="mui-bar mui-bar-tab footer-nav">
-    <a class="mui-tab-item mui-active" href="component/index/index.html">
+    <a class="mui-tab-item mui-active" href="/index">
       <span class="mui-icon m-icon-home"></span>
       <span class="mui-tab-label">首页</span>
     </a>
-    <a class="mui-tab-item" href="component/shopManage/shopManage.html">
+    <a class="mui-tab-item" href="/shopManage">
       <span class="mui-icon m-icon-set"></span>
       <span class="mui-tab-label">店铺管理</span>
     </a>
-    <a class="mui-tab-item" href="component/shopCart/shopCart.html">
+    <a class="mui-tab-item" href="/shopCart">
       <span class="mui-icon m-icon-cart">
         <i class="icon-num">55</i>
       </span>

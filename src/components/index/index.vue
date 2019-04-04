@@ -57,10 +57,11 @@
 </template>
 <script>
 import Slider from "base/slider/slider"
-import mFooter from "component/footer/footer"
+import mFooter from "base/footer/footer"
 import GoodsList from "base/goodsList/goodsList"
 import FilterDialog from "base/filter/filter"
-import Storage from 'good-storage'  
+import Storage from "good-storage"  
+import {apiIndexInfo,apiIndexGoodsList} from "api/api"
 //storage.get(key, val)
  // sessionStorage
  //storage.session.set(key, val)
@@ -88,8 +89,7 @@ export default {
   },
   methods:{
     _getIndexData(){
-        this.$post('api/index/index')
-        .then((result) => {
+        apiIndexInfo().then((result) => {
             if(result.banner.length){
                 this.bannerList = result.banner
             }
@@ -104,8 +104,7 @@ export default {
         })
     },
     _getGoodsList(){
-        this.$post('api/index/goodslist')
-        .then((result) => {
+        apiIndexGoodsList().then((result) => {
             let lists = result.list
             if(lists.length){
             this.goodsList = lists

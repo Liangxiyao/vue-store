@@ -28,5 +28,5 @@ export function get(url,params={}){
       .catch(err => {
         reject(err)
       })
-    })
+    })  
   }

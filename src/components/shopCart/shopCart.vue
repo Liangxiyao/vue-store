@@ -7,58 +7,29 @@
         <div class="mui-content shopCart-lists">
             <div id="cartList">
                 <!-- 购物车模板 -->
-                <div class="temp goods-info-common" v-for="(item,index) in goodsLists" :key="index">
+                <div class="temp goods-info-common" v-for="(lists,index) in goodsLists" :key="index">
                     <div class="hd pr">
                         <span class="group-choose"><i class="icon-choose iconfont"></i></span>
-                        <span class="shop-name">{{item.brand.brand_name}}</span>
+                        <img v-if="lists.brand.logo" :src="lists.brand.logo" alt="">
+                        <span class="shop-name">{{lists.brand.brand_name}}</span>
                     </div>
                     <!-- 单个商品 -->
-                    <div class="pro-item pr mui-table-view-cell">
+                    <div class="pro-item pr mui-table-view-cell" v-for="(item,i) in lists.list" :key="i">
                         <div class="mui-slider-handle">
                             <span class=" item-choose"><i class="icon-choose iconfont"></i></span>
                             <div class="wbox pdl">
                                 <div class="pr">
-                                    <img class="pro-img" src="http://starokay.b0.upaiyun.com/star/goods/2017-05-27/592993a24af92.png" alt="">
-                                    <div class="mask-img"><img src="/static/images/shouwan.png"></div>
+                                    <img class="pro-img" :src="item.imgs" alt="">
+                                    <div class="mask-img" v-if=""><img src="/static/images/shouwan.png"></div>
                                 </div>
                                 <div class="pro-info wbox-flex ">
-                                    <a href="goodsDetail.html" class="block">
-                                        <span class="pro-name ofellipsis2">全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏</span>
+                                    <a :href="'/goodsDetail?id='+item.goods_id" class="block">
+                                        <span class="pro-name ofellipsis2">{{item.goods_name}}</span>
                                     </a>
-                                    <p class="guige">包装规格：401 珊瑚橙  </p>
+                                    <p class="guige" :data-brandid="item.brand_id">{{item.sku_str}}</p>
                                     <div class="price-wrap clearFix">
-                                        <span class="snPrice"><em>¥</em>108.00</span>
-                                        <div class="fr edit-cont ">
-                                            <span class="btn cut no">-</span>
-                                            <input class="pro-num" type="text" value="1">
-                                            <span class="btn add">+</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>	
-                        <div class="mui-slider-right mui-disabled item-delete"><i class="iconfont icon-delete mui-btn"></i></div>
-                    </div>
-                    <div class="pro-item pr mui-table-view-cell">
-                        <div class="mui-slider-handle">
-                            <span class=" item-choose"><i class="icon-choose iconfont"></i></span>
-                            <div class="wbox pdl">
-                                <div class="pr">
-                                    <img class="pro-img" src="http://starokay.b0.upaiyun.com/star/goods/2017-05-27/592993a24af92.png_list" alt="">
-                                    <div class="mask-img"><img src="/static/images/xiajia.png"></div>
-                                </div>
-                                <div class="pro-info wbox-flex ">
-                                    <a href="goodsDetail.html" class="block">
-                                        <span class="pro-name ofellipsis2">全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏全秘精油唇膏</span>
-                                    </a>
-                                    <p class="guige">包装规格：401 珊瑚橙  </p>
-                                    <div class="price-wrap clearFix">
-                                        <span class="snPrice"><em>¥</em>108.00</span>
-                                        <div class="fr edit-cont ">
-                                            <span class="btn cut no">-</span>
-                                            <input class="pro-num" type="text" value="1">
-                                            <span class="btn add">+</span>
-                                        </div>
+                                        <span class="snPrice"><em>¥</em>{{item.price}}</span>
+                                        <num-control :goodsNum="item.number"></num-control>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +44,7 @@
                     <span class="all-choose-txt">全选</span>
                 </div>
                 <div class="right-btn fr toPay">
-                    <a href="javascript:;" id="cart-account">去结算({{goodsLists.number}}})</a>
+                    <a href="javascript:;" id="cart-account">去结算({{goodsLists.number}})</a>
                 </div>
                 <div class="left-price fr total">
                     <span>合计<i class="need-money" style="" id="need-money"><em>￥</em>{{goodsLists.totalPrice}}</i></span>
@@ -93,22 +64,26 @@
                 </div> -->
             </div>
         </div>
-        <m-footer></m-footer>
+        <!-- <m-footer></m-footer> -->
     </div>
 </template>
 <script>
 import mHeader from "base/header/header"
 import mFooter from "base/footer/footer"
 import {apiShopCartList} from "api/api"
+import NumControl from "base/numControl/numControl"
 
 export default {
     components:{
         mHeader,
-        mFooter
+        mFooter,
+        NumControl
     },
     data(){
         return{
-            goodsLists:[]
+            goodsLists:[],
+            goodsNumber:0,
+            goodsTotalPrice:0
         }
     },
     created(){
@@ -120,11 +95,13 @@ export default {
                 console.log(result)
                 if(result.lists.length){
                     this.goodsLists = result.lists
+                    
                 }
             }).catch((err) => {
                 
             });
-        }
+        },
+        
     }
 }
 </script>
@@ -158,15 +135,12 @@ export default {
 .goods-info-common .mui-table-view-cell>.mui-slider-right>.mui-btn{padding:0;width:50px;}
 .item-delete .icon-delete{background:#333;color:#fff;}
 .item-delete .icon-delete:before{content:'\e60e';position:absolute;top:50%;left:50%;width:30px;height:30px;margin-top:-15px;margin-left:-15px;font-size:20px;text-align: center;}
-.edit-cont{border:1px solid #ddd;z-index:5;color:#333;border-radius:3px;text-align: center;}
-.edit-cont .pro-num{float:left;width:auto;width:40px;height:25px;padding:0;font-size:13px;color:#333;text-align: center;border:none;margin:0;}
-.edit-cont .btn{float:left;width:30px;line-height:25px;font-size:13px;}
-.edit-cont  .no{color:#ccc;}
+
 /* 底部固定 */
 .btfixed-area{width:100%;height:50px;line-height:50px;position: fixed;bottom:50px;left:0;font-size:15px;background:#fff;z-index:8;
 margin-bottom: constant(safe-area-inset-bottom);margin-bottom: env(safe-area-inset-bottom);}
 .btfixed-area .all-choose-wrap{margin-left:8px;}
-.btfixed-area .all-choose-txt{padding-left:30px;font-size:14px;color:#33;}
+.btfixed-area .all-choose-txt{padding-left:30px;font-size:14px;color:#333;}
 .btfixed-area .left-price{font-size:16px;margin-right:10px;}
 .btfixed-area .left-price .need-money{color:#00a43e;font-size:16px;font-weight:600;}
 .btfixed-area .left-price .need-money em{font-size:13px;}

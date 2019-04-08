@@ -14,12 +14,12 @@
             <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
             <div class="price-wrap clearFix">
                 <span class="price">
-                    <em>￥</em>{{goodsInfo.price}}
+                    <em>￥</em>{{goodsInfo.price?goodsInfo.price:'0.00'}}
                 </span>
                 <s class="old-price">
-                    <em>￥</em>{{goodsInfo.market_price}}
+                    <em>￥</em>{{goodsInfo.market_price?goodsInfo.market_price:'0.00'}}
                 </s>
-                <span class="sale-num fr">月销售{{goodsInfo.monthSellNum}}笔</span>
+                <span class="sale-num fr">月销售{{goodsInfo.monthSellNum?goodsInfo.monthSellNum:'0'}}笔</span>
             </div>
             <ul class="rules mui-row">
                 <li class="mui-table-view-cell mui-col-xs-4">
@@ -102,6 +102,7 @@ export default {
         })
         .then(result => {
             let info = result.data;
+            console.log(info)
             if (info) {
                 this.goodsInfo = info;
             }

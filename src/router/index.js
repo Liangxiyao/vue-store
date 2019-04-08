@@ -7,11 +7,14 @@ import ShopCart from 'component/shopCart/shopCart'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     routes: [
         {
             path: '/',
-            redirect: '/index'
+            redirect: '/index',
+            meta: {
+                keepAlive: true 
+            }
         },
         {
             path: '/index',

@@ -12,7 +12,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;}
 html{font-size:20px;background:#eee;}
 body{ background: #f0f0f0; -webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;overflow-x:hidden;padding-bottom: constant(safe-area-inset-bottom);padding-bottom: env(safe-area-inset-bottom);}
 
-a{text-decoration:none;font-size:100%;color:inherit;outline: none;}
+a{text-decoration:none;font-size:100%;color:#333;outline: none;}
 ::-webkit-input-placeholder{font-size:12px;color:#ccc;} 
 :-ms-input-placeholder{font-size:12px;color:#ccc;} 
 .fr{float: right;}

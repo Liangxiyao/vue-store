@@ -7,8 +7,8 @@
         <h1 class="mui-title">姜力品牌</h1>
         <a class="m-icon-news mui-pull-right cur" href="systemMessage.html"></a>
     </header>
+    <keep-alive>
     <div class="mui-content m-index">
-
         <slider :lists="bannerList"></slider>
       
         <ul class="mui-table-view mui-grid-view mui-grid-9 m-center-nav">
@@ -48,7 +48,8 @@
             <goods-list :lists="goodsList"></goods-list>
         </div>
     </div>
-    <m-footer></m-footer>
+    </keep-alive>
+    <!-- <m-footer></m-footer> -->
     <filter-dialog  @closeDialog="closeDialog" 
                     :show="dialogShow"
                     :brand="brandList"

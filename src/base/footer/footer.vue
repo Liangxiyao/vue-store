@@ -1,20 +1,10 @@
 <template>
-<div class="footer">
-    <keep-alive><router-view/></keep-alive>
     <nav class="mui-bar mui-bar-tab footer-nav">
-    <!-- <a class="mui-tab-item" :class="[navIndex==index?'mui-active':'']"  :href="item.url" v-for="(item,index) in nav" :key="index" @click="link(index)">
-        <span class="mui-icon" :class="item.icon"></span>
-        <span class="mui-tab-label">{{item.text}}</span>
-    </a> -->
         <router-link :to="item.url" class="mui-tab-item" v-for="(item,index) in nav" :key="index">
             <span class="mui-icon" :class="item.icon"></span>
             <span class="mui-tab-label">{{item.text}}</span>
         </router-link>
-    </nav>
-    
-</div>
-  
-    
+    </nav> 
 </template>
 <script>
 export default {
@@ -37,8 +27,7 @@ export default {
                 icon:'m-icon-mine',
                 text:'我的',
                 url:'/myself'
-            }],
-            navIndex:0     
+            }], 
         }
     },
     methods:{

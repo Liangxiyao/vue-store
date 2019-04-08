@@ -49,7 +49,7 @@
         </div>
     </div>
     </keep-alive>
-    <!-- <m-footer></m-footer> -->
+    <m-footer></m-footer>
     <filter-dialog  @closeDialog="closeDialog" 
                     :show="dialogShow"
                     :brand="brandList"

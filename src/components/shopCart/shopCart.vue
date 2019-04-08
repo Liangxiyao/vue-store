@@ -2,21 +2,25 @@
     <div class="shopCart">
         <m-header>
             <span slot="header-cont">购物车</span>
-            <a slot="header-right" class="mui-btn-link mui-pull-right operate" href="javascript:;">管理</a>
+            <a slot="header-right" class="mui-btn-link mui-pull-right operate" href="javascript:;" @tap="editStateFn">{{editState?'完成':'管理'}}</a>
         </m-header>
         <div class="mui-content shopCart-lists">
             <div id="cartList">
                 <!-- 购物车模板 -->
                 <div class="temp goods-info-common" v-for="(lists,index) in goodsLists" :key="index">
                     <div class="hd pr">
-                        <span class="group-choose"><i class="icon-choose iconfont"></i></span>
+                        <span class="group-choose"><i class="icon-choose iconfont" :class="[lists.groupChed?'icon-ched':'']" @click="groupChoose"></i></span>
                         <img v-if="lists.brand.logo" :src="lists.brand.logo" alt="">
                         <span class="shop-name">{{lists.brand.brand_name}}</span>
                     </div>
                     <!-- 单个商品 -->
                     <div class="pro-item pr mui-table-view-cell" v-for="(item,i) in lists.list" :key="i">
                         <div class="mui-slider-handle">
-                            <span class=" item-choose"><i class="icon-choose iconfont"></i></span>
+                            <span class=" item-choose">
+                                <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"                                                                
+                                                                @click="itemChoose(item)"
+                                                                ></i>
+                            </span>
                             <div class="wbox pdl">
                                 <div class="pr">
                                     <img class="pro-img" :src="item.imgs" alt="">
@@ -29,7 +33,7 @@
                                     <p class="guige" :data-brandid="item.brand_id">{{item.sku_str}}</p>
                                     <div class="price-wrap clearFix">
                                         <span class="snPrice"><em>¥</em>{{item.price}}</span>
-                                        <num-control :goodsNum="item.number"></num-control>
+                                        <num-control :good="item"></num-control>
                                     </div>
                                 </div>
                             </div>
@@ -44,14 +48,14 @@
                     <span class="all-choose-txt">全选</span>
                 </div>
                 <div class="right-btn fr toPay">
-                    <a href="javascript:;" id="cart-account">去结算({{goodsLists.number}})</a>
+                    <a href="javascript:;" id="cart-account">去结算({{goodsNumber}})</a>
                 </div>
                 <div class="left-price fr total">
-                    <span>合计<i class="need-money" style="" id="need-money"><em>￥</em>{{goodsLists.totalPrice}}</i></span>
+                    <span>合计<i class="need-money" style="" id="need-money"><em>￥</em>{{goodsTotalPrice}}</i></span>
                 </div>
                 
             </div>
-            <div class="btfixed-area all-operate-area" style="display: none;">
+            <div class="btfixed-area all-operate-area" v-if="editState">
                 <div class="pr fl all-choose-wrap">
                     <span class="all-choose-btn"><i class="icon-choose iconfont"></i></span>
                     <span class="all-choose-txt">全选</span>
@@ -64,7 +68,7 @@
                 </div> -->
             </div>
         </div>
-        <!-- <m-footer></m-footer> -->
+        <m-footer></m-footer>
     </div>
 </template>
 <script>
@@ -82,8 +86,23 @@ export default {
     data(){
         return{
             goodsLists:[],
-            goodsNumber:0,
-            goodsTotalPrice:0
+            // goodsNumber:0,
+            goodsTotalPrice:0,
+            editState:false,
+            text:'管理',
+        }
+    },
+    computed:{
+        goodsNumber(){
+            let count = 0;
+            this.goodsLists.map(group => {
+                group.list.map(item=>{
+                    if(item.itemChed){
+                        count += parseInt(item.number)
+                    }
+                })
+            })
+            return count
         }
     },
     created(){
@@ -94,13 +113,43 @@ export default {
             apiShopCartList().then((result) => {
                 console.log(result)
                 if(result.lists.length){
-                    this.goodsLists = result.lists
-                    
+                    let lists = result.lists
+                    lists.map(group=>{    //加选中状态后的数据
+                        if(!group.ched){
+                            group.groupChed = false   
+                        }
+                        // console.log(group)
+                         group.list.map(item=>{
+                             if(!item.ched){
+                                 item.itemChed = false
+                             }
+                         })                      
+                    })
+                    this.goodsLists = lists
                 }
             }).catch((err) => {
                 
             });
         },
+        editStateFn(){
+            this.editState = !this.editState
+        },
+        itemChoose(val){
+            console.log(val)
+            val.itemChed = !val.itemChed
+            console.log()
+            // if(val.itemChed){
+            //     this.goodsNumber++
+            //     //this.goodsTotalPrice = parseFloat(val.price * val.number).toFixed(2);
+            // }else{
+            //     this.goodsNumber--
+            // }
+        },
+        groupChoose(){
+
+        },
+        
+
         
     }
 }

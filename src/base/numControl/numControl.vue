@@ -1,32 +1,53 @@
 <template>
     <div class="fr edit-cont ">
-        <span class="btn cut" :class="{no:num<=1}" @click="cutCount()">-</span>
-        <input class="pro-num" type="text"  v-model="num">
-        <span class="btn add" @click="addCount()">+</span>
+        <span class="btn cut" :class="{no:good.number<=1}" @click="cutCount">-</span>
+        <input class="pro-num" type="text"  v-model="good.number">
+        <span class="btn add" @click="addCount">+</span>
     </div>
 </template>
 <script>
+import {apiShopCartNum} from "api/api"
 export default {
     props:{
-        goodsNum:0
+        good:{
+            type:Object,
+        }
     },
     data(){
         return{
-            num:this.goodsNum,
+           
         }
     },
     methods:{
         addCount(){
-            this.num++
+            console.log(this.good)
+             if(!this.good.number){
+                //this.$set(this.good,"number",1); //此处需要$set设置，否则不会触发视图层更新
+            }else{
+                this.good.number++;
+                let data = {
+                    id:this.good.id,
+                    goods_id:this.good.goods_id,
+                    number:this.good.number
+                }
+                this._getShopCartNum(data)
+            }
+            
         },
         cutCount(){    
             if(this.num <= 1){
                 this.num = 1
-                
                 return;
             }
             this.num--
         },
+        _getShopCartNum(data){
+            apiShopCartNum(data).then((result) => {
+                console.log(result)
+            }).catch((err) => {
+                
+            });
+        }
     }
 }
 </script>

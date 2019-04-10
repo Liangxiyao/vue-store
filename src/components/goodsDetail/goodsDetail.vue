@@ -101,6 +101,7 @@ export default {
             main_goods_id: id
         })
         .then(result => {
+            console.log(result)
             let info = result.data;
             console.log(info)
             if (info) {

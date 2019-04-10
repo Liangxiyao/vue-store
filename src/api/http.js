@@ -8,10 +8,10 @@ axios.defaults.headers.post['oid'] = 'oqWNv1VQsDLa7R6FMEBRG8m-yWIE'
 export function post(url, data = {}) {
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(data))
-        .then(response => {
+            .then(response => {
             let json = response.data
             if (json.status == 1) {
-                resolve(response.data.data)
+                resolve(json)
             }
         }, err => {
             reject(err)
@@ -24,7 +24,10 @@ export function get(url,params={}){
         axios.get(url, {
             params: params
         }).then(response => {
-            resolve(response.data);
+            let json = response.data
+            if (json.status == 1) {
+                resolve(json)
+            }
         })
         .catch(err => {
             reject(err)

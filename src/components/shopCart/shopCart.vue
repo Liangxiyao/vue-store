@@ -9,7 +9,7 @@
                 <!-- 购物车模板 -->
                 <div class="temp goods-info-common" v-for="(lists,index) in goodsLists" :key="index">
                     <div class="hd pr">
-                        <span class="group-choose"><i class="icon-choose iconfont" :class="[lists.groupChed?'icon-ched':'']" @click="groupChoose"></i></span>
+                        <span class="group-choose"><i class="icon-choose iconfont" :class="[lists.groupChed?'icon-ched':'']" @click="groupChoose(lists)"></i></span>
                         <img v-if="lists.brand.logo" :src="lists.brand.logo" alt="">
                         <span class="shop-name">{{lists.brand.brand_name}}</span>
                     </div>
@@ -17,9 +17,8 @@
                     <div class="pro-item pr mui-table-view-cell" v-for="(item,i) in lists.list" :key="i">
                         <div class="mui-slider-handle">
                             <span class=" item-choose">
-                                <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"                                                                
-                                                                @click="itemChoose(item)"
-                                                                ></i>
+                                <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"
+                                                                @click="itemChoose(item,lists)"></i>
                             </span>
                             <div class="wbox pdl">
                                 <div class="pr">
@@ -33,31 +32,31 @@
                                     <p class="guige" :data-brandid="item.brand_id">{{item.sku_str}}</p>
                                     <div class="price-wrap clearFix">
                                         <span class="snPrice"><em>¥</em>{{item.price}}</span>
-                                        <num-control :good="item"></num-control>
+                                        <num-control :good="item "></num-control>
                                     </div>
                                 </div>
                             </div>
                         </div>	
-                        <div class="mui-slider-right mui-disabled item-delete"><i class="iconfont icon-delete mui-btn"></i></div>
+                        <div class="mui-slider-right mui-disabled item-delete" @click="deleteItem"><i class="iconfont icon-delete mui-btn"></i></div>
                     </div>
                 </div>
             </div>
             <div class="btfixed-area sure-pay-area pr">
-                <div class="pr fl all-choose-wrap">
-                    <span class="all-choose-btn"><i class="icon-choose iconfont"></i></span>
+                <div class="pr fl all-choose-wrap" @click="allChoose">
+                    <span class="all-choose-btn"><i class="icon-choose iconfont" :class="[allChed?'icon-ched':'']"></i></span>
                     <span class="all-choose-txt">全选</span>
                 </div>
                 <div class="right-btn fr toPay">
-                    <a href="javascript:;" id="cart-account">去结算({{goodsNumber}})</a>
+                    <a href="javascript:;" id="cart-account">去结算({{goodsTotal.count}})</a>
                 </div>
                 <div class="left-price fr total">
-                    <span>合计<i class="need-money" style="" id="need-money"><em>￥</em>{{goodsTotalPrice}}</i></span>
+                    <span>合计<i class="need-money" style="" id="need-money"><em>￥</em>{{goodsTotal.money}}</i></span>
                 </div>
                 
             </div>
             <div class="btfixed-area all-operate-area" v-if="editState">
-                <div class="pr fl all-choose-wrap">
-                    <span class="all-choose-btn"><i class="icon-choose iconfont"></i></span>
+                <div class="pr fl all-choose-wrap" @click="allChoose">
+                    <span class="all-choose-btn"><i class="icon-choose iconfont icon-ched" :class="[allChed?'icon-ched':'']"></i></span>
                     <span class="all-choose-txt">全选</span>
                 </div>
                 <div class="right-btn fr delete">
@@ -86,23 +85,27 @@ export default {
     data(){
         return{
             goodsLists:[],
-            // goodsNumber:0,
-            goodsTotalPrice:0,
             editState:false,
             text:'管理',
+            allChed:false   //是否全选
         }
     },
-    computed:{
-        goodsNumber(){
+    computed:{     
+        goodsTotal(){
             let count = 0;
+            let money = 0;            
             this.goodsLists.map(group => {
                 group.list.map(item=>{
                     if(item.itemChed){
-                        count += parseInt(item.number)
+                        count += parseInt(item.number) 
+                        money += parseFloat(item.number * item.price)
                     }
                 })
             })
-            return count
+            return {
+                count:count,
+                money:money.toFixed(2)
+            }
         }
     },
     created(){
@@ -111,16 +114,15 @@ export default {
     methods:{
         _getShopCartLists(){
             apiShopCartList().then((result) => {
-                console.log(result)
-                if(result.lists.length){
-                    let lists = result.lists
-                    lists.map(group=>{    //加选中状态后的数据
-                        if(!group.ched){
+                let data = result.data
+                if(data.lists.length){
+                    let lists = data.lists
+                    lists.map(group=>{    //加选中标识
+                        if(!group.groupChed){
                             group.groupChed = false   
                         }
-                        // console.log(group)
                          group.list.map(item=>{
-                             if(!item.ched){
+                             if(!item.itemChed){
                                  item.itemChed = false
                              }
                          })                      
@@ -128,29 +130,95 @@ export default {
                     this.goodsLists = lists
                 }
             }).catch((err) => {
-                
+                console.log(err)
             });
         },
         editStateFn(){
             this.editState = !this.editState
         },
-        itemChoose(val){
-            console.log(val)
+        itemChoose(val,group){
             val.itemChed = !val.itemChed
-            console.log()
-            // if(val.itemChed){
-            //     this.goodsNumber++
-            //     //this.goodsTotalPrice = parseFloat(val.price * val.number).toFixed(2);
-            // }else{
-            //     this.goodsNumber--
-            // }
-        },
-        groupChoose(){
 
+            let itemNum = 0
+            let itemLists = group.list
+            itemLists.map(item=>{   //单选时，处理组选
+                if(!item.itemChed){
+                    group.groupChed = false
+                }else{
+                    itemNum++
+                }
+                if(itemNum == itemLists.length){
+                    group.groupChed = true
+                }
+                
+                let groupNum = 0;
+                this.goodsLists.map(item=>{ //单选时  处理全选
+                    if(!item.groupChed){
+                        this.allChed = false
+                    }else{
+                        groupNum++
+                    }
+                    if(groupNum == this.goodsLists.length){
+                        this.allChed = true
+                    }
+                })
+            })
         },
-        
-
-        
+        groupChoose(val){
+            val.groupChed = !val.groupChed
+            
+            if(val.groupChed){   //组选时  处理单选
+                val.list.map((item)=>{
+                    item.itemChed = true
+                })
+            }else{
+                val.list.map((item)=>{
+                    item.itemChed = false
+                })
+            }
+            
+            let i = 0;
+            this.goodsLists.map(group=>{ //组选时  处理全选
+                if(!group.groupChed){
+                    this.allChed = false
+                }else{
+                    i++
+                }
+                if(i == this.goodsLists.length){
+                    this.allChed = true
+                }
+            })
+        },
+        allChoose(){
+            this.allChed = !this.allChed
+            if(!this.allChed){
+                this.goodsLists.map(group=>{
+                    group.groupChed = false
+                    group.list.map(item=>{
+                        item.itemChed = false
+                    })
+                })
+            }else{
+                this.goodsLists.map(group=>{
+                    group.groupChed = true
+                    group.list.map(item=>{
+                        item.itemChed = true
+                    })
+                })
+            }
+        },
+        deleteItem(){
+            let btnArray = ['确认', '取消'];  
+            mui.confirm('确定删除该商品？', '温馨提示', btnArray, function(e) {  
+                if (e.index == 0) {  	//删除
+                    li.parentNode.removeChild(li); 
+                } else {  	//取消删除
+                    setTimeout(function() {  
+                        mui.swipeoutClose(li);  
+                    }, 0);  
+                }
+            }); 
+        }  
     }
 }
 </script>

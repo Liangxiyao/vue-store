@@ -6,7 +6,7 @@ import router from './router'
 import mui from 'common/js/mui.min.js'
 
 Vue.config.productionTip = false
-
+Vue.config.mui = mui
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

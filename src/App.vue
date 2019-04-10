@@ -10,6 +10,9 @@ export default {
   name: "App",
   components: {
     //Index
+  },
+  created(){
+
   }
 }
 </script>

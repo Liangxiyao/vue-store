@@ -7,6 +7,7 @@ import mui from 'common/js/mui.min.js'
 
 Vue.config.productionTip = false
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

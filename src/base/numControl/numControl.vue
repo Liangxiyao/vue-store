@@ -1,7 +1,9 @@
 <template>
     <div class="fr edit-cont ">
         <span class="btn cut" :class="{no:good.number<=1}" @click="cutCount">-</span>
-        <input class="pro-num" type="text"  v-model="good.number">
+        <input class="pro-num" type="text"  v-model="good.number" 
+                                            @focus="focusFn($event.target.value)"                                            
+                                            @blur="inputFn($event.target.value)">
         <span class="btn add" @click="addCount">+</span>
     </div>
 </template>
@@ -15,15 +17,26 @@ export default {
     },
     data(){
         return{
-           
+           oldNum:this.good.number
+        }
+    },
+    computed:{
+        number(val){
+            if(this.good.number <=0 ){
+                this.good.number = 1
+            }
         }
     },
     methods:{
         addCount(){
-            console.log(this.good)
              if(!this.good.number){
-                //this.$set(this.good,"number",1); //此处需要$set设置，否则不会触发视图层更新
-            }else{
+                this.$set(this.good,"number",1); //此处需要$set设置，否则不会触发视图层更新
+            }else{ 
+                if(this.good.MaxNum && this.good.number >= this.good.MaxNum){ //最大购买量
+                    alert('超出最大购买数量')
+                    this.good.number = this.good.MaxNum
+                    return;
+                }
                 this.good.number++;
                 let data = {
                     id:this.good.id,
@@ -35,17 +48,48 @@ export default {
             
         },
         cutCount(){    
-            if(this.num <= 1){
-                this.num = 1
-                return;
+            if(this.good.number <= 1){
+                this.good.number = 1
+            }else{
+                this.good.number--
+                let data = {
+                    id:this.good.id,
+                    goods_id:this.good.goods_id,
+                    number:this.good.number
+                }
+                this._getShopCartNum(data)
+            }          
+        },
+        focusFn(val){
+            this.oldNum = val
+        },
+        keyupFn(val){
+            this.good.number = val.replace(/[^\d]/g,'')
+        },
+        inputFn(val){  
+            if(~~val < 1){
+                this.good.number = 1
+            }else{
+                this.good.number = ~~val
+                if(this.good.MaxNum && this.good.number >= this.good.MaxNum){ //最大购买量
+                    alert('超出最大购买数量')
+                     this.good.number = this.oldNum
+                    return;
+                }
+                
+                let data = {
+                    id:this.good.id,
+                    goods_id:this.good.goods_id,
+                    number:this.good.number
+                }
+                this._getShopCartNum(data)
             }
-            this.num--
         },
         _getShopCartNum(data){
             apiShopCartNum(data).then((result) => {
-                console.log(result)
+                console.log(result.msg)
             }).catch((err) => {
-                
+                console.log(err)
             });
         }
     }

@@ -91,14 +91,16 @@ export default {
   methods:{
     _getIndexData(){
         apiIndexInfo().then((result) => {
-            if(result.banner.length){
-                this.bannerList = result.banner
+            let data = result.data
+
+            if(data.banner.length){
+                this.bannerList = data.banner
             }
-            if(result.brand.length){
-                this.brandList = result.brand
+            if(data.brand.length){
+                this.brandList = data.brand
             }
-            if(result.tag.length){
-                this.tagList = result.tag
+            if(data.tag.length){
+                this.tagList = data.tag
             }
         }).catch((err) => {
             console.log(err)
@@ -106,7 +108,7 @@ export default {
     },
     _getGoodsList(){
         apiIndexGoodsList().then((result) => {
-            let lists = result.list
+            let lists = result.data.list
             if(lists.length){
             this.goodsList = lists
             }else{

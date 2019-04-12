@@ -6,7 +6,12 @@ import router from './router'
 import mui from 'common/js/mui.min.js'
 
 Vue.config.productionTip = false
+<<<<<<< HEAD
+
+
+=======
 Vue.config.mui = mui
+>>>>>>> 2b0bfb615e84dd67df2e62cbe604d35bba6de05c
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -7,38 +7,41 @@
         <div class="mui-content shopCart-lists">
             <div id="cartList">
                 <!-- 购物车模板 -->
-                <div class="temp goods-info-common" v-for="(lists,index) in goodsLists" :key="index">
+                <div class="temp goods-info-common" ref="proGroup" v-for="(lists,groupIndex) in goodsLists" :key="groupIndex" v-if="lists.list.length">
                     <div class="hd pr">
                         <span class="group-choose"><i class="icon-choose iconfont" :class="[lists.groupChed?'icon-ched':'']" @click="groupChoose(lists)"></i></span>
                         <img v-if="lists.brand.logo" :src="lists.brand.logo" alt="">
                         <span class="shop-name">{{lists.brand.brand_name}}</span>
                     </div>
                     <!-- 单个商品 -->
-                    <div class="pro-item pr mui-table-view-cell" v-for="(item,i) in lists.list" :key="i">
-                        <div class="mui-slider-handle">
-                            <span class=" item-choose">
-                                <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"
-                                                                @click="itemChoose(item,lists)"></i>
-                            </span>
-                            <div class="wbox pdl">
-                                <div class="pr">
-                                    <img class="pro-img" :src="item.imgs" alt="">
-                                    <div class="mask-img" v-if=""><img src="/static/images/shouwan.png"></div>
-                                </div>
-                                <div class="pro-info wbox-flex ">
-                                    <a :href="'/goodsDetail?id='+item.goods_id" class="block">
-                                        <span class="pro-name ofellipsis2">{{item.goods_name}}</span>
-                                    </a>
-                                    <p class="guige" :data-brandid="item.brand_id">{{item.sku_str}}</p>
-                                    <div class="price-wrap clearFix">
-                                        <span class="snPrice"><em>¥</em>{{item.price}}</span>
-                                        <num-control :good="item "></num-control>
+                    <div class="pro-lists" ref="proItemParent">
+                        <div class="pro-item pr mui-table-view-cell" ref="proItem" v-for="(item,itemIndex) in lists.list" :key="item.goods_id" v-if="item.number">
+                            <div class="mui-slider-handle">
+                                <span class=" item-choose">
+                                    <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"
+                                                                    @click="itemChoose(item,lists)"></i>
+                                </span>
+                                <div class="wbox pdl">
+                                    <div class="pr">
+                                        <img class="pro-img" :src="item.imgs" alt="">
+                                        <div class="mask-img" v-if=""><img src="/static/images/shouwan.png"></div>
+                                    </div>
+                                    <div class="pro-info wbox-flex ">
+                                        <a :href="'/goodsDetail?id='+item.goods_id" class="block">
+                                            <span class="pro-name ofellipsis2">{{item.goods_name}}</span>
+                                        </a>
+                                        <p class="guige" :data-brandid="item.brand_id">{{item.sku_str}}</p>
+                                        <div class="price-wrap clearFix">
+                                            <span class="snPrice"><em>¥</em>{{item.price}}</span>
+                                            <num-control :good="item" ref="numControl"></num-control>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>	
-                        <div class="mui-slider-right mui-disabled item-delete" @click="deleteItem"><i class="iconfont icon-delete mui-btn"></i></div>
+                            </div>	
+                            <div class="mui-slider-right mui-disabled item-delete" @click="deleteItem(lists.list,itemIndex,$event)"><i class="iconfont icon-delete mui-btn"></i></div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="btfixed-area sure-pay-area pr">
@@ -56,11 +59,11 @@
             </div>
             <div class="btfixed-area all-operate-area" v-if="editState">
                 <div class="pr fl all-choose-wrap" @click="allChoose">
-                    <span class="all-choose-btn"><i class="icon-choose iconfont icon-ched" :class="[allChed?'icon-ched':'']"></i></span>
+                    <span class="all-choose-btn"><i class="icon-choose iconfont" :class="[allChed?'icon-ched':'']"></i></span>
                     <span class="all-choose-txt">全选</span>
                 </div>
                 <div class="right-btn fr delete">
-                    <a href="javascript:;" id="cart-del">删除</a>
+                    <a href="javascript:;" id="cart-del" @tap="allDelete()">删除</a>
                 </div>
                 <!-- <div class="right-btn fr collection">
                     <a href="javascript:;"  id="cart-add-collect">添加到我喜欢</a>
@@ -207,18 +210,43 @@ export default {
                 })
             }
         },
-        deleteItem(){
+        deleteItem(lists,itemIndex,ev){    //左滑删除
             let btnArray = ['确认', '取消'];  
+            let _this = this;
             mui.confirm('确定删除该商品？', '温馨提示', btnArray, function(e) {  
                 if (e.index == 0) {  	//删除
-                    li.parentNode.removeChild(li); 
+                    lists.number = 0
+                    lists.splice(itemIndex,1)   //删除数据
+                    
+                    _this.$refs.numControl[itemIndex].getShopCartNum(lists[itemIndex])  //传后台
+
                 } else {  	//取消删除
                     setTimeout(function() {  
-                        mui.swipeoutClose(li);  
-                    }, 0);  
+                        mui.swipeoutClose(ev.target.parentNode.parentNode);  
+                    },10);  
                 }
             }); 
-        }  
+        },
+        allDelete(){
+            var groupList = this.goodsLists
+            var deleteArr = []  //删除的数据
+
+            for(var x=groupList.length-1;x>=0;x--){
+                var itemList = groupList[x].list
+                for(var y=itemList.length-1;y>=0;y--){
+                    if(itemList[y].itemChed){
+                        itemList[y].number = 0
+                        deleteArr.push(itemList[y])
+                        itemList.splice(y,1)
+                        //deleteArr = itemList
+                    }
+                }
+            }
+            console.log(deleteArr)
+            this.$refs.numControl[1].getShopCartNum(deleteArr)
+           
+            //console.log(this.goodsLists)
+        } 
     }
 }
 </script>

@@ -3,7 +3,7 @@ import qs from 'qs';
 
 axios.defaults.timeout = 10000
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-axios.defaults.headers.post['oid'] = 'oqWNv1VQsDLa7R6FMEBRG8m-yWIE'
+axios.defaults.headers.post['access-token'] = '3c13bedc4c0bc19ddb8bea3045f8d9e9'
 
 export function post(url, data = {}) {
     return new Promise((resolve, reject) => {

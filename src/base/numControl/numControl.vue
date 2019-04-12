@@ -1,9 +1,10 @@
 <template>
     <div class="fr edit-cont ">
         <span class="btn cut" :class="{no:good.number<=1}" @click="cutCount">-</span>
-        <input class="pro-num" type="text"  v-model="good.number" 
-                                            @focus="focusFn($event.target.value)"                                            
-                                            @blur="inputFn($event.target.value)">
+        <input class="pro-num" type="text" disabled v-model="good.number" 
+                                            @focus="focusFn()"  
+                                            @keyup="keyupFn()"                                          
+                                            @change="changeFn()">
         <span class="btn add" @click="addCount">+</span>
     </div>
 </template>
@@ -38,12 +39,8 @@ export default {
                     return;
                 }
                 this.good.number++;
-                let data = {
-                    id:this.good.id,
-                    goods_id:this.good.goods_id,
-                    number:this.good.number
-                }
-                this._getShopCartNum(data)
+
+                this.getShopCartNum(this.good)
             }
             
         },
@@ -52,40 +49,38 @@ export default {
                 this.good.number = 1
             }else{
                 this.good.number--
-                let data = {
-                    id:this.good.id,
-                    goods_id:this.good.goods_id,
-                    number:this.good.number
-                }
-                this._getShopCartNum(data)
+                
+                this.getShopCartNum(this.good)
             }          
         },
-        focusFn(val){
-            this.oldNum = val
+        focusFn(){
+            this.oldNum = this.good.number
         },
-        keyupFn(val){
-            this.good.number = val.replace(/[^\d]/g,'')
+        keyupFn(){
+            this.good.number = this.good.number.replace(/[^\d]/g,'')
         },
-        inputFn(val){  
-            if(~~val < 1){
-                this.good.number = 1
-            }else{
-                this.good.number = ~~val
-                if(this.good.MaxNum && this.good.number >= this.good.MaxNum){ //最大购买量
-                    alert('超出最大购买数量')
-                     this.good.number = this.oldNum
-                    return;
+        changeFn(){  
+            var num = ~~this.good.number
+            if(num != ''){
+                if(num <= 0){
+                    this.good.number = 1
+                }else{
+                    this.good.number = num
+                    if(this.good.MaxNum && this.good.number >= this.good.MaxNum){ //最大购买量
+                        alert('超出最大购买数量')
+                        this.good.number = this.oldNum
+                        return;
+                    }  
+                    this.getShopCartNum(this.good)
                 }
-                
-                let data = {
-                    id:this.good.id,
-                    goods_id:this.good.goods_id,
-                    number:this.good.number
-                }
-                this._getShopCartNum(data)
             }
         },
-        _getShopCartNum(data){
+        getShopCartNum(val){
+            let data = {
+                id:val.id,
+                goods_id:val.goods_id,
+                number:val.number
+            }
             apiShopCartNum(data).then((result) => {
                 console.log(result.msg)
             }).catch((err) => {

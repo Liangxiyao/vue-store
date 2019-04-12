@@ -19,14 +19,14 @@
 		<div class="mui-scroll-wrapper bd" data-scroll="1">
 			<div class="mui-scroll filter-groups" style="transform: translate3d(0px, 0px, 0px) translateZ(0px); transition-duration: 0ms;">
 				<div class="scroll-cont">
-					<dl class="item"  v-if="dialogInfo.sku" v-for="list in dialogInfo.sku" >
+					<dl class="item"  v-if="dialogInfo.sku" v-for="list in dialogInfo.sku" :key="list.sku_id">
 						<dt class="tit" :data-id="list.sku_id">{{list.sku_str}}</dt>
 						<dd class="list clearFix">
 							<span class="s-item" :class="{cur:currentSkuIndex==index}"
                                     v-for="(item,index) in list.sku_list" 
                                     :key="item.skuv_id"
                                     :data-sid="item.skuv_id"
-                                    @click="chooseSkuItem(index)"
+                                    @click="chooseSkuItem(item)"
                                     >{{item.sku_value_str}}</span>
 						</dd>
 					</dl>

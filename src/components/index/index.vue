@@ -88,6 +88,9 @@ export default {
       this._getGoodsList()
       this._getIndexData()
   },
+  activated(){
+      console.log('index')
+  },
   methods:{
     _getIndexData(){
         apiIndexInfo().then((result) => {

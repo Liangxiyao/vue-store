@@ -9,3 +9,5 @@ export const apiGoodsDetail = p => get('api/shop/item', p)
 export const apiShopCartList = p => post('api/Shopcart/lists', p)
 
 export const apiShopCartNum = p => post('api/Shopcart/sysCart', p)
+
+export const apiGetRegcode = p => post('api/Login/regcode', p)

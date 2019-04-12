@@ -7,3 +7,7 @@ export function GetQueryString(name)
     }
     return null;
 }
+
+export function trim(val) {
+    return val.replace(/(^\s*)|(\s*$)/g, "");
+}

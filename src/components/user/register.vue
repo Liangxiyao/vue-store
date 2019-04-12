@@ -113,15 +113,15 @@ export default {
     },
     getCode(){
         this.countDown(60)
-        apiGetRegcode({
-            mobile:this.phone
-        }).then((result) => {
-            if(result.status == 1){
-                //this.countDown(6)
-            }
-        }).catch((err) => {
+        // apiGetRegcode({
+        //     mobile:this.phone
+        // }).then((result) => {
+        //     if(result.status == 1){
+        //         //this.countDown(6)
+        //     }
+        // }).catch((err) => {
             
-        });
+        // });
     },
     submitFn(){
         if(!this.submitDisabled){   //可以点击
@@ -131,12 +131,12 @@ export default {
         }
     },
     countDown(time) {
-        this.codeDisabled = false;  
+        this.codeDisabled = true;  
         time--
         this.codeTxt = "重新获取"+time+"s";
         if (time == 0) {  
             this.codeTxt = "重新发送"
-            this.codeDisabled = true;  
+            this.codeDisabled = false;  
             time = 60;  
             return;  
         }  

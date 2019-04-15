@@ -89,34 +89,42 @@ export default {
       this._getIndexData()
   },
   activated(){
-      console.log('index')
+
   },
   methods:{
     _getIndexData(){
         apiIndexInfo().then((result) => {
-            let data = result.data
-
-            if(data.banner.length){
-                this.bannerList = data.banner
+            if(result.status == 1){
+                let data = result.data
+                if(data.banner.length){
+                    this.bannerList = data.banner
+                }
+                if(data.brand.length){
+                    this.brandList = data.brand
+                }
+                if(data.tag.length){
+                    this.tagList = data.tag
+                }
+            }else{
+                alert(result.msg)
             }
-            if(data.brand.length){
-                this.brandList = data.brand
-            }
-            if(data.tag.length){
-                this.tagList = data.tag
-            }
+            
         }).catch((err) => {
             console.log(err)
         })
     },
     _getGoodsList(){
         apiIndexGoodsList().then((result) => {
-            let lists = result.data.list
-            if(lists.length){
-            this.goodsList = lists
+            if(result.status == 1){
+                let lists = result.data.list
+                if(lists.length){
+                this.goodsList = lists
+                }else{
+                    throw ('没有数据')
+                }
             }else{
-                throw ('没有数据')
-            }
+                alert(result.msg)
+            }  
         }).catch((err) => {
             console.log(err)
         })

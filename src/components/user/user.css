@@ -1,19 +1,24 @@
+
+html,body,#app{height:100%;min-height:100%}
+.user-module{display: flex;-webkit-flex-wrap: wrap; flex-wrap: wrap;-webkit-align-content: space-between;align-content: space-between;min-height:100%} 
 .user-module .bdb:after{background-color:#ccc}
 .user-module .mui-bar-nav{background:transparent;}
-.mui-logo{padding:44px 15px;}
-.mui-logo h1{text-align: center; font-size: 22px; color: #333; padding: 30px 0;}
-.mui-logo .login-form .input-row{margin-bottom: 17px;}
-.mui-logo .login-form .mui-input-txt{background: none;color: #333; border:none; padding:10px 0;margin-bottom: 3px; font-size: 15px; width: 70%;}
-.mui-logo .login-form .iconfont{color:#999; font-size: 18px; position: absolute; right: 5px; top:13px; }
-.mui-logo .login-form .submit{height: 45px; line-height: 45px; background: #00a43e;width:100%;padding: 0; color: #fff; font-size: 16px; border-radius: 6px; margin-top: 15px;opacity:1;}
-.mui-logo .login-form .submit.no{opacity: .5;}
+.mui-content{padding:44px 15px;width:100%;}
+.mui-content h1{text-align: center; font-size: 22px; color: #333; padding: 30px 0;}
+.mui-content .login-form .input-row{margin-bottom: 17px;}
+.mui-content .login-form .mui-input-txt{background: none;color: #333; border:none; padding:10px 0;margin-bottom: 3px; font-size: 15px; width: 70%;}
+.mui-content .login-form .iconfont{color:#999; font-size: 18px; position: absolute; right: 5px; top:13px; }
+.mui-content .login-form .submit{height: 45px; line-height: 45px; background: #00a43e;width:100%;padding: 0; color: #fff; font-size: 16px; 
+    border-radius: 6px; margin-top: 15px;opacity: .5;}
+.mui-content .login-form .submit.active{opacity:1}
 .mui-input{width: 100%; overflow: hidden;}
 .mui-input .link-area a{ font-size: 13px; color:#666;}
-.mui-weilogin a{position: absolute; bottom: 50px; left:50%; margin-left: -75px; border:1px solid #ccc; font-size: 14px;color: #666; width: 150px; padding:9px 0; display: block; border-radius:100px; text-align: center;}
+.mui-weilogin{padding-bottom:50px;margin:0 auto;}
+.mui-weilogin a{border:1px solid #ccc; font-size: 14px;color: #666; width: 150px;background: #f0f0f0;;padding:9px 0; display: block; border-radius:100px; text-align: center;}
 .mui-weilogin .icon-iconfontweixin{ color: #00ca4b; font-size: 20px;padding-right: 5px;}
-.mui-logo .input-row .axc_yzm{ width:90px;position: absolute;top: 3px;right:0;background: transparent;height: 30px;
-     border:1px solid #00ca4b; color:#00ca4b;  border-radius: 6px; opacity: .6;font-size: 13px;padding:6px 0;text-align: center;}
-.mui-logo .input-row .axc_yzm.no{border-color:#ccc;color:#ccc}
+.mui-content .input-row .axc_yzm{ width:90px;position: absolute;top: 3px;right:0;background: transparent;height: 30px;
+    border:1px solid #ccc;color:#ccc; border-radius: 6px; opacity: .6;font-size: 13px;padding:6px 0;text-align: center;}
+.mui-content .input-row .axc_yzm.active{border-color:#00ca4b; color:#00ca4b; }
 .mui-input p a{color: #333;}
 .user-module ::-webkit-input-placeholder{font-size:15px;color:#999;} 
 .user-module :-ms-input-placeholder{font-size:15px;color:#999;} 

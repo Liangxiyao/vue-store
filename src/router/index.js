@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from 'component/user/register'
 import Login from 'component/user/login'
+import CodeLogin from 'component/user/codeLogin'
+import ForgetPwd from 'component/user/forgetPwd'
+import SetNewPwd from 'component/user/setNewPwd'
 import Index from 'component/index/index'
 import GoodsDetail from 'component/goodsDetail/goodsDetail'
 import ShopCart from 'component/shopCart/shopCart'
@@ -25,6 +28,21 @@ export default new Router({
             path: '/login',
             name: '/login',
             component: Login
+        },
+        {
+            path: '/codeLogin',
+            name: '/codeLogin',
+            component: CodeLogin
+        },
+        {
+            path: '/forgetPwd',
+            name: '/forgetPwd',
+            component: ForgetPwd
+        },
+        {
+            path: '/setNewPwd',
+            name: '/setNewPwd',
+            component: SetNewPwd
         },
         {
             path: '/index',

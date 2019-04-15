@@ -3,21 +3,21 @@
     <m-header>
         <a slot="header-right" class="mui-btn-link mui-pull-right" href="/login">登录</a>
     </m-header>
-    <div class="mui-logo">
+    <div class="mui-content">
         <h1>注册姜力账号</h1>
-        <form id="login-form" class="login-form">
+        <form id="loginForm" class="login-form" ref="myForm">
             <div class="input-row bdb">
                 <input id="account"  maxlength="11" type="text" class="mui-input-clear mui-input-txt mui-click-iphone" placeholder="请输入手机号" v-model="phone" @input="checkPhone">
             </div>
             <div class="input-row bdb">
                 <input type="text" class="mui-input-txt" placeholder="请输入短信验证码" v-model="code" @input="checkCode">
-                <input class="axc_yzm"  id="btnSendCode" type="button" :value="codeTxt" :class="{no:codeDisabled}" @click="getCode">
+                <input class="axc_yzm"  id="btnSendCode" type="button" :value="codeTxt" :class="{active:codeState}" @click="getCode">
             </div>
             <div class="input-row bdb">
                 <input id="password" type="password" class="mui-input-clear mui-input-txt" placeholder="请设置密码" v-model="pwd" @input="checkPwd">
             </div>
             <div class="input-row">
-                <button id="login" type="button" class="submit" @click="submitFn" :class="{no:submitDisabled}">注册</button>
+                <button type="button" class="submit" @click="submitFn" :class="{active:submitState}">注册</button>
             </div>
         </form>
         <div class="mui-input">
@@ -29,7 +29,7 @@
 <script>
 import mHeader from "base/header/header";
 import { trim } from 'common/js/common';
-import { apiGetRegcode } from 'api/api'
+import { apiRegcode,apiRegister } from 'api/api'
 export default {
   components: {
     mHeader
@@ -39,11 +39,11 @@ export default {
         phone:'',
         code:'',
         pwd:'',
-        codeDisabled:true,
-        submitDisabled:true,
+        codeState:false,
+        submitState:false,
         lock:[],    //存储校验状态
-        isGetCode:false,
         codeTxt:'获取验证码',
+        isGetCode:false //是否获取验证码
     }
   },
   watch:{
@@ -51,31 +51,16 @@ export default {
         if(val.length == 3){
             for(let i=0;i<3;i++){
                 if(!val[i]){
-                    this.submitDisabled = true;
+                    this.submitState = false;
                     break;
                 }else{
-                    this.submitDisabled = false;
+                    this.submitState = true;
                 }
             }
         }
     },
   },
   computed:{
-    // submitDisabled(){
-    //     console.log(this.lock)
-    //     if(this.lock.length == 3){
-    //         this.lock.map(item=>{
-    //             if(!item){
-    //                 return true
-    //                // break;
-    //             }else{
-    //                 return false
-    //             }
-    //         })
-    //     }else{
-    //         return true
-    //     }
-    // }
   },
   methods: {
     checkPhone(){  
@@ -84,11 +69,11 @@ export default {
             let res = /^1[3456789]\d{9}$/;
             let result = res.test(this.phone);
             if(result){
-                this.codeDisabled = false
+                this.codeState = true
                 this.$set(this.lock,0,true)
             }else{
                 alert('手机号输入有误')
-                this.codeDisabled = true
+                this.codeState = false
                 this.$set(this.lock,0,false)
             }
         }else{
@@ -112,31 +97,55 @@ export default {
         }
     },
     getCode(){
-        this.countDown(60)
-        // apiGetRegcode({
-        //     mobile:this.phone
-        // }).then((result) => {
-        //     if(result.status == 1){
-        //         //this.countDown(6)
-        //     }
-        // }).catch((err) => {
-            
-        // });
+        apiRegcode({
+            mobile:this.phone
+        }).then((result) => {
+            if(result.status == 1){
+                this.countDown(120)
+                this.isGetCode = true
+            }else{
+                alert(result.msg)
+            }
+        }).catch((err) => {
+            console.log(err)
+        });
     },
     submitFn(){
-        if(!this.submitDisabled){   //可以点击
+        if(this.submitState){   //可以点击
             if(this.pwd.length<6){
                 alert('密码最少为6位')
+                return;
             }
+            if(!this.isGetCode){
+                alert('请获取验证码')
+                return;
+            }
+            let data = {
+                mobile:this.phone,
+                code:this.code,
+                password:this.pwd
+            }
+            apiRegister(data).then((result) => {
+                if(result.status == 1){
+                    alert('注册成功')
+                    window.location.href='/login'
+                    this.$refs.myForm.reset()
+
+                }else{
+                    alert(result.msg)
+                }
+            }).catch((err) => {
+                
+            });
         }
     },
     countDown(time) {
-        this.codeDisabled = true;  
+        this.codeState = false;  
         time--
         this.codeTxt = "重新获取"+time+"s";
         if (time == 0) {  
             this.codeTxt = "重新发送"
-            this.codeDisabled = false;  
+            this.codeState = true;  
             time = 60;  
             return;  
         }  

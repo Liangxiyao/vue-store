@@ -82,7 +82,11 @@ export default {
                 number:val.number
             }
             apiShopCartNum(data).then((result) => {
-                console.log(result.msg)
+                if(result.status){
+                    alert('操作成功')
+                }else{
+                    alert(result.msg)
+                }
             }).catch((err) => {
                 console.log(err)
             });

@@ -24,4 +24,6 @@ export const apiResetPass = p => post('api/Login/resetPass', p)
 
 export const apiGetLoginCode = p => post('api/Login/getLoginCode', p)
 
-export const apigLoginByCode = p => post('api/Login/loginByCode', p)
+export const apiLoginByCode = p => post('api/Login/loginByCode', p)
+
+export const apiShopManage = p => post('api/Agent/index', p)

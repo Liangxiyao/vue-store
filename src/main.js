@@ -4,14 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import mui from 'common/js/mui.min.js'
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.config.mui = mui
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

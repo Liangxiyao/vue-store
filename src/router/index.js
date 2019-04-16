@@ -8,6 +8,8 @@ import SetNewPwd from 'component/user/setNewPwd'
 import Index from 'component/index/index'
 import GoodsDetail from 'component/goodsDetail/goodsDetail'
 import ShopCart from 'component/shopCart/shopCart'
+import ShopManage from 'component/shopManage/shopManage'
+import Myself from 'component/myself/myself'
 
 
 Vue.use(Router)
@@ -58,6 +60,16 @@ export default new Router({
             path: '/shopCart',
             name: 'shopCart',
             component: ShopCart
+        },
+        {
+            path: '/shopManage',
+            name: 'shopManage',
+            component: ShopManage
+        },
+        {
+            path: '/myself',
+            name: 'myself',
+            component: Myself
         },
     ]
 })

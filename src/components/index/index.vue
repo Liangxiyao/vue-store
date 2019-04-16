@@ -63,9 +63,6 @@ import GoodsList from "base/goodsList/goodsList"
 import FilterDialog from "base/filter/filter"
 import Storage from "good-storage"  
 import {apiIndexInfo,apiIndexGoodsList} from "api/api"
-//storage.get(key, val)
- // sessionStorage
- //storage.session.set(key, val)
 
 export default {
   components: { 

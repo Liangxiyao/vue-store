@@ -7,7 +7,6 @@
         <h1 class="mui-title">姜力品牌</h1>
         <a class="m-icon-news mui-pull-right cur" href="systemMessage.html"></a>
     </header>
-    <keep-alive>
     <div class="mui-content m-index">
         <slider :lists="bannerList"></slider>
       
@@ -31,7 +30,8 @@
                 </a>
             </li>
         </ul>
-        <div class="m-recomand-list clearFix">
+        <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn'></goods-list>
+        <!-- <div class="m-recomand-list clearFix">
             <div class="m-title">
                 <span class="tit">推荐商品</span>
                 <div class="filter-info">
@@ -41,17 +41,16 @@
                     </div>
                     <div class="filtered-list fr">
                         <!-- <span class="item">试用装 <i class="icon-del"></i></span>
-                        <span class="item">试用装 <i class="icon-del"></i></span> -->
+                        <span class="item">试用装 <i class="icon-del"></i></span> 
                     </div>
                 </div>
             </div>
             <goods-list :lists="goodsList"></goods-list>
-        </div>
+        </div> -->
     </div>
-    </keep-alive>
     <m-footer></m-footer>
     <filter-dialog  @closeDialog="closeDialog" 
-                    :show="dialogShow"
+                    :show="dialogLock"
                     :brand="brandList"
                     :tag="tagList"></filter-dialog>
 </div>
@@ -74,7 +73,7 @@ export default {
   },
   data(){
       return{
-          dialogShow:false,
+          dialogLock:false,
           goodsList:[],
           bannerList:[],
           brandList:[],
@@ -126,10 +125,14 @@ export default {
             console.log(err)
         })
     },
-    
+    dialogFn(val){
+        this.dialogLock = val
+        console.log(this.dialogLock)
+    },
     closeDialog(val){
-        this.dialogShow = val
+        this.dialogLock = false
     }
+   
   }
 }
 </script>
@@ -154,26 +157,5 @@ export default {
 .mui-grid-view.m-center-nav .m-icon3{background-position-y:-95px;}
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size:13px;}
 
-.m-recomand-list{background-color:#fff;width:100%;}
-.m-recomand-list .m-title{height:45px;line-height:20px;padding:13px 15px;}
-.m-recomand-list .m-title .tit{font-size:16px;font-weight:600;color:#333;}
-.m-recomand-list .list-wrap{padding-right:10px;}
-.m-recomand-list .list-wrap .item{width:50%;padding:0 0 15px 15px;margin-right:-5px;}
-.m-recomand-list .item .hd{width:100%;overflow: hidden;margin-bottom:10px;}
-.m-recomand-list .item .hd a{display:block;width:100%;padding:50% 0;position:relative;border-radius:5px;overflow: hidden;}
-.m-recomand-list .item .hd img{position:absolute;top:0;left:0;height:100%;}
-.m-recomand-list .item .dec{padding:0 2px;}
-.m-recomand-list .item .dec .name{font-size:14px;color:#333;margin-bottom:10px;line-height:14px;}
-.m-recomand-list .item .dec .price{font-size:16px;color:#333;line-height:16px;}
-.m-recomand-list .item .dec .price em{font-size:13px;}
-.m-recomand-list .item .dec .price .old-price{font-size:11px;color:#999;padding-left:5px;}
-.m-recomand-list .filter-info{float:right;width:80%;}
-.m-recomand-list .filtered-list{max-width:90%;overflow: hidden;height: 25px;}
-.m-recomand-list .filter-btn{font-size:12px;}
-.m-recomand-list .filter-btn .icon-filter{display:inline-block;vertical-align: middle;font-size:0;width:15px;height:20px;
-background: url(../../common/images/icon2.png) no-repeat -11px -45px;background-size:40px;}
-.m-recomand-list .filtered-list .item{float:right;height:20px;line-height:20px;padding:0 5px;
-border:1px solid #ddd;border-radius:3px;font-size:12px;color:#666;margin-right:5px;}
-.m-recomand-list .filtered-list .item .icon-del{float: right;width:15px;height:18px;background: url(../../common/images/icon2.png) no-repeat -3px -2px;background-size:26px;}
 
 </style>

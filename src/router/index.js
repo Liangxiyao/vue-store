@@ -11,6 +11,19 @@ import ShopCart from 'component/shopCart/shopCart'
 import ShopManage from 'component/shopManage/shopManage'
 import Myself from 'component/myself/myself'
 
+//店铺管理
+import Myshop from 'component/myshop/myshop'
+import MyAccount from 'component/myaccount/myaccount'
+import Recharge from 'component/myaccount/recharge'
+import DoCharge from 'component/myaccount/doCharge'
+import Branch from 'component/branch/branch'
+import BranchList from 'component/branch/branchList'
+import WaitSure from 'component/branch/waitSure'
+import UnacceptList from 'component/branch/unacceptList'
+import UpgradeShop from 'component/branch/upgradeShop'
+
+ //订单
+import Order from 'component/order/order'  
 
 Vue.use(Router)
 
@@ -71,5 +84,62 @@ export default new Router({
             name: 'myself',
             component: Myself
         },
+        {
+            path: '/myshop',
+            name: 'myshop',
+            component: Myshop
+        },
+        {
+            path: '/myaccount',
+            name: 'myAccount',
+            component: MyAccount
+        },
+        {
+            path: '/recharge',
+            name: 'recharge',
+            component: Recharge
+        },
+        {
+            path: '/doCharge',
+            name: 'doCharge',
+            component: DoCharge
+        },
+        {
+            path: '/mybranch',
+            name: 'branch',
+            component: Branch,
+            redirect:'/branchList',
+            children: [
+                {
+                    path: '/branchList',
+                    name: 'branchList',
+                    component: BranchList
+                },
+                {
+                    path: '/waitSure',
+                    name: 'waitSure',
+                    component: WaitSure,
+                    redirect: '/unacceptList',
+                    children: [
+                        {
+                            path: '/unacceptList',
+                            name: 'unacceptList',
+                            component: UnacceptList
+                        },
+                        {
+                            path: '/upgradeShop',
+                            name: 'upgradeShop',
+                            component: UpgradeShop
+                        }    
+                    ]
+                }
+            ]
+        },
+        {
+            path: '/order',
+            name: 'order',
+            component: Order
+        }
+
     ]
 })

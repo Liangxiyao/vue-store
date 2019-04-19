@@ -251,6 +251,7 @@ export default {
 }
 </script>
 <style>
+@import '../../common/css/goods.css';
 .group-choose,.item-choose,.all-choose-btn{width:30px;height:40px;line-height:40px;text-align: center;position:absolute;top:50%;left:0;z-index: 5;
 -webkit-transform: translateY(-50%);transform: translateY(-50%);text-align: center;}
 .iconfont.icon-choose{font-size:18px;color:#999;}
@@ -260,7 +261,7 @@ export default {
 .shopCart-lists .goods-info-common{padding:0;}
 .shopCart-lists .goods-info-common .pro-item{padding:0;}
 .shopCart-lists .goods-info-common .pro-info{padding-right:10px;}
-.goods-info-common{border-radius:5px;background-color:#fff;margin-bottom:15px;overflow: hidden;color:#333;font-size:13px;padding:0 15px;} 
+/* .goods-info-common{border-radius:5px;background-color:#fff;margin-bottom:15px;overflow: hidden;color:#333;font-size:13px;padding:0 15px;} 
 .goods-info-common .hd{font-size:14px;font-weight:600;line-height:50px;height:50px;font-size:15px;color:#333;}
 .goods-info-common .hd .shop-name img{width:25px;height:25px;border-radius:20px;position:relative;top:12px;left:-3px;margin-right:5px;}
 .goods-info-common .pro-item{margin-bottom:15px;}
@@ -277,7 +278,7 @@ export default {
 .goods-info-common .snPrice em{font-size:13px;}
 .goods-info-common .mui-table-view-cell:after,.goods-info-common .mui-table-view:after{display:none;}
 .goods-info-common .mui-table-view-cell .item-delete{width:50px;}
-.goods-info-common .mui-table-view-cell>.mui-slider-right>.mui-btn{padding:0;width:50px;}
+.goods-info-common .mui-table-view-cell>.mui-slider-right>.mui-btn{padding:0;width:50px;} */
 .item-delete .icon-delete{background:#333;color:#fff;}
 .item-delete .icon-delete:before{content:'\e60e';position:absolute;top:50%;left:50%;width:30px;height:30px;margin-top:-15px;margin-left:-15px;font-size:20px;text-align: center;}
 

@@ -35,7 +35,15 @@ module.exports = {
     }
   },
   module: {
-    rules: [
+      rules: [
+      {
+        test: /\.css$/,
+        include: [
+            /src/,//表示在src目录下的css需要编译
+            '/commmon/css/'   //增加此项
+        ],
+        loader: 'style-loader!css-loader',
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

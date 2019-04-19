@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        
+       
     },
     //getters 相当于组件中的computed计算属性
     getters: {

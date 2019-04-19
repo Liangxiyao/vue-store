@@ -26,4 +26,16 @@ export const apiGetLoginCode = p => post('api/Login/getLoginCode', p)
 
 export const apiLoginByCode = p => post('api/Login/loginByCode', p)
 
-export const apiShopManage = p => post('api/Agent/index', p)
+export const apiShopManage = p => post('api/Agent/index', p)    //店铺管理 start
+
+export const apiBranch = p => post('api/Agent/shoplist', p)
+
+export const apiAccountInfo = p => post('api/Account/info', p)
+
+export const apiRecharge = p => post('api/charge/pay', p)
+
+export const apiWaitSureList = p => post('api/Agent/unaccept', p)
+
+export const apiOrderLists = p => post('api/order/lists', p)
+
+

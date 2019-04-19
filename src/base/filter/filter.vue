@@ -58,6 +58,12 @@ export default {
             choosedSkuItem:{}
         }
     },
+    activated(){
+        console.log(this.show);
+    },
+    updated(){
+        console.log(this.show);  
+    },
     created(){
         this.$nextTick(()=>{
             mui('.mui-scroll-wrapper').scroll({

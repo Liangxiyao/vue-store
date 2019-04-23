@@ -30,7 +30,7 @@
                 </a>
             </li>
         </ul>
-        <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn'></goods-list>
+        <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn' :itemList='showItem' @showItemFn='showItemFn'></goods-list>
         <!-- <div class="m-recomand-list clearFix">
             <div class="m-title">
                 <span class="tit">推荐商品</span>
@@ -52,16 +52,18 @@
     <filter-dialog  @closeDialog="closeDialog" 
                     :show="dialogLock"
                     :brand="brandList"
-                    :tag="tagList"></filter-dialog>
+                    :tag="tagList"
+                    @showItemFn='showItemFn'
+                    ></filter-dialog>
 </div>
 </template>
 <script>
 import Slider from "base/slider/slider"
 import mFooter from "base/footer/footer"
 import GoodsList from "base/goodsList/goodsList"
-import FilterDialog from "base/filter/filter"
-import Storage from "good-storage"  
+import FilterDialog from "base/filter/filter"  
 import {apiIndexInfo,apiIndexGoodsList} from "api/api"
+import storage from 'common/js/storage';
 
 export default {
   components: { 
@@ -69,7 +71,6 @@ export default {
     mFooter,
     GoodsList,
     FilterDialog,
-    Storage
   },
   data(){
       return{
@@ -77,15 +78,13 @@ export default {
           goodsList:[],
           bannerList:[],
           brandList:[],
-          tagList:[]
+          tagList:[],
+          showItem:{}
       }
   },
   created(){
       this._getGoodsList()
       this._getIndexData()
-  },
-  activated(){
-
   },
   methods:{
     _getIndexData(){
@@ -109,8 +108,8 @@ export default {
             console.log(err)
         })
     },
-    _getGoodsList(){
-        apiIndexGoodsList().then((result) => {
+    _getGoodsList(data){
+        apiIndexGoodsList(data).then((result) => {
             if(result.status == 1){
                 let lists = result.data.list
                 if(lists.length){
@@ -127,12 +126,29 @@ export default {
     },
     dialogFn(val){
         this.dialogLock = val
-        console.log(this.dialogLock)
     },
     closeDialog(val){
         this.dialogLock = false
-    }
-   
+    },
+    showItemFn(val){
+        this.showItem = val
+        //storage.set('IndexSku',val)
+        this.dialogLock = false
+        let data = {
+            brand_id:val.brand?val.brand.id:'',
+            tag_id:val.tag?val.tag.id:''
+        }
+        this._getGoodsList(data)
+    },
+    // delItemFn(val){
+    //     this.showItem = val
+    //     let data = {
+    //         brand_id:val.brand.id,
+    //         tag_id:val.tag.id
+    //     }
+    //     this._getGoodsList(data)
+    // }
+
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
 <div class="m-mask filter-content" :class="{show:show}">
 	<div class="dialog-body">
-		<i class="icon-close" @click="closeShowFn"></i>
+		<i class="icon-close" @click="closeDialogFn"></i>
 		<div class="mui-scroll-wrapper " data-scroll="1">
 			<div class="mui-scroll filter-groups" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
 				<div class="scroll-cont">
@@ -11,7 +11,7 @@
                             <span class="s-item" :class="{cur:currentBrandIndex==index}" 
                                                  v-for="(item,index) in brand" 
                                                  :data-id="item.id" 
-                                                 @click="chooseBrandItem(index)">{{item.brand_name}}</span>
+                                                 @click="chooseBrandItem(index,item)">{{item.brand_name}}</span>
                         </dd>
 					</dl>
 					<dl class="item tag" v-if="tag">
@@ -20,7 +20,7 @@
                             <span class="s-item" :class="{cur:currentTagIndex==index}" 
                                                  v-for="(item,index) in tag" 
                                                  :data-id="item.id" 
-                                                 @click="chooseTagItem(index)">{{item.tag_name}}</span>
+                                                 @click="chooseTagItem(index,item)">{{item.tag_name}}</span>
                         </dd>
 					</dl>
 				</div>	
@@ -28,14 +28,17 @@
 		</div>
 		<div class="dialog-btn bdt">
 			<div class="wrap wbox">
-				<a class="wbox-flex btn reset" href="javascript:;">重置</a>
-				<a class="wbox-flex btn sure" href="javascript:;">确定</a>
+				<a class="wbox-flex btn reset" href="javascript:;" @tap='resetFn'>重置</a>
+				<a class="wbox-flex btn sure" href="javascript:;" @tap='sureFn'>确定</a>
 			</div>
 		</div>
 	</div>
 </div>
 </template>
 <script>
+import storage from 'common/js/storage';
+
+
 export default {
     props:{
         show:{
@@ -55,14 +58,8 @@ export default {
         return{
             currentBrandIndex:0,
             currentTagIndex:0,
-            choosedSkuItem:{}
+           // choosedSkuItem:this.$store.state.indexSku
         }
-    },
-    activated(){
-        console.log(this.show);
-    },
-    updated(){
-        console.log(this.show);  
     },
     created(){
         this.$nextTick(()=>{
@@ -71,20 +68,57 @@ export default {
             })
         })
     },
+    computed:{
+        choosedSkuItem(){
+            console.log(this.$store.state)
+            return this.$store.state.indexSku
+        }
+    },
+    watch:{
+        choosedSkuItem:{
+            handler(val){
+                alert(1)
+                console.log(val)
+                if(val.brand){
+                    this.currentBrandIndex = this.brand.filter((item,index)=>{
+                        return item.id == val.brand.id ? index:''
+                    })
+                }else{
+                    this.currentBrandIndex = 0
+                }
+                console.log(this.currentBrandIndex)
+            },
+            deep:true
+        }
+    },
     methods:{
-        closeShowFn(){
+        closeDialogFn(){
             this.$emit('closeDialog',false)
         },
-        chooseBrandItem(index){
+        chooseBrandItem(index,item){
             this.currentBrandIndex = index
+            this.choosedSkuItem.brand = item.id==0? null : item
+            //this.$store.commit('changeSku',this.choosedSkuItem)
+           // storage.set('IndexSku',this.choosedSkuItem)  
         },
-        chooseTagItem(index){
+        chooseTagItem(index,item){
             this.currentTagIndex = index
+            this.choosedSkuItem.tag = item.id==0? null : item
+            //this.$store.commit('changeSku',this.choosedSkuItem)
+            //storage.set('IndexSku',this.choosedSkuItem)
         },
         sureFn(){
-
+            if(this.choosedSkuItem.brand || this.choosedSkuItem.tag){
+                this.$emit('showItemFn',this.choosedSkuItem)
+                this.$store.commit('changeSku',this.choosedSkuItem)
+            }
         },
-    }
+        resetFn(){
+            this.choosedSkuItem = {}
+            this.$store.commit('changeSku',this.choosedSkuItem)
+           // storage.set('IndexSku',this.choosedSkuItem)
+        },
+    } 
 }
 </script>
 

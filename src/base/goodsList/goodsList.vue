@@ -8,8 +8,8 @@
                 <i class="icon-filter"></i>
             </div>
             <div class="filtered-list fr">
-                <!-- <span class="item">试用装 <i class="icon-del"></i></span>
-                <span class="item">试用装 <i class="icon-del"></i></span> -->
+                <span class="item" v-if="itemList.brand" @click="deleteItem('brand')"> {{itemList.brand.brand_name}} <i class="icon-del"></i></span>
+                <span class="item" v-if="itemList.tag" @click="deleteItem('tag')">{{itemList.tag.tag_name}} <i class="icon-del"></i></span>
             </div>
         </div>
     </div>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import storage from 'common/js/storage';
+
 export default {
     props:{
         lists:{
@@ -43,18 +45,27 @@ export default {
         dialogLock:{
             type:Boolean,
             default:false
+        },
+        itemList:{
+            type:Object,
+            default:{}
         }
     },
     data(){
         return{
-            //dialogLock:false,
+            
         }
     },
     methods:{   
         dialogShow(){
             this.$emit('dialogFn',!this.dialogLock)
-            console.log(!this.dialogLock)
-        }
+        },
+        deleteItem(type){
+            delete this.itemList[type]
+            //this.itemList[type] = null
+            this.$emit('showItemFn',this.itemList)
+            this.$store.commit('changeSku',this.itemList)
+        },
     }
 }
 </script>

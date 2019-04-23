@@ -38,7 +38,6 @@
 <script>
 import storage from 'common/js/storage';
 
-
 export default {
     props:{
         show:{
@@ -58,7 +57,7 @@ export default {
         return{
             currentBrandIndex:0,
             currentTagIndex:0,
-           // choosedSkuItem:this.$store.state.indexSku
+            sku:{},
         }
     },
     created(){
@@ -70,23 +69,39 @@ export default {
     },
     computed:{
         choosedSkuItem(){
-            console.log(this.$store.state)
+            console.log(this.$store.state.indexSku)
             return this.$store.state.indexSku
         }
     },
     watch:{
         choosedSkuItem:{
             handler(val){
-                alert(1)
                 console.log(val)
-                if(val.brand){
-                    this.currentBrandIndex = this.brand.filter((item,index)=>{
-                        return item.id == val.brand.id ? index:''
-                    })
-                }else{
-                    this.currentBrandIndex = 0
-                }
-                console.log(this.currentBrandIndex)
+                // if(val.brand){
+                //     console.log('store有brand时触发，我是if,index='+this.currentBrandIndex)
+                //     this.currentBrandIndex = this.brand.filter((item,index)=>{
+                //         let arr = item.id == val.brand.id ? index:0
+                //         if(item.id == val.brand.id){
+                //             return index
+                //         }else{
+                //             return 0
+                //         }
+                //     })
+                // }else{
+                //     console.log('store没有brand时触发,index='+this.currentBrandIndex)
+                //     this.currentBrandIndex = 0
+                // }
+                // if(val.tag){
+                //     console.log('store有tag时触发，我是if,index='+this.currentTagIndex)
+                //     this.currentTagIndex = this.tag.filter((item,index)=>{
+                //         let arr = item.id == val.tag.id ? index: 0
+                //         return 
+                //     })
+                // }else{
+                //     console.log('store没有tag时触发,index='+this.currentTagIndex)
+                //     this.currentTagIndex = 0
+                // }
+                // console.log(typeof this.currentBrandIndex)
             },
             deep:true
         }
@@ -97,26 +112,21 @@ export default {
         },
         chooseBrandItem(index,item){
             this.currentBrandIndex = index
-            this.choosedSkuItem.brand = item.id==0? null : item
-            //this.$store.commit('changeSku',this.choosedSkuItem)
-           // storage.set('IndexSku',this.choosedSkuItem)  
+            this.sku.brand = item.id==0? null : item
         },
         chooseTagItem(index,item){
             this.currentTagIndex = index
-            this.choosedSkuItem.tag = item.id==0? null : item
-            //this.$store.commit('changeSku',this.choosedSkuItem)
-            //storage.set('IndexSku',this.choosedSkuItem)
+            this.sku.tag = item.id==0? null : item
         },
         sureFn(){
-            if(this.choosedSkuItem.brand || this.choosedSkuItem.tag){
-                this.$emit('showItemFn',this.choosedSkuItem)
-                this.$store.commit('changeSku',this.choosedSkuItem)
+            if(this.sku.brand || this.sku.tag){
+                this.$emit('showItemFn')
+                this.$store.commit('changeSku',this.sku)
             }
         },
         resetFn(){
-            this.choosedSkuItem = {}
-            this.$store.commit('changeSku',this.choosedSkuItem)
-           // storage.set('IndexSku',this.choosedSkuItem)
+            this.sku = {}
+            this.$store.commit('changeSku',this.sku)
         },
     } 
 }

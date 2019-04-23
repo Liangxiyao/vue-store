@@ -30,7 +30,7 @@
                 </a>
             </li>
         </ul>
-        <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn' :itemList='showItem' @showItemFn='showItemFn'></goods-list>
+        <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn' @showItemFn='showItemFn'></goods-list>
         <!-- <div class="m-recomand-list clearFix">
             <div class="m-title">
                 <span class="tit">推荐商品</span>
@@ -79,7 +79,6 @@ export default {
           bannerList:[],
           brandList:[],
           tagList:[],
-          showItem:{}
       }
   },
   created(){
@@ -130,25 +129,16 @@ export default {
     closeDialog(val){
         this.dialogLock = false
     },
-    showItemFn(val){
-        this.showItem = val
-        //storage.set('IndexSku',val)
+    showItemFn(){
         this.dialogLock = false
+        
+        let val = this.$store.state.indexSku
         let data = {
             brand_id:val.brand?val.brand.id:'',
             tag_id:val.tag?val.tag.id:''
         }
         this._getGoodsList(data)
     },
-    // delItemFn(val){
-    //     this.showItem = val
-    //     let data = {
-    //         brand_id:val.brand.id,
-    //         tag_id:val.tag.id
-    //     }
-    //     this._getGoodsList(data)
-    // }
-
   }
 }
 </script>

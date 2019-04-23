@@ -8,8 +8,8 @@
                 <i class="icon-filter"></i>
             </div>
             <div class="filtered-list fr">
-                <span class="item" v-if="itemList.brand" @click="deleteItem('brand')"> {{itemList.brand.brand_name}} <i class="icon-del"></i></span>
-                <span class="item" v-if="itemList.tag" @click="deleteItem('tag')">{{itemList.tag.tag_name}} <i class="icon-del"></i></span>
+                <span class="item" v-if="skuItem.brand" @click="deleteItem('brand')"> {{skuItem.brand.brand_name}} <i class="icon-del"></i></span>
+                <span class="item" v-if="skuItem.tag" @click="deleteItem('tag')">{{skuItem.tag.tag_name}} <i class="icon-del"></i></span>
             </div>
         </div>
     </div>
@@ -46,14 +46,18 @@ export default {
             type:Boolean,
             default:false
         },
-        itemList:{
-            type:Object,
-            default:{}
-        }
+        // itemList:{
+        //     type:Object,
+        //     default:{}
+        // }
     },
     data(){
         return{
-            
+        }
+    },
+    computed:{
+        skuItem(){
+            return this.$store.state.indexSku
         }
     },
     methods:{   
@@ -61,10 +65,10 @@ export default {
             this.$emit('dialogFn',!this.dialogLock)
         },
         deleteItem(type){
-            delete this.itemList[type]
-            //this.itemList[type] = null
-            this.$emit('showItemFn',this.itemList)
-            this.$store.commit('changeSku',this.itemList)
+            delete this.skuItem[type]
+           // this.sku[type] = null
+            this.$emit('showItemFn')
+            this.$store.commit('changeSku',this.skuItem)
         },
     }
 }

@@ -54,6 +54,7 @@
                     :brand="brandList"
                     :tag="tagList"
                     @showItemFn='showItemFn'
+                    @dialogFn="dialogFn"
                     ></filter-dialog>
 </div>
 </template>
@@ -85,6 +86,11 @@ export default {
       this._getGoodsList()
       this._getIndexData()
   },
+  computed:{
+      sku(){
+          return this.$store.state.indexSku
+      }
+  },
   methods:{
     _getIndexData(){
         apiIndexInfo().then((result) => {
@@ -110,11 +116,11 @@ export default {
     _getGoodsList(data){
         apiIndexGoodsList(data).then((result) => {
             if(result.status == 1){
-                let lists = result.data.list
-                if(lists.length){
-                this.goodsList = lists
+                let lists = result.data
+                if(lists != -1){
+                this.goodsList = lists.list
                 }else{
-                    throw ('没有数据')
+                    alert('没有数据')
                 }
             }else{
                 alert(result.msg)
@@ -129,15 +135,14 @@ export default {
     closeDialog(val){
         this.dialogLock = false
     },
-    showItemFn(){
+    showItemFn(val){
         this.dialogLock = false
-        
-        let val = this.$store.state.indexSku
         let data = {
             brand_id:val.brand?val.brand.id:'',
             tag_id:val.tag?val.tag.id:''
         }
         this._getGoodsList(data)
+        
     },
   }
 }

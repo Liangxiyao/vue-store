@@ -101,12 +101,13 @@ export default {
             main_goods_id: id
         })
         .then(result => {
-            console.log(result)
-            let info = result.data;
-            console.log(info)
-            if (info) {
+            if(result.status == 1){
+                let info = result.data;
                 this.goodsInfo = info;
+            }else{
+                alert(result.msg)
             }
+            
         })
         .catch(err => {
             console.log(err)

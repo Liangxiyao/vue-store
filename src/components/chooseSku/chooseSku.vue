@@ -3,13 +3,13 @@
 	<div class="dialog-body">
 		<i class="icon-close"  @click="closeShowFn"></i>
 		<div class="hd wbox">
-		    <div class="img" v-if="dialogInfo.imgs">
-		        <img  :src="dialogInfo.imgs[0]" alt="">        
+		    <div class="img" v-if="skuDialog.imgs">
+		        <img  :src="skuDialog.imgs[0]" alt="">        
 		    </div> 
 		    <div class="content wbox-flex">
 		        <div class="price-wrap"> 
-		             <span class="price">¥{{dialogInfo.price}}</span>
-					 <s class="old-price">¥{{dialogInfo.market_price}}</s>
+		             <span class="price">¥{{skuDialog.price}}</span>
+					 <s class="old-price">¥{{skuDialog.market_price}}</s>
 		        </div>
 		        <div class="sku-dtips">已选择: 
 		              <span class="showsku" v-for="">500ml</span>
@@ -19,14 +19,14 @@
 		<div class="mui-scroll-wrapper bd" data-scroll="1">
 			<div class="mui-scroll filter-groups" style="transform: translate3d(0px, 0px, 0px) translateZ(0px); transition-duration: 0ms;">
 				<div class="scroll-cont">
-					<dl class="item"  v-if="dialogInfo.sku" v-for="list in dialogInfo.sku" :key="list.sku_id">
+					<dl class="item"  v-if="dialogInfo" v-for="list in dialogInfo" :key="list.sku_id">
 						<dt class="tit" :data-id="list.sku_id">{{list.sku_str}}</dt>
 						<dd class="list clearFix">
-							<span class="s-item" :class="{cur:currentSkuIndex==index}"
+							<span class="s-item" :class="{cur}"
                                     v-for="(item,index) in list.sku_list" 
                                     :key="item.skuv_id"
                                     :data-sid="item.skuv_id"
-                                    @click="chooseSkuItem(item)"
+                                    @click="chooseSkuItem(item,list.sku_list)"
                                     >{{item.sku_value_str}}</span>
 						</dd>
 					</dl>
@@ -61,15 +61,15 @@ export default {
     },
     data(){
         return{
-            currentSkuIndex:0,
+            currentIndex:0,
             dialogInfo:{},
             buyNum:1,
             selectedSkuItem:[] //选择的sku
         }
     },
     watch:{
-        skuDialog(val){
-            this.dialogInfo = val
+        skuDialog(val){         
+            this.dialogInfo = val.sku
         }
     }, 
     updated(){
@@ -80,9 +80,29 @@ export default {
         })
     },
     methods:{
-        chooseSkuItem(index){
-            this.currentSkuIndex = index
+        chooseSkuItem(item,lists){
+            console.log(item)
+            // lists.forEach(val => {
+            //     val.cur = false
+            // });
+            this.$set(item,'cur',true)
            // this.selectedItem.push({})
+        //    var data = [
+        //         {
+        //             id:0,
+        //             item1:[
+        //                     {id:11,name:'name1'},
+        //                     {id:22,name:'name2'}
+        //                 ]
+        //         },
+        //         {
+        //             id:1,
+        //             item1:[
+        //                     {id:33,name:'name3'},
+        //                     {id:44,name:'name4'}
+        //                 ]
+        //         }
+        //    ]
         },
         numAdd(){
             this.buyNum++

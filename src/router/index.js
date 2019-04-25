@@ -10,6 +10,8 @@ import GoodsDetail from 'component/goodsDetail/goodsDetail'
 import ShopCart from 'component/shopCart/shopCart'
 import ShopManage from 'component/shopManage/shopManage'
 import Myself from 'component/myself/myself'
+import SystemInfo from 'component/systemInfo/system'
+import SystemLists from 'component/systemInfo/systemLists'
 
 //店铺管理
 import Myshop from 'component/myshop/myshop'
@@ -83,6 +85,16 @@ export default new Router({
             path: '/myself',
             name: 'myself',
             component: Myself
+        },
+        {
+            path: '/systemMessage',
+            name: 'systemInfo',
+            component: SystemInfo
+        },
+        {
+            path: '/systemLists',
+            name: 'systemLists',
+            component: SystemLists
         },
         {
             path: '/myshop',

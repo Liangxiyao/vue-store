@@ -57,7 +57,6 @@ export default {
         return{
             currentBrandIndex:0,
             currentTagIndex:0,
-            sku:{},
         }
     },
     created(){
@@ -75,35 +74,34 @@ export default {
     },
     watch:{
         choosedSkuItem:{
-            handler(val){
-                console.log(val)
-                // if(val.brand){
-                //     console.log('store有brand时触发，我是if,index='+this.currentBrandIndex)
-                //     this.currentBrandIndex = this.brand.filter((item,index)=>{
-                //         let arr = item.id == val.brand.id ? index:0
-                //         if(item.id == val.brand.id){
-                //             return index
-                //         }else{
-                //             return 0
-                //         }
-                //     })
-                // }else{
-                //     console.log('store没有brand时触发,index='+this.currentBrandIndex)
-                //     this.currentBrandIndex = 0
-                // }
-                // if(val.tag){
-                //     console.log('store有tag时触发，我是if,index='+this.currentTagIndex)
-                //     this.currentTagIndex = this.tag.filter((item,index)=>{
-                //         let arr = item.id == val.tag.id ? index: 0
-                //         return 
-                //     })
-                // }else{
-                //     console.log('store没有tag时触发,index='+this.currentTagIndex)
-                //     this.currentTagIndex = 0
-                // }
-                // console.log(typeof this.currentBrandIndex)
+           handler(val){
+                if(val.brand){
+                    this.brand.some((item,index) => {
+                        if(item.id == val.brand.id){                            
+                            this.currentBrandIndex = index
+                            return true;
+                        }else{
+                            this.currentBrandIndex = 0
+                        }
+                    });
+                }else{
+                    this.currentBrandIndex = 0
+                }
+
+                if(val.tag){
+                   this.tag.some((item,index) => {
+                        if(item.id == val.tag.id){
+                            this.currentTagIndex = index
+                            return true;
+                        }else{
+                            this.currentTagIndex = 0
+                        }
+                    });
+                }else{
+                    this.currentTagIndex = 0
+                }
             },
-            deep:true
+           deep:true
         }
     },
     methods:{
@@ -112,21 +110,23 @@ export default {
         },
         chooseBrandItem(index,item){
             this.currentBrandIndex = index
-            this.sku.brand = item.id==0? null : item
+            this.choosedSkuItem.brand = item.id==0? null : item
         },
         chooseTagItem(index,item){
             this.currentTagIndex = index
-            this.sku.tag = item.id==0? null : item
+            this.choosedSkuItem.tag = item.id==0? null : item
         },
         sureFn(){
-            if(this.sku.brand || this.sku.tag){
-                this.$emit('showItemFn')
-                this.$store.commit('changeSku',this.sku)
+            if(this.choosedSkuItem.brand || this.choosedSkuItem.tag){
+                this.$emit('showItemFn',this.choosedSkuItem)
+                this.$store.commit('changeSku',this.choosedSkuItem)
+            }else{
+                this.$emit('dialogFn',false)
             }
         },
         resetFn(){
-            this.sku = {}
-            this.$store.commit('changeSku',this.sku)
+            this.$emit('showItemFn',{})
+            this.$store.commit('resetSku',{})
         },
     } 
 }

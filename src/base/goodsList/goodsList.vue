@@ -56,8 +56,9 @@ export default {
         }
     },
     computed:{
-        skuItem(){
-            return this.$store.state.indexSku
+        skuItem(){    
+            console.log(this.$store.state.indexSku)
+            return this.$store.state.indexSku       
         }
     },
     methods:{   
@@ -66,8 +67,8 @@ export default {
         },
         deleteItem(type){
             delete this.skuItem[type]
-           // this.sku[type] = null
-            this.$emit('showItemFn')
+            //this.skuItem[type] = null
+            this.$emit('showItemFn',this.skuItem)
             this.$store.commit('changeSku',this.skuItem)
         },
     }

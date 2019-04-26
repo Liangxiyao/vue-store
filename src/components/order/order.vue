@@ -6,42 +6,71 @@
         <div class="mui-content myorder">
             <div class="tab-bar">
                 <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-                    <a class="mui-control-item mui-active" href="javascript:;"><span>全部</span></a>
-                    <a class="mui-control-item" href="order1.html"><span>待支付</span></a>
-                    <a class="mui-control-item" href="order2.html"><span>待发货</span></a>
-                    <a class="mui-control-item" href="order3.html"><span>已完成</span></a>
-                    <a class="mui-control-item" href="order4.html"><span>已取消</span></a>
+                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap="_getOrderLists(0)"><span>全部</span></a>
+                        <a class="mui-control-item" :class="[currentState == 1?'cur':'']" href="javascript:;" @tap="_getOrderLists(1)"><span>待支付</span></a>
+                        <a class="mui-control-item" :class="[currentState == 5?'cur':'']" href="javascript:;" @tap="_getOrderLists(5)"><span>审核中</span></a>
+                        <a class="mui-control-item" :class="[currentState == 2?'cur':'']" href="javascript:;" @tap="_getOrderLists(2)"><span>待发货</span></a>
+                        <a class="mui-control-item" :class="[currentState == 3?'cur':'']" href="javascript:;" @tap="_getOrderLists(3)"><span>已发货</span></a>
+                        <a class="mui-control-item" :class="[currentState == 4?'cur':'']" href="javascript:;" @tap="_getOrderLists(4)"><span>已完成</span></a>
+                        <!-- <a class="mui-control-item" :class="[currentState == 10?'cur':'']" href="javascript:;" @tap="_getOrderLists(10)"><span>已取消</span></a> -->
                 </div>
             </div>
-            
+            <order-lists :lists='orderList' v-if="orderList.length>0"></order-lists>
+            <!-- 无内容 -->
+            <div class="no-cont" v-else>
+                <img class="icon" src="../../common/images/no-order.png" >
+                <p class="tip">暂无相关订单</p>
+                <a class="btn" href="">点击跳转</a>
+            </div>
         </div>
     </div>
 
 </template>
 <script>
 import mHeader from 'base/header/header'
+import orderLists from './lists.vue'
 import { apiOrderLists } from 'api/api'
+import { GetQueryString } from "common/js/common";
 
 export default {
     components:{
-        mHeader
+        mHeader,
+        orderLists
     },
     data(){
         return{
-            lists:[]
+            orderList:[],
+            currentIndex:0
         }
     },
     created(){
-        this.getOrderLists()
+        let getState = GetQueryString('state');
+        if(getState){
+            this.currentState = getState
+            this._getOrderLists(this.currentState)
+        }else{
+            this._getOrderLists(0)
+        }
+
+        this.$nextTick(()=>{
+            mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.008
+            })
+        })
     },
     methods:{
-        getOrderLists(){
-            apiOrderLists(1).then((result) => {
+        _getOrderLists(n){
+            this.currentState = n
+            apiOrderLists({
+                p:1,
+                order_status:this.currentState
+            }).then((result) => {
                 if(result.status == 1){
                     console.log(result.data)
+                    this.orderList = result.data.list
                 }
             }).catch((err) => {
-                
+                console.log(err)
             });
         }
     }
@@ -50,9 +79,11 @@ export default {
 <style>
 @import '../../common/css/goods.css';
 .tab-bar{background-color:#fff;}
+.tab-bar .mui-segmented-control.mui-scroll-wrapper{height:40px;}
 .tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item{color:#666;font-size:14px;}
-.tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color:#333;border:none;}
-.tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active span{display:inline-block;border-bottom:2px solid #00A43E;}
+.tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active,
+.tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.cur{color:#333;border:none;}
+.tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.cur span{display:inline-block;border-bottom:2px solid #00A43E;}
 .myorder .main{top:84px;bottom:constant(safe-area-inset-bottom);bottom:env(safe-area-inset-bottom);}
 .myorder .main .order-list{margin:15px;}
 .myorder .hd .shop-name{font-weight:600;}

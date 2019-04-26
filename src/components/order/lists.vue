@@ -3,43 +3,42 @@
         <div class="mui-scroll">
             <ul class="order-list" v-if="lists.length>0">
                 <li class="item goods-info-common" v-for="shop in lists" :key="shop.order_id">
-                    <div class="hd"><span class="shop-name">星咖旗舰店</span><span class="state fr">{{shop.order_state}}</span></div>
+                    <div class="hd"><span class="shop-name">{{shop.brand.brand_name}}</span><span class="state fr">{{shop.order_state}}</span></div>
                     <div class="pro-item">						
-                        <div class="wbox item-wrap" v-for="item in lists.items">
-                            <img class="pro-img" :src="item.pic" alt="">
-                            <div class="pro-info wbox-flex ">
-                                <a :href="'orderDetail?id='+item.order_id" class="block">
-                                    <span class="pro-name ofellipsis2">{{item.goods_name}}</span>
-                                </a>
-                                <p class="guige">{{item.24瓶/箱}}</p>
-                                <div class="price-wrap clearFix">
-                                    <span class="snPrice"><em>¥</em>{{item.total_price}}</span>
-                                    <span class="fr pro-num">x{{item.number}}</span>
+                        <div class="">
+                            <a :href="'orderDetail?id='+item.order_id" class="wbox item-wrap" v-for="item in shop.items">
+                                <img class="pro-img" :src="item.pic" alt="">
+                                <div class="pro-info wbox-flex ">                               
+                                    <span class="pro-name ofellipsis2 block">{{item.goods_name}}</span>                               
+                                    <p class="guige">{{item.sku_str}}</p>
+                                    <div class="price-wrap clearFix">
+                                        <span class="snPrice"><em>¥</em>{{item.total_price}}</span>
+                                        <span class="fr pro-num">x{{item.number}}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>		
                         <div class="order-total">
                             <span>共{{shop.totalGoodsNum}}件商品</span><span class="money">合计：<em>¥{{shop.total_price}}</em></span>
                         </div>
-                        <div class="order-groups-btn" v-if="lists.order_status == 1">
+                        <div class="order-groups-btn" v-if="shop.order_status == 1">
                             <a href="" class="btn">取消订单</a>
                             <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
                         </div>
-                        <div class="order-groups-btn" v-if="lists.order_status == 2">
-                            <a href="" class="btn">取消订单</a>
-                            <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
+                        <div class="order-groups-btn" v-if="shop.order_status == 2">
+                            <a href="" class="btn">再次购买</a>
                         </div>
-                        <div class="order-groups-btn" v-if="lists.order_status == 3">
-                            <a href="" class="btn">取消订单</a>
-                            <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
+                        <div class="order-groups-btn" v-if="shop.order_status == 3">
+                            <a href="" class="btn">查看物流</a>
+                            <a href="" class="btn green">确认收货</a>
                         </div>
-                        <div class="order-groups-btn" v-if="lists.order_status == 4">
-                            <a href="" class="btn">取消订单</a>
-                            <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
+                        <div class="order-groups-btn" v-if="shop.order_status == 4">
+                            <a href="" class="btn">再次购买</a>
+                            <a href="" class="btn">申请售后</a>
                         </div>
-                        <div class="order-groups-btn" v-if="lists.order_status == 5">
-                            <a href="" class="btn">取消订单</a>
-                            <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
+                        <div class="order-groups-btn" v-if="shop.order_status == 10">
+                            <a href="" class="btn">再次购买</a>
+                            <a href="" class="btn">删除订单</span></a>
                         </div>
                     </div>
                 </li>
@@ -47,5 +46,28 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    props:{
+        lists:{
+            type:Array,
+            default:[]
+        }
+    },
+    created(){
+        this.$nextTick(()=>{
+            mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.008
+            })
+        })
+    },
+    data(){
+        return{
+
+        }
+    }
+}
+</script>
+
 
 

@@ -82,8 +82,8 @@ export default {
                 number:val.number
             }
             apiShopCartNum(data).then((result) => {
-                if(result.status){
-                    alert('操作成功')
+                if(result.status == 1){
+                    return;
                 }else{
                     alert(result.msg)
                 }

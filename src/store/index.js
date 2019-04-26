@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         indexSku: {},
+        orderState:0
     },
     //getters 相当于组件中的computed计算属性   
     getters: {
@@ -19,7 +20,11 @@ const store = new Vuex.Store({
         resetSku(state, payload) {
             let data = Object.assign({},payload)
             state.indexSku = data
+        },
+        changeOrderState(state, payload) {
+            state.orderState = payload
         }
+
     },
     //异步操作一般都要放在actions中，如定时器和ajax请求
     //异步操作产生结果，action提交的是mutations,而不是直接变更状态

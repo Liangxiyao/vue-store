@@ -5,7 +5,7 @@
             <img src="static/images/logo.png">
         </a>
         <h1 class="mui-title">姜力品牌</h1>
-        <a class="m-icon-news mui-pull-right cur" href="systemMessage.html"></a>
+        <a class="m-icon-news mui-pull-right cur" href="systemMessage"></a>
     </header>
     <div class="mui-content m-index">
         <slider :lists="bannerList"></slider>
@@ -87,9 +87,9 @@ export default {
       this._getIndexData()
   },
   computed:{
-      sku(){
-          return this.$store.state.indexSku
-      }
+    //   sku(){
+    //       return this.$store.state.indexSku
+    //   }
   },
   methods:{
     _getIndexData(){

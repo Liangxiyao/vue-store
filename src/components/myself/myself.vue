@@ -17,65 +17,71 @@
                 </a>
                 <ul class="mui-grid-view">
                     <li class="mui-orderBox fl">
-                        <a href="#">
+                        <router-link  :to="{name:'order',params:{state:1}}">
                             <span class="mui-icon-order mui-icon-order_1"></span>
                             <div class="mui-media-body">待支付</div>
+                        </router-link>
+                    </li>
+                    <li class="mui-orderBox fl">
+                        <a href="order?state=5">
+                            <span class="mui-icon-order mui-icon-order_6"></span>
+                            <div class="mui-media-body">审核中</div>
                         </a>
                     </li>
                     <li class="mui-orderBox fl">
-                        <a href="#">
+                        <a href="order?state=2">
                             <span class="mui-icon-order mui-icon-order_2"></span>
                             <div class="mui-media-body">待发货</div>
                         </a>
                     </li>
                     <li class="mui-orderBox fl">
-                        <a href="#">
+                        <a href="order?state=3">
                             <span class="mui-icon-order mui-icon-order_3"></span>
                             <div class="mui-media-body">已发货</div>
                         </a>
                     </li>
                     <li class="mui-orderBox fl">
-                        <a href="#">
+                        <a href="order?state=4">
                             <span class="mui-icon-order mui-icon-order_4"></span>
                             <div class="mui-media-body">已完成</div>
                         </a>
                     </li>
-                    <li class="mui-orderBox fl">
-                        <a href="#">
+                    <!-- <li class="mui-orderBox fl">
+                        <a href="order?state=10">
                             <span class="mui-icon-order mui-icon-order_5"></span>
-                            <div class="mui-media-body">已关闭</div>
+                            <div class="mui-media-body">已取消</div>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="mui-card">
                 <ul class="mui-table-view">
                     <li class="mui-table-view-cell">
                         <a class="mui-navigate-right">
-                            <span class="mui-icon-nav mui-icon-order_1 fl"></span>我的信息
+                            <span class="mui-icon-nav icon-01 fl"></span>我的信息
                         </a>
                     </li>
                     <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right"><span class="mui-icon-nav mui-icon-order_2 fl"></span>常用地址</a>
+                        <a class="mui-navigate-right"><span class="mui-icon-nav icon-02 fl"></span>常用地址</a>
                     </li>
                     <li class="mui-table-view-cell">
                         <a class="mui-navigate-right">
-                            <span class="mui-icon-nav mui-icon-order_3 fl"></span>我的卡券
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav mui-icon-order_4 fl"></span>我的授权
+                            <span class="mui-icon-nav icon-03 fl"></span>我的卡券
                         </a>
                     </li>
                     <li class="mui-table-view-cell">
                         <a class="mui-navigate-right">
-                            <span class="mui-icon-nav mui-icon-order_5 fl"></span>我的送礼
+                            <span class="mui-icon-nav icon-04 fl"></span>我的授权
                         </a>
                     </li>
                     <li class="mui-table-view-cell">
                         <a class="mui-navigate-right">
-                            <span class="mui-icon-nav mui-icon-order_6 fl"></span>联系客服
+                            <span class="mui-icon-nav icon-05 fl"></span>我的送礼
+                        </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right">
+                            <span class="mui-icon-nav icon-06 fl"></span>联系客服
                         </a>
                     </li>
                 </ul>
@@ -122,17 +128,18 @@ export default {
 .mui-orderBox .mui-icon-order_3{width:30px; background-position: -76px 0px;}
 .mui-orderBox .mui-icon-order_4{background-position: -113px 0px;}
 .mui-orderBox .mui-icon-order_5{background-position: -113px -38px;}
+.mui-orderBox .mui-icon-order_6{background-position: -113px -76px;}
 .mui-card{padding: 6px 0; background: #fff; margin: 15px 15px 80px;border-radius: 5px; overflow: hidden;box-shadow: none;}
 .mui-navigate-right:after{font-size: 22px;color: #ccc;right: 10px;}
 .mui-table-view-cell{padding: 12px 15px;line-height: 23px;}
 .mui-table-view-cell .mui-navigate-right .mui-icon-nav{display: block; width:35px; height: 24px; margin: 0 auto; background: url(../../common/images/iocn01.png) no-repeat; background-size:164px; background-position: 0px -37px;}
 .mui-table-view-cell:after{left: 50px; background: #ddd;}
 .mui-table-view-cell>a:not(.mui-btn){color: #333; font-size: 15px;}
-.mui-table-view-cell .mui-navigate-right .mui-icon-order_2{background-position: 0px -75px;}
-.mui-table-view-cell .mui-navigate-right .mui-icon-order_3{background-position: 0px -115px;}
-.mui-table-view-cell .mui-navigate-right .mui-icon-order_4{background-position: 0px -152px;}
-.mui-table-view-cell .mui-navigate-right .mui-icon-order_5{background-position: 0px -191px;}
-.mui-table-view-cell .mui-navigate-right .mui-icon-order_6{background-position: 0px -227px;}
+.mui-table-view-cell .mui-navigate-right .icon-02{background-position: 0px -75px;}
+.mui-table-view-cell .mui-navigate-right .icon-03{background-position: 0px -115px;}
+.mui-table-view-cell .mui-navigate-right .icon-04{background-position: 0px -152px;}
+.mui-table-view-cell .mui-navigate-right .icon-05{background-position: 0px -191px;}
+.mui-table-view-cell .mui-navigate-right .icon-06{background-position: 0px -227px;}
 .mui-table-view-cell>a:not(.mui-btn).mui-active{background: #fff;}
 
 </style>

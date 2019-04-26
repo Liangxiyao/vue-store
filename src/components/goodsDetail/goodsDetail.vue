@@ -107,7 +107,6 @@ export default {
             }else{
                 alert(result.msg)
             }
-            
         })
         .catch(err => {
             console.log(err)

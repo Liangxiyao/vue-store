@@ -12,7 +12,7 @@
 					 <s class="old-price">¥{{skuDialog.market_price}}</s>
 		        </div>
 		        <div class="sku-dtips">已选择: 
-		              <span class="showsku" v-for="">500ml</span>
+		              <span class="showsku" v-for="sku in selectedSkuItem">{{sku}}</span>
 		        </div>
 		    </div> 
 		</div>
@@ -22,11 +22,11 @@
 					<dl class="item"  v-if="dialogInfo" v-for="list in dialogInfo" :key="list.sku_id">
 						<dt class="tit" :data-id="list.sku_id">{{list.sku_str}}</dt>
 						<dd class="list clearFix">
-							<span class="s-item" :class="{cur}"
+							<span class="s-item" :class="[currentId==item.skuv_id?'cur':'']"
                                     v-for="(item,index) in list.sku_list" 
                                     :key="item.skuv_id"
                                     :data-sid="item.skuv_id"
-                                    @click="chooseSkuItem(item,list.sku_list)"
+                                    @click="chooseSkuItem(item)"
                                     >{{item.sku_value_str}}</span>
 						</dd>
 					</dl>
@@ -61,7 +61,7 @@ export default {
     },
     data(){
         return{
-            currentIndex:0,
+            currentId:0,
             dialogInfo:{},
             buyNum:1,
             selectedSkuItem:[] //选择的sku
@@ -80,29 +80,8 @@ export default {
         })
     },
     methods:{
-        chooseSkuItem(item,lists){
-            console.log(item)
-            // lists.forEach(val => {
-            //     val.cur = false
-            // });
-            this.$set(item,'cur',true)
-           // this.selectedItem.push({})
-        //    var data = [
-        //         {
-        //             id:0,
-        //             item1:[
-        //                     {id:11,name:'name1'},
-        //                     {id:22,name:'name2'}
-        //                 ]
-        //         },
-        //         {
-        //             id:1,
-        //             item1:[
-        //                     {id:33,name:'name3'},
-        //                     {id:44,name:'name4'}
-        //                 ]
-        //         }
-        //    ]
+        chooseSkuItem(item){
+            this.currentId = item.skuv_id
         },
         numAdd(){
             this.buyNum++

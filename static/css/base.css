@@ -8,7 +8,7 @@ ul,ol{list-style:none;}
 input,textarea,select,option,button{font-family:"STXihei", Arial, Helvetica, sans-serif;resize:none;background:none;
     outline: none;border: none;border-radius:0;-webkit-appearance: none;background-color:transparent;}
 input[type=checkbox]{-webkit-appearance:checkbox;}
-*{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+*{-webkit-tap-highlight-color: rgba(0,0,0,0);touch-action: none;}
 html{font-size:20px;background:#eee;}
 body{ background: #f0f0f0; -webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;overflow-x:hidden;padding-bottom: constant(safe-area-inset-bottom);padding-bottom: env(safe-area-inset-bottom);}
 

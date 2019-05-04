@@ -17,10 +17,10 @@
                 </a>
                 <ul class="mui-grid-view">
                     <li class="mui-orderBox fl">
-                        <router-link  :to="{name:'order',params:{state:1}}">
+                        <a  href="order?state=1">
                             <span class="mui-icon-order mui-icon-order_1"></span>
                             <div class="mui-media-body">待支付</div>
-                        </router-link>
+                        </a>
                     </li>
                     <li class="mui-orderBox fl">
                         <a href="order?state=5">

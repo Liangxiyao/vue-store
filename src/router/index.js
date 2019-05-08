@@ -26,6 +26,7 @@ import UpgradeShop from 'component/branch/upgradeShop'
 
  //订单
 import Order from 'component/order/order'  
+import OrderDetail from 'component/order/orderDetail'
 
 Vue.use(Router)
 
@@ -151,6 +152,11 @@ export default new Router({
             path: '/order',
             name: 'order',
             component: Order
+        },
+        {
+            path: '/orderDetail',
+            name: 'orderDetail',
+            component: OrderDetail
         }
 
     ]

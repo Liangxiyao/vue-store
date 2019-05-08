@@ -7,10 +7,10 @@
             <h1>欢迎登录姜力</h1>
             <form id='loginForm' class="login-form" ref="myForm">
                 <div class="input-row bdb">
-                    <input id='account' type="text" class="mui-input-clear mui-input-txt" placeholder="请输入您的账号" v-model="phone" @input="checkPhone">
+                    <input id='account' type="text" class="mui-input-clear mui-input-txt" placeholder="请输入您的账号" v-model.trim="phone" @input="checkPhone">
                 </div>
                 <div class="input-row bdb">
-                    <input id='password' :type="[lookPwd?'text':'password']" class="mui-input-txt" placeholder="请输入密码" v-model="pwd" @input="checkPwd">
+                    <input id='password' :type="[lookPwd?'text':'password']" class="mui-input-txt" placeholder="请输入密码" v-model.trim="pwd" @input="checkPwd">
                     <i class="iconfont" :class="[lookPwd?'icon-zhengyan':'icon-biyan']" @click="lookPwdFn"></i>
                 </div>
                 <div class="input-row">
@@ -32,7 +32,6 @@
 </template>
 <script>
 import mHeader from "base/header/header"
-import { trim } from 'common/js/common'
 import  storage  from 'common/js/storage'
 import { apiLoginByPass } from 'api/api'
 
@@ -65,7 +64,7 @@ export default {
     },
     methods:{
         checkPhone(){  
-            this.phone = this.phone.replace(/[^\d]/g,'')  
+            this.phone = this.phone.replace(/[^\d]/g,'')  //去除非数字
             if(this.phone.length == 11){
                 let res = /^1[3456789]\d{9}$/;
                 let result = res.test(this.phone);
@@ -80,8 +79,7 @@ export default {
             }
         },
         checkPwd(){
-            let value = trim(this.pwd)   
-            if(value == ''){
+            if(this.pwd == ''){
                 this.$set(this.lock,1,false)
             }else{
                 this.$set(this.lock,1,true)

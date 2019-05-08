@@ -51,12 +51,6 @@ export default {
         }else{
             this._getOrderLists(0)
         }
-
-        this.$nextTick(()=>{
-            mui('.mui-scroll-wrapper').scroll({
-                deceleration: 0.008
-            })
-        })
     },
     methods:{
         _getOrderLists(n){
@@ -66,7 +60,6 @@ export default {
                 order_status:this.currentState
             }).then((result) => {
                 if(result.status == 1){
-                    console.log(result.data)
                     this.orderList = result.data.list
                 }
             }).catch((err) => {
@@ -95,10 +88,6 @@ export default {
 .order-total{font-size:14px;margin-bottom:15px;}
 .order-total .money{padding-left:6px;}
 .order-total .money em{font-weight:600;font-size:15px}
-.order-groups-btn .btn{display:inline-block;width:85px;height:30px;line-height:30px;font-size:13px;color:#333;border:1px solid #ddd;border-radius:5px;margin-left:6px;text-align: center;}
-.order-groups-btn .btn.green{border-color:#00A43E;color:#00A43E;}
-.order-groups-btn .settimeout{font-weight:600;padding-left:3px;}
-
 </style>
 
 

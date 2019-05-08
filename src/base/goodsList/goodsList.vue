@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import storage from 'common/js/storage';
-
 export default {
     props:{
         lists:{
@@ -46,10 +44,6 @@ export default {
             type:Boolean,
             default:false
         },
-        // itemList:{
-        //     type:Object,
-        //     default:{}
-        // }
     },
     data(){
         return{
@@ -57,7 +51,6 @@ export default {
     },
     computed:{
         skuItem(){    
-            console.log(this.$store.state.indexSku)
             return this.$store.state.indexSku       
         }
     },
@@ -66,8 +59,7 @@ export default {
             this.$emit('dialogFn',!this.dialogLock)
         },
         deleteItem(type){
-            delete this.skuItem[type]
-            //this.skuItem[type] = null
+            this.$delete(this.skuItem,type)
             this.$emit('showItemFn',this.skuItem)
             this.$store.commit('changeSku',this.skuItem)
         },

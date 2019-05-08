@@ -244,8 +244,6 @@ export default {
             }
             console.log(deleteArr)
             this.$refs.numControl[1].getShopCartNum(deleteArr)
-           
-            //console.log(this.goodsLists)
         } 
     }
 }

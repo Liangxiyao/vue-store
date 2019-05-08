@@ -107,7 +107,7 @@ export default {
 .mui-card-shopBox{ width: 92%; margin: 0 auto; height: 100px;background: url(../../common/images/shopbg.png) no-repeat;
  background-size: 100% 100%; border-radius: 6px;box-shadow: 4px 4px 16px #ddd;color:#fff;padding:15px;}
 .mui-card-shopBox .mui-dl{margin-top:5px}
-.mui-card-shopBox .mui-dl dt{width: 60px; height: 60px;background: #fff; border-radius: 50%; padding: 2px; margin-right: 10px;}
+.mui-card-shopBox .mui-dl dt{width: 60px; height: 60px;background: #fff; border-radius: 50%; padding: 2px; margin-right: 10px;overflow: hidden;}
 .mui-card-shopBox .mui-dl dt img{width:100%;height:100%;}
 .mui-card-shopBox .mui-dl dd{height:37px;line-height:37px; font-size: 18px;font-weight: 600; }
 .mui-card-shopBox .mui-dl dd:last-child{line-height: 20px; font-size:15px;font-weight: 100; opacity: .7; }

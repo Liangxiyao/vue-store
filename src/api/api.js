@@ -38,6 +38,10 @@ export const apiWaitSureList = p => post('api/Agent/unaccept', p)
 
 export const apiOrderLists = p => post('api/order/lists', p)
 
+export const apiOrderDeatil = p => post('api/order/orderDetail', p)
+
+export const apiLogistics = p => post('api/order/deliveryList', p)
+
 export const apiSystemMsg = p => post('api/msg/index', p)
 
 export const apiMsgLists = p => post('api/msg/lists', p)

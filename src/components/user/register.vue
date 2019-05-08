@@ -7,14 +7,14 @@
         <h1>注册姜力账号</h1>
         <form id="loginForm" class="login-form" ref="myForm">
             <div class="input-row bdb">
-                <input id="account"  maxlength="11" type="text" class="mui-input-clear mui-input-txt mui-click-iphone" placeholder="请输入手机号" v-model="phone" @input="checkPhone">
+                <input id="account"  maxlength="11" type="text" class="mui-input-clear mui-input-txt mui-click-iphone" placeholder="请输入手机号" v-model.trim="phone" @input="checkPhone">
             </div>
             <div class="input-row bdb">
-                <input type="text" class="mui-input-txt" placeholder="请输入短信验证码" v-model="code" @input="checkCode">
+                <input type="text" class="mui-input-txt" placeholder="请输入短信验证码" v-model.trim="code" @input="checkCode">
                 <input class="axc_yzm"  id="btnSendCode" type="button" :value="codeTxt" :class="{active:codeState}" @click="getCode">
             </div>
             <div class="input-row bdb">
-                <input id="password" type="password" class="mui-input-clear mui-input-txt" placeholder="请设置密码" v-model="pwd" @input="checkPwd">
+                <input id="password" type="password" class="mui-input-clear mui-input-txt" placeholder="请设置密码" v-model.trim="pwd" @input="checkPwd">
             </div>
             <div class="input-row">
                 <button type="button" class="submit" @click="submitFn" :class="{active:submitState}">注册</button>
@@ -80,17 +80,15 @@ export default {
             this.$set(this.lock,0,false)
         }
     },
-    checkCode(){
-        let value = trim(this.code)   
-        if(value == ''){
+    checkCode(){ 
+        if(this.code == ''){
             this.$set(this.lock,1,false)
         }else{
             this.$set(this.lock,1,true)
         }
     },
-    checkPwd(){
-        let value = trim(this.pwd)   
-        if(value == ''){
+    checkPwd(){  
+        if(this.pwd == ''){
             this.$set(this.lock,2,false)
         }else{
             this.$set(this.lock,2,true)

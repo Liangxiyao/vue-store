@@ -67,84 +67,85 @@ import {apiIndexInfo,apiIndexGoodsList} from "api/api"
 import storage from 'common/js/storage';
 
 export default {
-  components: { 
-    Slider,
-    mFooter,
-    GoodsList,
-    FilterDialog,
-  },
-  data(){
-      return{
-          dialogLock:false,
-          goodsList:[],
-          bannerList:[],
-          brandList:[],
-          tagList:[],
-      }
-  },
-  created(){
-      this._getGoodsList()
-      this._getIndexData()
-  },
-  computed:{
-    //   sku(){
-    //       return this.$store.state.indexSku
-    //   }
-  },
-  methods:{
-    _getIndexData(){
-        apiIndexInfo().then((result) => {
-            if(result.status == 1){
-                let data = result.data
-                if(data.banner.length){
-                    this.bannerList = data.banner
-                }
-                if(data.brand.length){
-                    this.brandList = data.brand
-                }
-                if(data.tag.length){
-                    this.tagList = data.tag
-                }
-            }else{
-                alert(result.msg)
-            }
-            
-        }).catch((err) => {
-            console.log(err)
-        })
+    name:'index',
+    components: { 
+        Slider,
+        mFooter,
+        GoodsList,
+        FilterDialog,
     },
-    _getGoodsList(data){
-        apiIndexGoodsList(data).then((result) => {
-            if(result.status == 1){
-                let lists = result.data
-                if(lists != -1){
-                this.goodsList = lists.list
-                }else{
-                    alert('没有数据')
-                }
-            }else{
-                alert(result.msg)
-            }  
-        }).catch((err) => {
-            console.log(err)
-        })
-    },
-    dialogFn(val){
-        this.dialogLock = val
-    },
-    closeDialog(val){
-        this.dialogLock = false
-    },
-    showItemFn(val){
-        this.dialogLock = false
-        let data = {
-            brand_id:val.brand?val.brand.id:'',
-            tag_id:val.tag?val.tag.id:''
+    data(){
+        return{
+            dialogLock:false,
+            goodsList:[],
+            bannerList:[],
+            brandList:[],
+            tagList:[],
         }
-        this._getGoodsList(data)
-        
     },
-  }
+    created(){
+        this._getGoodsList()
+        this._getIndexData()
+    },
+    computed:{
+        //   sku(){
+        //       return this.$store.state.indexSku
+        //   }
+    },
+    methods:{
+        _getIndexData(){
+            apiIndexInfo().then((result) => {
+                if(result.status == 1){
+                    let data = result.data
+                    if(data.banner.length){
+                        this.bannerList = data.banner
+                    }
+                    if(data.brand.length){
+                        this.brandList = data.brand
+                    }
+                    if(data.tag.length){
+                        this.tagList = data.tag
+                    }
+                }else{
+                    console.log(result)
+                }
+                
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        _getGoodsList(data){
+            apiIndexGoodsList(data).then((result) => {
+                if(result.status == 1){
+                    let lists = result.data
+                    if(lists != -1){
+                    this.goodsList = lists.list
+                    }else{
+                        alert('没有数据')
+                    }
+                }else{
+                    //alert(result.msg)
+                }  
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        dialogFn(val){
+            this.dialogLock = val
+        },
+        closeDialog(val){
+            this.dialogLock = false
+        },
+        showItemFn(val){
+            this.dialogLock = false
+            let data = {
+                brand_id:val.brand?val.brand.id:'',
+                tag_id:val.tag?val.tag.id:''
+            }
+            this._getGoodsList(data)
+            
+        },
+    }
 }
 </script>
 <style lang="" scope>

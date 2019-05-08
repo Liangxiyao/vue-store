@@ -5,11 +5,11 @@
             <h1>设置新密码</h1>
             <form id='loginForm' class="login-form" ref="myForm">
                 <div class="input-row bdb">
-                    <input ref="pwd1" :type="[lookPwd1?'text':'password']" class="mui-input-txt" placeholder="请输入新密码" v-model="pwd1" @input="checkPwd(pwd1,0)">
+                    <input ref="pwd1" :type="[lookPwd1?'text':'password']" class="mui-input-txt" placeholder="请输入新密码" v-model.trim="pwd1" @input="checkPwd(pwd1,0)">
                     <i class="iconfont" :class="[lookPwd1?'icon-zhengyan':'icon-biyan']" @click="lookPwdFn(lookPwd1,1)"></i>
                 </div>
                 <div class="input-row bdb">
-                    <input  ref="pwd2" :type="[lookPwd2?'text':'password']" class="mui-input-txt" placeholder="重复新密码" v-model="pwd2" @input="checkPwd(pwd2,1)">
+                    <input  ref="pwd2" :type="[lookPwd2?'text':'password']" class="mui-input-txt" placeholder="重复新密码" v-model.trim="pwd2" @input="checkPwd(pwd2,1)">
                     <i class="iconfont" :class="[lookPwd2?'icon-zhengyan':'icon-biyan']" @click="lookPwdFn(lookPwd2,2)"></i>
                 </div>
                 <div class="input-row">
@@ -21,7 +21,6 @@
 </template>
 <script>
 import mHeader from "base/header/header"
-import { trim } from 'common/js/common'
 import { apiResetPass } from 'api/api'
 import {GetQueryString} from "common/js/common.js"
 
@@ -55,8 +54,7 @@ export default {
     },
     methods:{
         checkPwd(val,index){
-            let value = trim(val)   
-            if(value == ''){
+            if(val == ''){
                 this.$set(this.lock,index,false)
             }else{
                 this.$set(this.lock,index,true)

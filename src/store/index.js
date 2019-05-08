@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         indexSku: {},
-        orderState:0
+        orderState: 0,
+        loading:false
     },
     //getters 相当于组件中的computed计算属性   
     getters: {
@@ -23,6 +24,12 @@ const store = new Vuex.Store({
         },
         changeOrderState(state, payload) {
             state.orderState = payload
+        },
+        showLoading(state) {
+            state.loading = true
+        },
+        hideLoading(state) {
+            state.loading = false
         }
 
     },

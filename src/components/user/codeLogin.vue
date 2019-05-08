@@ -7,10 +7,10 @@
         <h1>欢迎登录姜力</h1>
         <form id="loginForm" class="login-form" ref="myForm">
             <div class="input-row bdb">
-                <input id="account"  maxlength="11" type="text" class="mui-input-clear mui-input-txt mui-click-iphone" placeholder="请输入手机号" v-model="phone" @input="checkPhone">
+                <input id="account"  maxlength="11" type="text" class="mui-input-clear mui-input-txt mui-click-iphone" placeholder="请输入手机号" v-model.trim="phone" @input="checkPhone">
             </div>
             <div class="input-row bdb">
-                <input type="text" class="mui-input-txt" placeholder="请输入短信验证码" v-model="code" @input="checkCode">
+                <input type="text" class="mui-input-txt" placeholder="请输入短信验证码" v-model.trim="code" @input="checkCode">
                 <input class="axc_yzm"  id="btnSendCode" type="button" :value="codeTxt" :class="{active:codeState}" @click="getCode">
             </div>
             <div class="input-row">
@@ -31,7 +31,6 @@
 </template>
 <script>
 import mHeader from "base/header/header"
-import { trim } from 'common/js/common'
 import  storage  from 'common/js/storage'
 import { apiGetLoginCode,apiLoginByCode } from 'api/api'
 export default {
@@ -42,7 +41,6 @@ export default {
     return {
         phone:'',
         code:'',
-        pwd:'',
         codeState:false,
         submitState:false,
         lock:[],    //存储校验状态
@@ -85,8 +83,7 @@ export default {
         }
     },
     checkCode(){
-        let value = trim(this.code)   
-        if(value == ''){
+        if(this.code == ''){
             this.$set(this.lock,1,false)
         }else{
             this.$set(this.lock,1,true)

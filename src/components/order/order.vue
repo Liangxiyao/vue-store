@@ -71,7 +71,8 @@ export default {
 </script>
 <style>
 @import '../../common/css/goods.css';
-.tab-bar{background-color:#fff;}
+.myorder.mui-content{padding-top:84px;}
+.tab-bar{background-color:#fff;position:fixed;top:44px;}
 .tab-bar .mui-segmented-control.mui-scroll-wrapper{height:40px;}
 .tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item{color:#666;font-size:14px;}
 .tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active,

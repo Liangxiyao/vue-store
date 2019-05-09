@@ -4,7 +4,7 @@
         <span class="tit">推荐商品</span>
         <div class="filter-info">
             <div class="filter-btn fr" @click="dialogShow">
-                <span class="txt">筛选</span>
+                <span class="txt" v-show='!(skuItem.brand || skuItem.tag)'>筛选</span>
                 <i class="icon-filter"></i>
             </div>
             <div class="filtered-list fr">
@@ -81,7 +81,7 @@ export default {
 .m-recomand-list .item .dec .price{font-size:16px;color:#333;line-height:16px;}
 .m-recomand-list .item .dec .price em{font-size:13px;}
 .m-recomand-list .item .dec .price .old-price{font-size:11px;color:#999;padding-left:5px;}
-.m-recomand-list .filter-info{float:right;width:80%;}
+.m-recomand-list .filter-info{float:right;width:60%;}
 .m-recomand-list .filtered-list{max-width:90%;overflow: hidden;height: 25px;}
 .m-recomand-list .filter-btn{font-size:12px;}
 .m-recomand-list .filter-btn .icon-filter{display:inline-block;vertical-align: middle;font-size:0;width:15px;height:20px;

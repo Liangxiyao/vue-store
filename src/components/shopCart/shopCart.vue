@@ -5,17 +5,17 @@
             <a slot="header-right" class="mui-btn-link mui-pull-right operate" href="javascript:;" @tap="editStateFn">{{editState?'完成':'管理'}}</a>
         </m-header>
         <div class="mui-content shopCart-lists">
-            <div id="cartList">
+            <div id="cartList" v-if="lists.list.length">
                 <!-- 购物车模板 -->
-                <div class="temp goods-info-common" ref="proGroup" v-for="(lists,groupIndex) in goodsLists" :key="groupIndex" v-if="lists.list.length">
+                <div class="temp goods-info-common" ref="proGroup" v-for="(lists,groupIndex) in goodsLists" :key="groupIndex">
                     <div class="hd pr">
                         <span class="group-choose"><i class="icon-choose iconfont" :class="[lists.groupChed?'icon-ched':'']" @click="groupChoose(lists)"></i></span>
                         <img v-if="lists.brand.logo" :src="lists.brand.logo" alt="">
                         <span class="shop-name">{{lists.brand.brand_name}}</span>
                     </div>
                     <!-- 单个商品 -->
-                    <div class="pro-lists" ref="proItemParent">
-                        <div class="pro-item pr mui-table-view-cell" ref="proItem" v-for="(item,itemIndex) in lists.list" :key="item.goods_id" v-if="item.number">
+                    <div class="pro-lists" ref="proItemParent" v-if="item.number">
+                        <div class="pro-item pr mui-table-view-cell" ref="proItem" v-for="(item,itemIndex) in lists.list" :key="item.goods_id" >
                             <div class="mui-slider-handle">
                                 <span class=" item-choose">
                                     <i class="icon-choose iconfont" :class="[item.itemChed?'icon-ched':'']"
@@ -24,7 +24,7 @@
                                 <div class="wbox pdl">
                                     <div class="pr">
                                         <img class="pro-img" :src="item.imgs" alt="">
-                                        <div class="mask-img" v-if=""><img src="/static/images/shouwan.png"></div>
+                                        <div class="mask-img"><img src="/static/images/shouwan.png"></div>
                                     </div>
                                     <div class="pro-info wbox-flex ">
                                         <a :href="'/goodsDetail?id='+item.goods_id" class="block">

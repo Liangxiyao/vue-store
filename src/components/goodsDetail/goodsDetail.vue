@@ -66,7 +66,6 @@
 import mHeader from 'base/header/header'
 import Slider from "base/slider/slider"
 import ChooseSku from "component/chooseSku/chooseSku"
-import {GetQueryString} from "common/js/common.js"
 import {apiGoodsDetail} from "api/api"
 export default {
   components: {
@@ -96,9 +95,9 @@ export default {
   },
   methods: {
     _getGoodsDetail() {
-        let id = GetQueryString('id');
+        //let id = GetQueryString('id');
         apiGoodsDetail({
-            main_goods_id: id
+            main_goods_id: this.$route.params.id
         })
         .then(result => {
             if(result.status == 1){

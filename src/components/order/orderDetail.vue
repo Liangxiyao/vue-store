@@ -108,6 +108,7 @@ export default {
         mHeader,
         OrderGroupsBtn
     },
+    props:['id'],
     data() {
         return {
             details:{
@@ -118,7 +119,7 @@ export default {
             },
             logistics:[],
             newLogistics:{},
-            orderId:GetQueryString('id')
+            //orderId:GetQueryString('id')
         }
     },
     created(){   
@@ -126,7 +127,8 @@ export default {
        this._getLogistics()
     },
     updated () {
-        
+         console.log(this.$route);
+            
     },
     computed: {
         loading() {
@@ -136,7 +138,8 @@ export default {
     methods: {
         _getOrderDetail() {
             apiOrderDeatil({
-                order_id:this.orderId
+                order_id:this.id
+                //order_id:this.$route.query.id
             }).then((result) => {
                 console.log(result);
                 

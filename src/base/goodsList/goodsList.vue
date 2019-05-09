@@ -17,9 +17,9 @@
     <ul class="list-wrap clearFix">
         <li class="item mui-pull-left" v-for="item in lists" :key="item.main_goods_id">
             <div class="hd">
-                <a :href="'/goodsDetail?id='+item.main_goods_id">
+                <router-link :to="'/goodsDetail/'+item.main_goods_id">
                     <img :src="item.pics">
-                </a>
+                </router-link>
             </div>
             <div class="dec">
                 <p class="ofellipsis name">{{item.goods_name}}</p>

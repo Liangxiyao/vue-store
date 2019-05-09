@@ -1,23 +1,23 @@
 <template>
 <div class="order-groups">
     <div class="order-groups-btn" v-if="status == 1">
-        <a href="" class="btn">取消订单</a>
-        <a href="" class="btn green">付款<span class="settimeout">29:59</span></a>
+        <router-link to="" class="btn">取消订单</router-link>
+        <router-link to="" class="btn green">付款<span class="settimeout">29:59</span></router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 2">
-        <a href="" class="btn">再次购买</a>
+        <router-link to="" class="btn">再次购买</router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 3">
-        <a href="" class="btn">查看物流</a>
-        <a href="" class="btn green">确认收货</a>
+        <router-link to="/logistics" class="btn">查看物流</router-link>
+        <router-link to="" class="btn green">确认收货</router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 4">
-        <a href="" class="btn">再次购买</a>
-        <a href="" class="btn">申请售后</a>
+        <router-link to="" class="btn">再次购买</router-link>
+        <router-link to="" class="btn">申请售后</router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 10">
-        <a href="" class="btn">再次购买</a>
-        <a href="" class="btn">删除订单</span></a>
+        <router-link to="" class="btn">再次购买</router-link>
+        <router-link to="" class="btn">删除订单</span></router-link>
     </div>
 </div> 
 </template>

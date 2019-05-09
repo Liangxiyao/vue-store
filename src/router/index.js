@@ -27,6 +27,7 @@ import UpgradeShop from 'component/branch/upgradeShop'
  //订单
 import Order from 'component/order/order'  
 import OrderDetail from 'component/order/orderDetail'
+import Logistics from 'component/order/logistics'
 
 Vue.use(Router)
 
@@ -68,9 +69,10 @@ export default new Router({
             component: Index
         },
         {
-            path: '/goodsDetail',
+            path: '/goodsDetail/:id',
             name: 'goodsDetail',
-            component: GoodsDetail
+            component: GoodsDetail,
+            props:true
         },
         {
             path: '/shopCart',
@@ -154,9 +156,15 @@ export default new Router({
             component: Order
         },
         {
-            path: '/orderDetail',
+            path: '/orderDetail/:id',
             name: 'orderDetail',
-            component: OrderDetail
+            component: OrderDetail,
+            props:true
+        },
+        {
+            path: '/logistics',
+            name: 'logistics',
+            component: Logistics
         }
 
     ]

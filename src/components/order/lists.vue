@@ -9,7 +9,10 @@
                     </div>
                     <div class="pro-item">						
                         <div class="">
-                            <a :href="'orderDetail?id='+item.order_id" class="wbox item-wrap" v-for="item in shop.items">
+                            <!-- <router-link  class="wbox item-wrap" :to="{path:'/orderDetail',query:{id:item.order_id}}" v-for="(item,index) in shop.items" :key="index"> -->
+                            <!-- <router-link  class="wbox item-wrap" :to="{name:'orderDetail',params:{id:item.order_id}}" v-for="(item,index) in shop.items" :key="index"> -->
+                            
+                            <router-link  class="wbox item-wrap" :to="'orderDetail/'+item.order_id" v-for="(item,index) in shop.items" :key="index">
                                 <img class="pro-img" :src="item.pic" alt="">
                                 <div class="pro-info wbox-flex ">                               
                                     <span class="pro-name ofellipsis2 block">{{item.goods_name}}</span>                               
@@ -19,7 +22,7 @@
                                         <span class="fr pro-num">x{{item.number}}</span>
                                     </div>
                                 </div>
-                            </a>
+                            </router-link>
                         </div>		
                         <div class="order-total">
                             <span>共{{shop.totalGoodsNum}}件商品</span><span class="money">合计：<em>¥{{shop.total_price}}</em></span>
@@ -57,7 +60,7 @@ export default {
         lists:{
             type:Array,
             default:[]
-        }
+        },
     },
     components:{
         OrderGroupsBtn

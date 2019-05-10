@@ -107,7 +107,7 @@ export default {
         mHeader,
         OrderGroupsBtn
     },
-    props:['id'],
+    //props:['id'],
     data() {
         return {
             details:{
@@ -137,8 +137,7 @@ export default {
     methods: {
         _getOrderDetail() {
             apiOrderDeatil({
-                order_id:this.id
-                //order_id:this.$route.query.id
+                order_id:this.$route.query.id
             }).then((result) => {
                 console.log(result);
                 
@@ -205,6 +204,7 @@ line-height:20px;padding:25px 18px;}
 height:50px;padding:10px 15px;z-index:10;text-align: right;}
 .orderDetail .bt-area .btn{display:inline-block;width:85px;height:30px;line-height:30px;font-size:15px;text-align: center;border-radius:5px;margin-left:10px;
 border:1px solid #ccc;color:#333;}
+.orderDetail .bt-area .order-groups-btn{margin-top:0}
 .orderDetail .bt-area .green{color:#00A43E;border-color:#00A43E;}
 .order-desc{background-color:#fff;margin-bottom:15px;border-radius:5px;}
 .order-desc .list{padding:10px 15px;line-height:30px;font-size:13px;color:#333;}

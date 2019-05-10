@@ -5,7 +5,7 @@
             <a slot="header-right" class="mui-btn-link mui-pull-right operate" href="javascript:;" @tap="editStateFn">{{editState?'完成':'管理'}}</a>
         </m-header>
         <div class="mui-content shopCart-lists">
-            <div id="cartList" v-if="lists.list.length">
+            <div id="cartList" v-if="goodsLists.list">
                 <!-- 购物车模板 -->
                 <div class="temp goods-info-common" ref="proGroup" v-for="(lists,groupIndex) in goodsLists" :key="groupIndex">
                     <div class="hd pr">
@@ -117,21 +117,24 @@ export default {
     methods:{
         _getShopCartLists(){
             apiShopCartList().then((result) => {
-                let data = result.data
-                if(data.lists.length){
-                    let lists = data.lists
-                    lists.map(group=>{    //加选中标识
-                        if(!group.groupChed){
-                            group.groupChed = false   
-                        }
-                         group.list.map(item=>{
-                             if(!item.itemChed){
-                                 item.itemChed = false
-                             }
-                         })                      
-                    })
-                    this.goodsLists = lists
+                if(result.status == 1){
+                    let data = result.data
+                    if(data.lists.length){
+                        let lists = data.lists
+                        lists.map(group=>{    //加选中标识
+                            if(!group.groupChed){
+                                group.groupChed = false   
+                            }
+                            group.list.map(item=>{
+                                if(!item.itemChed){
+                                    item.itemChed = false
+                                }
+                            })                      
+                        })
+                        this.goodsLists = lists
+                    }
                 }
+                
             }).catch((err) => {
                 console.log(err)
             });
@@ -259,24 +262,6 @@ export default {
 .shopCart-lists .goods-info-common{padding:0;}
 .shopCart-lists .goods-info-common .pro-item{padding:0;}
 .shopCart-lists .goods-info-common .pro-info{padding-right:10px;}
-/* .goods-info-common{border-radius:5px;background-color:#fff;margin-bottom:15px;overflow: hidden;color:#333;font-size:13px;padding:0 15px;} 
-.goods-info-common .hd{font-size:14px;font-weight:600;line-height:50px;height:50px;font-size:15px;color:#333;}
-.goods-info-common .hd .shop-name img{width:25px;height:25px;border-radius:20px;position:relative;top:12px;left:-3px;margin-right:5px;}
-.goods-info-common .pro-item{margin-bottom:15px;}
-.goods-info-common .pro-img{width:80px;height:80px;margin-right:9px;}
-.goods-info-common .mask-img{position:absolute;top:0;left:0;z-index:2;width:80px;height:80px;background-color:rgba(0,0,0,.5);border-radius:5px;text-align: center;}
-.goods-info-common .mask-img img{width:50px;height:50px;margin:15px auto;}
-.goods-info-common .pro-info{display: -webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;
--webkit-align-content: space-between;align-content: space-between;}
-.goods-info-common .pro-info .block{width:100%;}
-.goods-info-common .pro-info .pro-name{line-height:16px;margin-bottom:4px;}
-.goods-info-common .pro-info .guige{font-size:12px;color:#999;margin-bottom:4px;}
-.goods-info-common .price-wrap{width:100%;}
-.goods-info-common .snPrice{font-size:16px;color:#333;}
-.goods-info-common .snPrice em{font-size:13px;}
-.goods-info-common .mui-table-view-cell:after,.goods-info-common .mui-table-view:after{display:none;}
-.goods-info-common .mui-table-view-cell .item-delete{width:50px;}
-.goods-info-common .mui-table-view-cell>.mui-slider-right>.mui-btn{padding:0;width:50px;} */
 .item-delete .icon-delete{background:#333;color:#fff;}
 .item-delete .icon-delete:before{content:'\e60e';position:absolute;top:50%;left:50%;width:30px;height:30px;margin-top:-15px;margin-left:-15px;font-size:20px;text-align: center;}
 

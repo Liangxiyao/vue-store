@@ -157,7 +157,7 @@ export default new Router({
             component: Order
         },
         {
-            path: '/orderDetail/:id',
+            path: '/orderDetail',
             name: 'orderDetail',
             component: OrderDetail,
             props:true

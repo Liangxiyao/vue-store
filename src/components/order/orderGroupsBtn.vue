@@ -15,10 +15,10 @@
         <router-link to="" class="btn">再次购买</router-link>
         <router-link to="" class="btn">申请售后</router-link>
     </div>
-    <!-- <div class="order-groups-btn" v-if="status == 10">
+    <div class="order-groups-btn" v-if="status == 10">
         <router-link to="/index" class="btn">再次购买</router-link>
        <span class="btn"  @click="closeOrder">删除订单</span>
-    </div> -->
+    </div>
 </div> 
 </template>
 <script>

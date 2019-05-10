@@ -6,7 +6,7 @@
         <div class="mui-content myorder">
             <div class="tab-bar">
                 <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap.native="_getOrderLists(0)"><span>全部</span></a>
+                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap="_getOrderLists(0)"><span>全部</span></a>
                     <a class="mui-control-item" :class="[currentState == 1?'cur':'']" href="javascript:;" @tap="_getOrderLists(1)"><span>待支付</span></a>
                     <a class="mui-control-item" :class="[currentState == 5?'cur':'']" href="javascript:;" @tap="_getOrderLists(5)"><span>审核中</span></a>
                     <a class="mui-control-item" :class="[currentState == 2?'cur':'']" href="javascript:;" @tap="_getOrderLists(2)"><span>待发货</span></a>
@@ -45,6 +45,7 @@ export default {
     },
     created(){
         let getState = GetQueryString('state');
+       // let getState = this.$route.query.state
         if(getState){
             this.currentState = getState
             this._getOrderLists(this.currentState)

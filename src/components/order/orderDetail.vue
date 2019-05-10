@@ -35,9 +35,9 @@
                                 <div class="wbox pro-item" v-for="item in details.items" :key="item.goods_id">
                                     <img class="pro-img" :src="item.pic" alt="">
                                     <div class="pro-info wbox-flex">
-                                        <a :href="'goodsDetail?id='+item.goods_id" class="block">
+                                        <router-link :to="'/goodsDetail/'+item.goods_id" class="block">
                                             <span class="pro-name ofellipsis2">{{item.goods_name}}</span>
-                                        </a>
+                                        </router-link>
                                         <p class="guige">{{item.sku_str}}</p>
                                         <div class="price-wrap clearFix">
                                             <span class="snPrice"><em>¥</em>{{item.unit_price}}</span>
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="bt-area" v-if="details.order">
-            <order-groups-btn :status="details.order.order_status"></order-groups-btn>
+            <order-groups-btn :status="details.order.order_status" :orderId='details.order.order_id'></order-groups-btn>
         </div>
     </div>
 </div>
@@ -100,8 +100,7 @@
 <script>
 import mHeader from 'base/header/header'
 import { GetQueryString } from 'common/js/common'
-import { apiOrderDeatil } from 'api/api'
-import { apiLogistics } from 'api/api'
+import { apiOrderDeatil,apiLogistics } from 'api/api'
 import OrderGroupsBtn from './orderGroupsBtn';
 export default {
     components:{

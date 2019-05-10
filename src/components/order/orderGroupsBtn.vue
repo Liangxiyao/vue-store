@@ -1,31 +1,57 @@
 <template>
 <div class="order-groups">
     <div class="order-groups-btn" v-if="status == 1">
-        <router-link to="" class="btn">取消订单</router-link>
+        <span class="btn"  @click="closeOrder">取消订单</span>
         <router-link to="" class="btn green">付款<span class="settimeout">29:59</span></router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 2">
-        <router-link to="" class="btn">再次购买</router-link>
+        <router-link to="/index" class="btn">再次购买</router-link>
     </div>
     <div class="order-groups-btn" v-if="status == 3">
-        <router-link to="/logistics" class="btn">查看物流</router-link>
-        <router-link to="" class="btn green">确认收货</router-link>
+        <router-link :to="{path:'/logistics',query:{orderId:orderId}}" class="btn">查看物流</router-link>
+        <span class="btn green"  @click.native="orderConfirm">确认收货</span>
     </div>
     <div class="order-groups-btn" v-if="status == 4">
         <router-link to="" class="btn">再次购买</router-link>
         <router-link to="" class="btn">申请售后</router-link>
     </div>
-    <div class="order-groups-btn" v-if="status == 10">
-        <router-link to="" class="btn">再次购买</router-link>
-        <router-link to="" class="btn">删除订单</span></router-link>
-    </div>
+    <!-- <div class="order-groups-btn" v-if="status == 10">
+        <router-link to="/index" class="btn">再次购买</router-link>
+       <span class="btn"  @click="closeOrder">删除订单</span>
+    </div> -->
 </div> 
 </template>
-
 <script>
-    export default {
-        props:['status']
+import { apiCloseOrder,apiOrderConfirm } from 'api/api';
+export default {
+    props:['status','orderId'],
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        //关闭订单
+        closeOrder() {
+             console.log(this.orderId)
+            apiCloseOrder({
+                order_id:this.orderId
+            }).then((result) => {
+                if(result.status == 1){
+                    alert('取消成功')
+                }else{
+                    alert(result.msg)
+                }
+                
+            }).catch((err) => {
+                
+            });
+        },
+        orderConfirm(){
+            alert('调用支付接口')
+        }
     }
+}
 </script>
 
 <style >

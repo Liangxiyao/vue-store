@@ -77,6 +77,7 @@ export default new Router({
         {
             path: '/shopCart',
             name: 'shopCart',
+            meta:{redirectLogin:true},
             component: ShopCart
         },
         {

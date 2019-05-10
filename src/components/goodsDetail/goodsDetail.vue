@@ -48,10 +48,10 @@
                 <span class="txt">送礼</span>
             </div>
             <div class="item addCart">
-                <a href="/shopCart">
+                <router-link to="/shopCart">
                     <i class="icon"></i>
                     <span class="txt">购物车</span>
-                </a>
+                </router-link>
             </div>
             <div class="btns-groups wbox-flex wbox">
                 <a class="btn to-car wbox-flex" href="javascript:;" @tap="dialogShow = true">加入购物车</a>
@@ -90,12 +90,8 @@ export default {
   created() {
     this._getGoodsDetail();
   },
-  updated() {
-    console.log(this.dialogShow);
-  },
   methods: {
     _getGoodsDetail() {
-        //let id = GetQueryString('id');
         apiGoodsDetail({
             main_goods_id: this.$route.params.id
         })

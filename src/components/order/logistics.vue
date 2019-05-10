@@ -1,35 +1,31 @@
 <template>
-  <div class="mui-content logistics">
-    <div class="hd">
-      <div class="item">快递公司：中通快递</div>
-      <div class="item">快递单号：123465665552122</div>
-      <div class="item">
-        快递电话：
-        <span class="green">95565</span>
-      </div>
+<div class="logistics">
+    <m-header>
+        <span slot="header-cont">物流信息</span>
+    </m-header>
+    <div class="mui-content">
+        <div class="hd">
+            <div class="item">快递公司：{{logistics[0].delivery}}</div>
+            <div class="item">快递单号：{{logistics[0].delivery_sn}}</div>
+            <div class="item">快递电话：<span class="green"></span></div>
+        </div>
+        <div class="bd">
+            <ul class="lists" v-if="logistics">
+                <li class="item" v-for="item in logistics" :key="item.id">
+                    <div class="text" >{{item.delivery_trace_new.status}}</div>
+                    <div class="date">{{item.delivery_trace_new.time}}</div>
+                    <!-- <div class="date">2019-01-20<span class="time">21:20:20</span> </div>-->
+                </li>
+            </ul>
+            <div v-else>暂无物流信息</div>
+        </div>
     </div>
-    <div class="bd">
-      <ul class="lists">
-        <li class="item">
-          <div class="text">【北京市】快件已被A5前台签收,如有问题请电联业务员金全东【13717849343】。</div>
-          <div class="date">
-            2019-01-20
-            <span class="time">21:20:20</span>
-          </div>
-        </li>
-        <li class="item">
-          <div class="text">【北京市】快件已被A5前台签收,如有问题请电联业务员：金全东【13717849343】。</div>
-          <div class="date">
-            2019-01-20
-            <span class="time">21:20:20</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+</div>
 </template>
 
 <script>
+import mHeader from 'base/header/header'
+import { apiLogistics } from 'api/api';
 export default {
     props: {
         orderId: {
@@ -37,11 +33,35 @@ export default {
             default: ''
         },
     },
+    components:{
+        mHeader
+    },
+    data() {
+        return {
+            logistics:[
+                {
+                    delivery:'',
+                    delivery_sn:'',
+                    delivery_trace_new:{}
+                }
+            ]
+        }
+    },
+    created(){
+        this._getLogistics()
+    },
     methods: {
         _getLogistics() {
-            apiLogstics({
-                order_id
-            })
+            apiLogistics({
+                order_id:this.$route.query.orderId
+            }).then((result) => {
+                console.log(result)
+                if(result.status == 1){
+                    this.logistics = result.data
+                }
+            }).catch((err) => {
+                
+            });
         }
     },
 };

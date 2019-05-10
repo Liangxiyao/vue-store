@@ -6,13 +6,13 @@
         <div class="mui-content myorder">
             <div class="tab-bar">
                 <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap="_getOrderLists(0)"><span>全部</span></a>
-                        <a class="mui-control-item" :class="[currentState == 1?'cur':'']" href="javascript:;" @tap="_getOrderLists(1)"><span>待支付</span></a>
-                        <a class="mui-control-item" :class="[currentState == 5?'cur':'']" href="javascript:;" @tap="_getOrderLists(5)"><span>审核中</span></a>
-                        <a class="mui-control-item" :class="[currentState == 2?'cur':'']" href="javascript:;" @tap="_getOrderLists(2)"><span>待发货</span></a>
-                        <a class="mui-control-item" :class="[currentState == 3?'cur':'']" href="javascript:;" @tap="_getOrderLists(3)"><span>已发货</span></a>
-                        <a class="mui-control-item" :class="[currentState == 4?'cur':'']" href="javascript:;" @tap="_getOrderLists(4)"><span>已完成</span></a>
-                        <!-- <a class="mui-control-item" :class="[currentState == 10?'cur':'']" href="javascript:;" @tap="_getOrderLists(10)"><span>已取消</span></a> -->
+                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap.native="_getOrderLists(0)"><span>全部</span></a>
+                    <a class="mui-control-item" :class="[currentState == 1?'cur':'']" href="javascript:;" @tap="_getOrderLists(1)"><span>待支付</span></a>
+                    <a class="mui-control-item" :class="[currentState == 5?'cur':'']" href="javascript:;" @tap="_getOrderLists(5)"><span>审核中</span></a>
+                    <a class="mui-control-item" :class="[currentState == 2?'cur':'']" href="javascript:;" @tap="_getOrderLists(2)"><span>待发货</span></a>
+                    <a class="mui-control-item" :class="[currentState == 3?'cur':'']" href="javascript:;" @tap="_getOrderLists(3)"><span>已发货</span></a>
+                    <a class="mui-control-item" :class="[currentState == 4?'cur':'']" href="javascript:;" @tap="_getOrderLists(4)"><span>已完成</span></a>
+                    <!-- <a class="mui-control-item" :class="[currentState == 10?'cur':'']" href="javascript:;" @tap="_getOrderLists(10)"><span>已取消</span></a> -->
                 </div>
             </div>
             <order-lists :lists='orderList' v-if="orderList.length>0"></order-lists>
@@ -71,8 +71,7 @@ export default {
 </script>
 <style>
 @import '../../common/css/goods.css';
-.myorder.mui-content{padding-top:84px;}
-.tab-bar{background-color:#fff;position:fixed;top:44px;}
+.tab-bar{background-color:#fff;}
 .tab-bar .mui-segmented-control.mui-scroll-wrapper{height:40px;}
 .tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item{color:#666;font-size:14px;}
 .tab-bar .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active,

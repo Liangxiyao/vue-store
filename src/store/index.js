@@ -7,7 +7,9 @@ const store = new Vuex.Store({
     state: {
         indexSku: {},
         orderState: 0,
-        loading:false
+        loading: false,
+        branch: [],
+        waitSure:{}
     },
     //getters 相当于组件中的computed计算属性   
     getters: {
@@ -30,6 +32,12 @@ const store = new Vuex.Store({
         },
         hideLoading(state) {
             state.loading = false
+        },
+        branchData(state,payload) {
+            state.branch = payload
+        },
+        waitSureData(state, payload) {
+            state.waitSure = payload
         }
 
     },

@@ -26,7 +26,6 @@ axios.interceptors.request.use(
 //响应拦截器
 axios.interceptors.response.use(
     res => {
-        console.log(res)
         if (res.config.showLoading) {
             HideLoading()
         }
@@ -66,10 +65,9 @@ export function HideLoading() {
 //封装post请求，若请求不需要loading，则将showLoading设为false
 export function post(url, data = {},loading = { showLoading: true }) {
     return new Promise((resolve, reject) => {
-        //Store.commit('showLoading')
         axios.post(url, qs.stringify(data),loading)
-            .then(res => {       
-                resolve(res.data)        
+        .then(res => {       
+            resolve(res.data)        
         }).catch(err => {
             reject(err.data)
         })

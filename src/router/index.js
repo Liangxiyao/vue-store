@@ -21,7 +21,7 @@ import DoCharge from 'component/myaccount/doCharge'
 import Branch from 'component/branch/branch'
 import BranchList from 'component/branch/branchList'
 import WaitSure from 'component/branch/waitSure'
-import UnacceptList from 'component/branch/unacceptList'
+import UnacceptShop from 'component/branch/unacceptShop'
 import UpgradeShop from 'component/branch/upgradeShop'
 
  //订单
@@ -124,10 +124,9 @@ export default new Router({
             path: '/mybranch',
             name: 'branch',
             component: Branch,
-            redirect:'/branchList',
             children: [
                 {
-                    path: '/branchList',
+                    path: '',
                     name: 'branchList',
                     component: BranchList
                 },
@@ -135,19 +134,18 @@ export default new Router({
                     path: '/waitSure',
                     name: 'waitSure',
                     component: WaitSure,
-                    redirect: '/unacceptList',
-                    children: [
-                        {
-                            path: '/unacceptList',
-                            name: 'unacceptList',
-                            component: UnacceptList
-                        },
-                        {
-                            path: '/upgradeShop',
-                            name: 'upgradeShop',
-                            component: UpgradeShop
-                        }    
-                    ]
+                    // children: [
+                    //     {
+                    //         path: '',
+                    //         name: 'unacceptShop',
+                    //         component: UnacceptShop
+                    //     },
+                    //     {
+                    //         path: 'upgradeShop',
+                    //         name: 'upgradeShop',
+                    //         component: UpgradeShop
+                    //     }    
+                    // ]
                 }
             ]
         },

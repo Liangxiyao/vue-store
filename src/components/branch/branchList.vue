@@ -10,31 +10,21 @@
 				</tr>
 			</table>
 		</div>
-		<m-lists :lists="data"></m-lists>
+		<m-lists :lists='branch'></m-lists>
 	</div>
 </div>
 	
 </template>
 <script>
-import mLists from './lists.vue';
+import mLists from './lists';
+import { mapState } from 'vuex';
 export default {
     components:{
         mLists
     },
-    props:{
-        lists:{
-            type:Array,
-            default:[]
-        }
+    computed: {
+        ...mapState(['branch'])
     },
-    computed:{
-        data(){
-            return this.lists
-        }
-    },
-    methods:{
-
-    }
 }
 </script>
 <style>

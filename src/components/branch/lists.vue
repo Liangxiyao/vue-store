@@ -11,12 +11,11 @@
 							<td class="center" v-if="item.levelname">{{item.levelname}}</td>
                             <td class="center" v-if="item.afterLevelname">{{item.afterLevelname}}</td>
 							<td class="right" v-if="item.timediff">{{item.timediff}}</td>
-                            <td class="right" v-else><a :href="'upgradeDetail/'+item.id" class="btn">查看</a></td>
+                            <td class="right" v-else><span class="btn" @click="go(item.id)">查看</span></td>
 						</tr>
 					</table>
 				</div>
-				
-			</div>
+			</div> 
 		</div>
 </template>
 <script>
@@ -24,7 +23,14 @@ export default {
     props:['lists'],
     created(){
         console.log(this.lists)
-    }
+    },
+    methods: {
+        go(id) {
+            this.$router.push({
+                path:`/unacceptDetail/${id}`
+            })
+        }
+    },
 }
 </script>
 <style>

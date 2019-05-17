@@ -159,7 +159,7 @@ export default {
                 
                 let groupNum = 0;
                 this.goodsLists.map(item=>{ //单选时  处理全选
-                    if(!item.groupChed){
+                    if(!item.groupChed){ 
                         this.allChed = false
                     }else{
                         groupNum++
@@ -245,7 +245,6 @@ export default {
                     }
                 }
             }
-            console.log(deleteArr)
             this.$refs.numControl[1].getShopCartNum(deleteArr)
         } 
     }
@@ -276,8 +275,6 @@ margin-bottom: constant(safe-area-inset-bottom);margin-bottom: env(safe-area-ins
 .btfixed-area .right-btn{height:34px;line-height:34px;margin-top:8px;margin-right:15px;border-radius:5px;overflow: hidden;}
 .btfixed-area .right-btn a{display:block;font-size:15px;text-align:center;padding:0 15px;background:#00a43e;color:#fff;}
 .all-operate-area .delete a{background-color:#333;color:#fff;}
-
-
 </style>
 
 

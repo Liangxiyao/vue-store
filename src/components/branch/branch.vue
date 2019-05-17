@@ -3,8 +3,12 @@
     <m-header>
         <div class="tab-header" slot="header-cont">
             <ul class="mui-segmented-control" v-if="branch.number">
-                <li class="mui-control-item mui-active" @click="go('mybranch')">分店(<span>{{branch.number.shopNum}}</span>)</li>
-                <li class="mui-control-item" @click="go('waitSure')">待确认(<span>{{branch.number.unacceptNum}}</span>)</li>
+                <li class="mui-control-item " :class="[$route.path == '/mybranch'?'mui-active':'']" @click="go('mybranch')">
+                    分店(<span>{{branch.number.shopNum}}</span>)
+                </li>
+                <li class="mui-control-item" :class="[$route.path == '/waitSure'?'mui-active':'']" @click="go('waitSure')">
+                    待确认(<span>{{branch.number.unacceptNum}}</span>)
+                </li>
             </ul>
         </div>
     </m-header>

@@ -31,7 +31,7 @@ module.exports = {
       'base': resolve('src/base'),
       'common': resolve('src/common'),
       'api': resolve('src/api'),
-      'mui': path.resolve(__dirname, '../src/common/js/mui.js') 
+      'mui': path.resolve(__dirname, '../src/common/js/mui.min.js') 
     }
   },
   module: {

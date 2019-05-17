@@ -32,7 +32,9 @@ export default {
     data(){
         return{
             waitSure:{},
-            lists:[]
+            lists:{
+                mark:1
+            }
         }
     },
     created(){
@@ -45,7 +47,7 @@ export default {
                 console.log(result)
                 if(result.status == 1){
                     this.waitSure = result.data
-                    this.lists = result.data.upgradeShop
+                    this.lists = this.waitSure.unacceptShop
                     this.waitSureData(this.waitSure)
                 }
             }).catch((err) => {

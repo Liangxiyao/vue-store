@@ -36,6 +36,8 @@ export const apiRecharge = p => post('/api/charge/pay', p)
 
 export const apiWaitSureList = p => post('/api/Agent/unaccept', p)
 
+export const apiAcceptShopDetail = p => post('/api/Agent/unacceptShopDetail', p)
+
 export const apiOrderLists = p => post('/api/order/lists', p)
 
 export const apiOrderDeatil = p => post('/api/order/orderDetail', p)

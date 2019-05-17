@@ -1,94 +1,94 @@
 <template>
-    <div class="myself">
-        <m-header class="mui-bar-transparent" :gobackBtn='false'>
-            <span slot="header-cont" class="header-cont">我的</span>
-            <a slot="header-right" class="mui-icon  mui-pull-right iconfont  icon-shezhi" href="javascript:;"></a>
-        </m-header>
-        <div class="mui-content">
-            <dl class=" mui-dl">
-                <dt class="fl"><img src="/static/images/logo.png" /></dt>
-                <dd class="ofellipsis">小雪是谁</dd>
-                <dd>查看并编辑个人信息</dd>
-            </dl>
-            <div class="mui-order">
-                <a href="/order">
-                    <h4>我的订单</h4>
-                    <i class="iconfont icon-jiantou fr"></i>
-                </a>
-                <ul class="mui-grid-view">
-                    <li class="mui-orderBox fl">
-                        <a  href="order?state=1">
-                            <span class="mui-icon-order mui-icon-order_1"></span>
-                            <div class="mui-media-body">待支付</div>
-                        </a>
-                    </li>
-                    <li class="mui-orderBox fl">
-                        <a href="order?state=5">
-                            <span class="mui-icon-order mui-icon-order_6"></span>
-                            <div class="mui-media-body">审核中</div>
-                        </a>
-                    </li>
-                    <li class="mui-orderBox fl">
-                        <a href="order?state=2">
-                            <span class="mui-icon-order mui-icon-order_2"></span>
-                            <div class="mui-media-body">待发货</div>
-                        </a>
-                    </li>
-                    <li class="mui-orderBox fl">
-                        <a href="order?state=3">
-                            <span class="mui-icon-order mui-icon-order_3"></span>
-                            <div class="mui-media-body">已发货</div>
-                        </a>
-                    </li>
-                    <li class="mui-orderBox fl">
-                        <a href="order?state=4">
-                            <span class="mui-icon-order mui-icon-order_4"></span>
-                            <div class="mui-media-body">已完成</div>
-                        </a>
-                    </li>
-                    <!-- <li class="mui-orderBox fl">
-                        <a href="order?state=10">
-                            <span class="mui-icon-order mui-icon-order_5"></span>
-                            <div class="mui-media-body">已取消</div>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
-            <div class="mui-card">
-                <ul class="mui-table-view">
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav icon-01 fl"></span>我的信息
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right"><span class="mui-icon-nav icon-02 fl"></span>常用地址</a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav icon-03 fl"></span>我的卡券
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav icon-04 fl"></span>我的授权
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav icon-05 fl"></span>我的送礼
-                        </a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">
-                            <span class="mui-icon-nav icon-06 fl"></span>联系客服
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<div class="myself">
+    <m-header class="mui-bar-transparent" :gobackBtn='false'>
+        <span slot="header-cont" class="header-cont">我的</span>
+        <a slot="header-right" class="mui-icon  mui-pull-right iconfont  icon-shezhi" href="javascript:;"></a>
+    </m-header>
+    <div class="mui-content">
+        <dl class=" mui-dl">
+            <dt class="fl"><img src="/static/images/logo.png" /></dt>
+            <dd class="ofellipsis">小雪是谁</dd>
+            <dd>查看并编辑个人信息</dd>
+        </dl>
+        <div class="mui-order">
+            <a href="/order">
+                <h4>我的订单</h4>
+                <i class="iconfont icon-jiantou fr"></i>
+            </a>
+            <ul class="mui-grid-view">
+                <li class="mui-orderBox fl">
+                    <a  href="order?state=1">
+                        <span class="mui-icon-order mui-icon-order_1"></span>
+                        <div class="mui-media-body">待支付</div>
+                    </a>
+                </li>
+                <li class="mui-orderBox fl">
+                    <a href="order?state=5">
+                        <span class="mui-icon-order mui-icon-order_6"></span>
+                        <div class="mui-media-body">审核中</div>
+                    </a>
+                </li>
+                <li class="mui-orderBox fl">
+                    <a href="order?state=2">
+                        <span class="mui-icon-order mui-icon-order_2"></span>
+                        <div class="mui-media-body">待发货</div>
+                    </a>
+                </li>
+                <li class="mui-orderBox fl">
+                    <a href="order?state=3">
+                        <span class="mui-icon-order mui-icon-order_3"></span>
+                        <div class="mui-media-body">已发货</div>
+                    </a>
+                </li>
+                <li class="mui-orderBox fl">
+                    <a href="order?state=4">
+                        <span class="mui-icon-order mui-icon-order_4"></span>
+                        <div class="mui-media-body">已完成</div>
+                    </a>
+                </li>
+                <!-- <li class="mui-orderBox fl">
+                    <a href="order?state=10">
+                        <span class="mui-icon-order mui-icon-order_5"></span>
+                        <div class="mui-media-body">已取消</div>
+                    </a>
+                </li> -->
+            </ul>
         </div>
-        <m-footer></m-footer>
+        <div class="mui-card">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span class="mui-icon-nav icon-01 fl"></span>我的信息
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right"><span class="mui-icon-nav icon-02 fl"></span>常用地址</a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span class="mui-icon-nav icon-03 fl"></span>我的卡券
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span class="mui-icon-nav icon-04 fl"></span>我的授权
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span class="mui-icon-nav icon-05 fl"></span>我的送礼
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span class="mui-icon-nav icon-06 fl"></span>联系客服
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+    <m-footer></m-footer>
+</div>
 </template>
 <script>
 import mHeader from 'base/header/header'

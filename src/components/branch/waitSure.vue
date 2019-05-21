@@ -2,8 +2,8 @@
     <div class="mui-content branchStore waitSure">
         <div class="tab-bar">
             <ul id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted" v-if="waitSure.number">
-                <li class="mui-control-item mui-active" @click="go('unacceptShop')"><span>开店确认({{waitSure.number.unacceptShopNum}})</span></li>
-                <li class="mui-control-item" @click="go('upgradeShop')"><span>升级确认({{waitSure.number.upgradeShopNum}})</span></li>
+                <li class="mui-control-item mui-active" @click="go('/waitSure')"><span>开店确认({{waitSure.number.unacceptShopNum}})</span></li>
+                <li class="mui-control-item" @click="go('/waitSure/upgradeShop')"><span>升级确认({{waitSure.number.upgradeShopNum}})</span></li>
             </ul>
         </div>
         <div class="agent-list">
@@ -16,18 +16,19 @@
                     </tr>
                 </table>
             </div>
-            <!-- <keep-alive><router-view/></keep-alive> -->
-            <m-lists :lists='lists'></m-lists>
+            <router-view></router-view>
+            <!-- <m-lists :lists='lists'></m-lists> -->
+
         </div>
     </div>
 </template>
 <script>
 import {apiWaitSureList} from 'api/api';
 import { mapState,mapMutations } from 'vuex';
-import mLists from './lists';
+// import mLists from './lists';
 export default {
     components: {
-        mLists
+       // mLists
     },
     data(){
         return{
@@ -55,7 +56,8 @@ export default {
             });
         },
         go(url){    //tab切换
-            this.lists = this.waitSure[url]
+           // this.lists = this.waitSure[url]
+           this.$router.push(url)
         }
     }
 }

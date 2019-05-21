@@ -39,23 +39,28 @@
         </div>	
         <div class="upgrade-details-btns bdt">
             <div class="wrap wbox">
-                <a class="wbox-flex btn refuse" href="javascript:;">拒绝</a>
-                <a class="wbox-flex btn sure" href="javascript:;">通过</a>
+                <span class="wbox-flex btn refuse" @click="refuse">拒绝</span>
+                <span class="wbox-flex btn sure" @click="agree">通过</span>
             </div>	
         </div>
     </div>
+    <van-dialog v-model="dialogShow" title="拒绝理由" show-cancel-button confirm-button-text='提交'  @confirm='confirm(detail.id)' :before-close="beforeClose">
+        <textarea class="reason" placeholder="请输入拒绝理由" v-model="reason"></textarea>
+    </van-dialog>
 </div>
 </template>
 <script>
 import mHeader from 'base/header/header'
-import { apiAcceptShopDetail,} from 'api/api';
+import { apiAcceptShopDetail,apiRefuseUpgrade} from 'api/api'
 export default {
     components:{
-        mHeader
+        mHeader,  
     },
     data() {
         return {
-            detail: {}
+            detail: {},
+            dialogShow:false,
+            reason:''
         }
     },
     created(){
@@ -74,6 +79,38 @@ export default {
             }).catch((err) => {
                 
             });
+        },
+        refuse(){
+            this.dialogShow = true;
+        },
+        agree(){
+            
+        },
+        confirm(id){
+            if(!this.reason){
+                alert('请输入拒绝理由')
+            }else{
+                apiRefuseUpgrade({
+                    id:id
+                }).then((result) => {
+                    console.log(result)
+                    if(result.status == 1){
+                        this.dialogShow = false
+                    }else{
+                        this.dialogShow = false
+                        alert(result.msg)
+                    }
+                }).catch((err) => {
+                    
+                });
+            }
+        },
+        beforeClose(action, done){ 
+            if(action == 'confirm'){
+                done(false)
+            }else{
+                done()
+            }
         }
     },
     
@@ -95,24 +132,14 @@ export default {
 .upgrade-details-btns .wrap{width:100%;border-radius:5px;overflow: hidden;}
 .upgrade-details-btns .btn{display: block;width:50%;height:40px;line-height:40px;background: #333;font-size:16px;color:#fff;text-align: center;}
 .upgrade-details-btns .sure{background-color:#00a43e;}
-.mui-popup{width:80%;border-radius:6px;}
-.mui-popup-inner{padding:0;}
-.mui-popup-inner:after{display:none;}
-.mui-popup-title{line-height:65px;}
-.mui-popup-title+.mui-popup-text{display:none;}
-.mui-popup-input{background-color:#f0f0f0;}
-.mui-popup-input textarea{margin:0;padding:15px;font-size:15px;height:120px;}
-.mui-popup-input textarea::-webkit-input-placeholder{font-size:15px;color:#ccc;}
-.mui-popup-buttons{padding:15px;background-color:#fff;height:auto;}
-.mui-popup-buttons .mui-popup-button{height:40px;line-height:40px;border:1px solid #ccc;margin-right:10px;border-radius:5px;font-size:15px;color:#333;}
-.mui-popup-buttons .mui-popup-button.mui-popup-button-bold{margin:0;font-weight:500;color:#fff;background-color:#00A43E;border-color:#00A43E;}
 
-.mui-segmented-control{background-color:#fff;}
-.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{position:relative;color:#666;font-size:14px;line-height:45px;}
-.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{border:0;color:#333;}
-.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after{content:'';position:absolute;bottom:0px;left:50%;margin-left:-14px;
-width:28px;height:2px;background-color:#00A43E;color:#fff;}
-.agent-list .mui-scroll-wrapper,.agent-list .hd{top:104px;}
-
-
+.van-dialog__header{padding:22px 0;font-size:18px}
+.van-dialog__content{background-color:#f0f0f0;}
+.van-dialog__content{padding:0;}
+.van-dialog__content .reason{padding:15px;height:120px;}
+.van-dialog__content .reason::placeholder{font-size:15px;color:#ccc}
+.van-dialog__footer{padding:15px;}
+.van-dialog .van-button{height:40px;line-height:38px;border: 1px solid #ccc;border-radius:5px}
+.van-dialog .van-dialog__cancel{margin-right:10px}
+.van-dialog .van-dialog__confirm{background-color:#00a43e;color:#fff;border-color: #00a43e;}
 </style>

@@ -48,7 +48,7 @@
                 <span class="txt">送礼</span>
             </div>
             <div class="item addCart">
-                <router-link to="/shopCart">
+                <router-link tag="div" to="/shopCart">
                     <i class="icon"></i>
                     <span class="txt">购物车</span>
                 </router-link>

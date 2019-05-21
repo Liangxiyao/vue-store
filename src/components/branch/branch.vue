@@ -3,16 +3,16 @@
     <m-header>
         <div class="tab-header" slot="header-cont">
             <ul class="mui-segmented-control" v-if="branch.number">
-                <li class="mui-control-item " :class="[$route.path == '/mybranch'?'mui-active':'']" @click="go('mybranch')">
+                <li class="mui-control-item " :class="[active==1?'mui-active':'']" @click="go('/mybranch',1)">
                     分店(<span>{{branch.number.shopNum}}</span>)
                 </li>
-                <li class="mui-control-item" :class="[$route.path == '/waitSure'?'mui-active':'']" @click="go('waitSure')">
+                <li class="mui-control-item" :class="[active==2?'mui-active':'']" @click="go('/waitSure',2)">
                     待确认(<span>{{branch.number.unacceptNum}}</span>)
                 </li>
             </ul>
         </div>
     </m-header>
-    <keep-alive><router-view/></keep-alive>
+    <router-view></router-view>
 </div>
 </template>
 <script>
@@ -30,6 +30,7 @@ export default {
     data(){
         return{
             branch:{},
+            active:1
         }
     },
     created(){
@@ -48,8 +49,9 @@ export default {
                 
             });
         },
-        go(url){    //tab跳转
+        go(url,cur){    //tab跳转
             this.$router.push(url)
+            this.active = cur
         }
     }
 }

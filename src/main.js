@@ -5,11 +5,11 @@ import App from './App'
 import router from './router'
 import mui from 'common/js/mui.min.js'
 import store from './store'
-import { Loading } from 'vant'
+import { Loading,Dialog } from 'vant'
 
 Vue.config.productionTip = false
 Vue.config.mui = mui
-Vue.use(Loading);
+Vue.use(Loading).use(Dialog);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

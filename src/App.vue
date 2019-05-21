@@ -41,6 +41,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
+.van-dialog{border-radius:6px}
 </style>
 
  

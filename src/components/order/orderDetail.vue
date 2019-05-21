@@ -12,7 +12,7 @@
                 </div>
                 <div class="bd">
                     <div class="order-info">
-                        <div class="logis" v-if="newLogistics.delivery_trace_new && newLogistics.delivery_trace_new.status">
+                        <div class="logis" v-if="newLogistics.delivery_trace_new">
                             <i class="icon pa"></i>
                             <div class="cont">
                                 <div class="logis-state">{{newLogistics.delivery_trace_new.status}}</div>
@@ -118,16 +118,11 @@ export default {
             },
             logistics:[],
             newLogistics:{},
-            //orderId:GetQueryString('id')
         }
     },
     created(){   
        this._getOrderDetail()
        this._getLogistics()
-    },
-    updated () {
-         console.log(this.$route);
-            
     },
     computed: {
         loading() {
@@ -150,7 +145,7 @@ export default {
         },
         _getLogistics(){
             apiLogistics({
-                order_id:this.orderId  
+                order_id:this.$route.query.id
             }).then((result) => {
                 if(result.status == 1){
                     this.logistics = result.data

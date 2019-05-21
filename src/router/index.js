@@ -18,9 +18,13 @@ import Myshop from 'component/myshop/myshop'
 import MyAccount from 'component/myaccount/myaccount'
 import Recharge from 'component/myaccount/recharge'
 import DoCharge from 'component/myaccount/doCharge'
+
+//分店
 import Branch from 'component/branch/branch'
 import BranchList from 'component/branch/branchList'
 import WaitSure from 'component/branch/waitSure'
+import UpgradeShop from 'component/branch/upgradeShop'
+import UnacceptShop from 'component/branch/unacceptShop'
 import MybranchDetail from 'component/branch/detail'
 
  //订单
@@ -30,7 +34,7 @@ import Logistics from 'component/order/logistics'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
     mode: 'history',
     routes: [
         {
@@ -132,7 +136,20 @@ export default new Router({
                 {
                     path: '/waitSure',
                     name: 'waitSure',
-                    component: WaitSure
+                    component: WaitSure,
+                    children: [
+                        {
+                            path: '',
+                            name:'unacceptShop',
+                            component:UnacceptShop
+                        },
+                        {
+                            path: 'upgradeShop',
+                            name:'upgradeShop',
+                            component:UpgradeShop
+                        }
+                        
+                    ]
                 }
             ]
         },
@@ -165,3 +182,11 @@ export default new Router({
 
     ]
 })
+// router.beforeEach((to, from, next) => { 
+//     next()
+//     console.log(to);
+//     console.log(from);
+// })
+
+
+export default router

@@ -13,7 +13,7 @@
                 <div class="wbox bt-wrap">
                     <a class="item wbox-flex mui-navigate-right" href="">
                         <div class="txt">可用贷款余额（元）</div>
-                        <span class="">{{info.surplusAmount - info.orderLockAmount}}</span>
+                        <span class="">{{availableMoney}}</span>
                     </a>
                     <a class="item wbox-flex mui-navigate-right" href="">
                         <div class="txt">订单锁定余额（元）</div>
@@ -24,29 +24,29 @@
             <div class="bd">
                 <ul class="list">
                     <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right" href="/recharge">
+                        <router-link tag="span" class="mui-navigate-right" to="/recharge">
                             <i class="icon"></i>贷款充值
-                        </a>
+                        </router-link>
                     </li>
                     <li class="mui-table-view-cell my-bank-center" >
-                        <a class="mui-navigate-right" :href="info.bindBank?'/mybank':'javascript:;'">
+                        <router-link tag="span" class="mui-navigate-right" :to="info.bindBank?'/mybank':'javascript:;'">
                             <i class="icon" style="background-position-y:-32px;"></i>我的银行卡
-                        </a>
+                        </router-link>
                     </li>
                     <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right" href="/settleBank">
+                        <router-link tag="span" class="mui-navigate-right" to="/settleBank">
                             <i class="icon" style="background-position-y:-60px;"></i>提现到银行卡
-                        </a>
+                        </router-link>
                     </li>
                     <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right" href="/settleList">
+                        <router-link tag="span" class="mui-navigate-right" to="/settleList">
                             <i class="icon" style="background-position-y:-89px;"></i>提现记录
-                        </a>
+                        </router-link>
                     </li>
                     <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right" href="/doCharge">
+                        <router-link tag="span" class="mui-navigate-right" to="/doCharge">
                             <i class="icon" style="background-position-y:-115px;"></i>分店贷款转账
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </div>
@@ -56,6 +56,8 @@
 <script>
 import mHeader from "base/header/header";
 import { apiAccountInfo } from 'api/api'
+import storage from 'common/js/storage';
+import {mapMutations} from 'vuex';
 
 export default {
     components:{
@@ -66,15 +68,24 @@ export default {
             info:{}
         }
     },
+    computed: {
+        availableMoney() {
+            let money = this.info.surplusAmount - this.info.orderLockAmount;
+            let num =  parseFloat(money.toFixed(2))
+            storage.set('availableMoney',num)
+            return num
+        }
+    },
     created(){
         this._getAccountInfo()
     },
     methods:{
+        ...mapMutations(['myAccountInfoFn']),
         _getAccountInfo(){
             apiAccountInfo().then((result) => {
                 if(result.status){
                     this.info = result.data
-                    console.log(result.data)
+                    this.myAccountInfoFn(this.info)
                 }
             }).catch((err) => {
                 
@@ -96,8 +107,7 @@ export default {
 .myAccount .hd .bt-wrap .mui-navigate-right:after{right:5px;color:rgba(255,255,255,.4);font-size:20px;}
 .myAccount .bd{padding:15px;}
 .myAccount .bd .list{background-color:#fff;border-radius:5px;}
-.myAccount .bd .list .mui-table-view-cell{padding:0;line-height:50px;}
-.myAccount .bd .list .mui-table-view-cell>a:not(.mui-btn){margin:0;padding:0 15px;font-size:14px;color:#333;}
+.myAccount .bd .list .mui-table-view-cell{padding:0 15px;line-height:50px;font-size:14px;color:#333;}
 .myAccount .bd .list .mui-table-view-cell:after{left:0;background-color:#ddd;}
 .myAccount .bd .list .mui-navigate-right:after{right:5px;font-size:20px;color:#ccc;}
 .myAccount .bd .list .mui-navigate-right .icon{float:left;width:22px;height:22px;background: url(../../common/images/account-icon.png) no-repeat -3px -3px;background-size:28px;margin:14px 10px 0 0;}

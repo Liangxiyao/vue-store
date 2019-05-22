@@ -3,15 +3,15 @@
 			<div class="mui-scroll">
 				<div class="main">
 					<table width="100%" class="table" id="tablevalue">
-						<tr class="row" v-for="item in lists">
+						<tr class="row" v-for="item in lists.data">
 							<td class="left">
 								<img class="photo" :src="item.headimgurl" >
 								<span class="name">{{item.name}}</span>
 							</td>
 							<td class="center" v-if="item.levelname">{{item.levelname}}</td>
                             <td class="center" v-if="item.afterLevelname">{{item.afterLevelname}}</td>
-							<td class="right" v-if="item.timediff">{{item.timediff}}</td>
-                            <td class="right" v-else><router-link tag="span" class="btn" :to="`/unacceptDetail/${item.id}`">查看</router-link></td>
+							<td class="right" v-if="lists.status==0">{{item.timediff}}</td>
+                            <td class="right" v-else=""><span class="btn" @click="lookDetail(item.id,lists.status)">查看</span></td>
 						</tr>
 					</table>
 				</div>
@@ -25,7 +25,9 @@ export default {
         console.log(this.lists)
     },
     methods: {
-
+        lookDetail(id,status){
+            this.$emit('getDetail',id,status)
+        }
     },
 }
 </script>

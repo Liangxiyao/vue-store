@@ -15,9 +15,7 @@ import SystemLists from 'component/systemInfo/systemLists'
 
 //店铺管理
 import Myshop from 'component/myshop/myshop'
-import MyAccount from 'component/myaccount/myaccount'
-import Recharge from 'component/myaccount/recharge'
-import DoCharge from 'component/myaccount/doCharge'
+
 
 //分店
 import Branch from 'component/branch/branch'
@@ -31,6 +29,14 @@ import MybranchDetail from 'component/branch/detail'
 import Order from 'component/order/order'  
 import OrderDetail from 'component/order/orderDetail'
 import Logistics from 'component/order/logistics'
+
+//我的账户
+import MyAccount from 'component/myaccount/myaccount'
+import Recharge from 'component/myaccount/recharge'
+import DoCharge from 'component/myaccount/doCharge'
+import MyBank from 'component/myaccount/mybank';
+import SettleBank from 'component/myaccount/SettleBank';
+
 
 Vue.use(Router)
 
@@ -124,6 +130,16 @@ const router =  new Router({
             component: DoCharge
         },
         {
+            path: '/settleBank',
+            name: 'settleBank',
+            component: SettleBank
+        },
+        {
+            path: '/myBank',
+            name: 'myBank',
+            component:MyBank
+        },
+        {
             path: '/mybranch',
             name: 'branch',
             component: Branch,
@@ -141,17 +157,22 @@ const router =  new Router({
                         {
                             path: '',
                             name:'unacceptShop',
-                            component:UnacceptShop
+                            component:UnacceptShop,
                         },
                         {
                             path: 'upgradeShop',
                             name:'upgradeShop',
                             component:UpgradeShop
-                        }
+                        },
                         
                     ]
                 }
             ]
+        },
+        {
+            path: '/waitSure/detail/:id',
+            name:'MybranchDetail',
+            component: MybranchDetail,
         },
         {
             path: '/unacceptDetail/:id',
@@ -178,7 +199,7 @@ const router =  new Router({
             path: '/logistics',
             name: 'logistics',
             component: Logistics
-        }
+        },
 
     ]
 })

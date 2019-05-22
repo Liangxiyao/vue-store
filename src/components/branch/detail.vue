@@ -5,31 +5,31 @@
     </m-header>
     <div class="mui-content transfer-to-agent" >
         <div class="hd">
-            <img class="photo" :src="detail.headimgurl" >
-            <p class="name">{{detail.name}}</p>
-            <p class="level">{{detail.levelname}}</p>
+            <img class="photo" :src="branchDetailData.headimgurl" >
+            <p class="name">{{branchDetailData.name}}</p>
+            <p class="level">{{branchDetailData.levelname}}</p>
         </div>
         <div class="bd">
             <ul class="upgrade-details">
                 <li>
                     <span class="tit">当前状态</span>
-                    <span class="cont">{{detail.bind_status_str}}</span>
+                    <span class="cont">{{branchDetailData.status_str}}</span>
                 </li>
                 <li>
                     <span class="tit">升级级别</span>
-                    <span class="cont">品牌特约经销商</span>
+                    <span class="cont">{{branchDetailData.afterLevelname}}</span>
                 </li>
                 <li>
                     <span class="tit">现直属上级</span>
-                    <span class="cont"><img class="photo" src="../../common/images/portrait.png" >小阿三</span>
+                    <span class="cont"><img class="photo" :src="branchDetailData.nowParentHeadimgurl" >{{branchDetailData.nownParent}}</span>
                 </li>
                 <li>
                     <span class="tit">升级后直属上级</span>
-                    <span class="cont"><img  class="photo" src="../../common/images/portrait.png" >李四</span>
+                    <span class="cont"><img  class="photo" :src="branchDetailData.afterParentHeadimgurl" >{{branchDetailData.afterParent}}</span>
                 </li>
                 <li>
                     <span class="tit">提交时间</span>
-                    <span class="cont">2019-01-10 12:20:30</span>
+                    <span class="cont">{{branchDetailData.ctime}}</span>
                 </li>
                 <li>
                     <span class="tit">升级打款截图</span>
@@ -52,6 +52,7 @@
 <script>
 import mHeader from 'base/header/header'
 import { apiAcceptShopDetail,apiRefuseUpgrade} from 'api/api'
+import { mapGetters } from 'vuex';
 export default {
     components:{
         mHeader,  
@@ -63,28 +64,19 @@ export default {
             reason:''
         }
     },
+    computed: {
+        ...mapGetters(['branchDetailData'])
+    },
     created(){
-        this._getAcceptDetail()
+        console.log(this.branchDetailData);
+        
     },
     methods: {
-        _getAcceptDetail() {
-            apiAcceptShopDetail({
-                //agent_id:this.$route.params.id
-                agent_id:474116
-            }).then((result) => {
-                console.log(result)
-                if(result.status == 1){
-                    this.detail = result.data
-                }
-            }).catch((err) => {
-                
-            });
-        },
         refuse(){
             this.dialogShow = true;
         },
         agree(){
-            
+            alert('同意')
         },
         confirm(id){
             if(!this.reason){

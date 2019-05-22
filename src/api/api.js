@@ -34,13 +34,20 @@ export const apiAccountInfo = p => post('/api/Account/info', p)
 
 export const apiRecharge = p => post('/api/charge/pay', p)
 
+export const apiSettleBank = p => post('/api/Account/settleBank', p)
+
+export const apiMybank = p => post('/api/user/bank', p)
+
 export const apiWaitSureList = p => post('/api/Agent/unaccept', p)
 
 export const apiAcceptShopDetail = p => post('/api/Agent/unacceptShopDetail', p)
 
+export const apigradeShopDetail = p => post('/api/Agent/upgradeDetail', p)
+
 export const apiRefuseUpgrade = p => post('/api/Agent/refuseUpgrade', p)
 
 export const apiAcceptUpgrade = p => post('/api/Agent/acceptUpgrade', p)
+
 
 export const apiOrderLists = p => post('/api/order/lists', p)
 

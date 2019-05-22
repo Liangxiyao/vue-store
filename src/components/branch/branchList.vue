@@ -10,20 +10,20 @@
 				</tr>
 			</table>
 		</div>
-		<m-lists :lists='branch'></m-lists>
+		<m-lists :lists='branchLists'></m-lists>
 	</div>
 </div>
 	
 </template>
 <script>
 import mLists from './lists';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
     components:{
         mLists
     },
     computed: {
-        ...mapState(['branch'])
+        ...mapGetters(['branchLists'])
     },
 }
 </script>

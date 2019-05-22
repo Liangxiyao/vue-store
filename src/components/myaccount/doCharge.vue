@@ -34,6 +34,17 @@
                                 <span class="days fr">1年11天</span>
                             </div>
                         </li>
+                        <li class="mui-table-view-cell mui-radio mui-left">
+                            <input name="radio" type="radio">
+                            <div class="person-info wbox">
+                                <img class="photo" src="static/images/id2.png">
+                                <div class="cont wbox-flex">
+                                    <p class="name">张三</p>
+                                    <p class="txt">官方合作伙伴</p>
+                                </div>
+                                <span class="days fr">1年11天</span>
+                            </div>
+                        </li>
                     </ul>
                     <!--这里放置真实显示的DOM内容-->
                 </div>
@@ -75,7 +86,7 @@ export default {
 .transfer .bd .txt{font-size:11px;margin-top:5px;}
 .transfer .bd .days{line-height:35px;}
 .transfer .bt-area{position:fixed;left:0;right:0;background-color:#fff;bottom:0;bottom: constant(safe-area-inset-bottom);bottom: env(safe-area-inset-bottom);
-height:60px;line-height:40px;padding:10px 15px;z-index:10;}
+padding:10px 15px;z-index:10;}
 .transfer .bt-area .btn{background:#00A43E;width:100%;height:40px;border-radius:5px;color:#fff;}
 
 

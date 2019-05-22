@@ -33,9 +33,6 @@ export default {
     data(){
         return{
             waitSure:{},
-            lists:{
-                mark:1
-            }
         }
     },
     created(){
@@ -48,7 +45,6 @@ export default {
                 console.log(result)
                 if(result.status == 1){
                     this.waitSure = result.data
-                    this.lists = this.waitSure.unacceptShop
                     this.waitSureData(this.waitSure)
                 }
             }).catch((err) => {
@@ -56,7 +52,6 @@ export default {
             });
         },
         go(url){    //tab切换
-           // this.lists = this.waitSure[url]
            this.$router.push(url)
         }
     }

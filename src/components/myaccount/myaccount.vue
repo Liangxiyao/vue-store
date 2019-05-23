@@ -24,27 +24,27 @@
             <div class="bd">
                 <ul class="list">
                     <li class="mui-table-view-cell">
-                        <router-link tag="span" class="mui-navigate-right" to="/recharge">
+                        <router-link tag="div" class="mui-navigate-right" to="/recharge">
                             <i class="icon"></i>贷款充值
                         </router-link>
                     </li>
                     <li class="mui-table-view-cell my-bank-center" >
-                        <router-link tag="span" class="mui-navigate-right" :to="info.bindBank?'/mybank':'javascript:;'">
+                        <router-link tag="div" class="mui-navigate-right" :to="info.bindBank?'/mybank':'javascript:;'">
                             <i class="icon" style="background-position-y:-32px;"></i>我的银行卡
                         </router-link>
                     </li>
                     <li class="mui-table-view-cell">
-                        <router-link tag="span" class="mui-navigate-right" to="/settleBank">
+                        <div class="mui-navigate-right" @click="settleBank">
                             <i class="icon" style="background-position-y:-60px;"></i>提现到银行卡
-                        </router-link>
+                        </div>
                     </li>
                     <li class="mui-table-view-cell">
-                        <router-link tag="span" class="mui-navigate-right" to="/settleList">
+                        <router-link tag="div" class="mui-navigate-right" to="/settleList">
                             <i class="icon" style="background-position-y:-89px;"></i>提现记录
                         </router-link>
                     </li>
                     <li class="mui-table-view-cell">
-                        <router-link tag="span" class="mui-navigate-right" to="/doCharge">
+                        <router-link tag="div" class="mui-navigate-right" to="/doCharge">
                             <i class="icon" style="background-position-y:-115px;"></i>分店贷款转账
                         </router-link>
                     </li>
@@ -55,7 +55,7 @@
 </template>
 <script>
 import mHeader from "base/header/header";
-import { apiAccountInfo } from 'api/api'
+import { apiAccountInfo, apiSettleMoney } from 'api/api'
 import storage from 'common/js/storage';
 import {mapMutations} from 'vuex';
 
@@ -65,19 +65,20 @@ export default {
     },
     data(){
         return{
-            info:{}
+            info:{},
+            setlleMoney:0 //可提现金额
         }
     },
     computed: {
         availableMoney() {
             let money = this.info.surplusAmount - this.info.orderLockAmount;
             let num =  parseFloat(money.toFixed(2))
-            storage.set('availableMoney',num)
             return num
         }
     },
     created(){
         this._getAccountInfo()
+        this._getSettleMoney()
     },
     methods:{
         ...mapMutations(['myAccountInfoFn']),
@@ -90,6 +91,25 @@ export default {
             }).catch((err) => {
                 
             });
+        },
+        _getSettleMoney(){
+            apiSettleMoney().then((result) => {
+                if(result.status == 1){
+                    this.setlleMoney = result.data.money
+                }
+            }).catch((err) => {
+                
+            });
+        },
+        settleBank(){
+            if(this.setlleMoney > 0){
+                this.$router.push({
+                    name:'settleBank',
+                    params:{money:this.setlleMoney}
+                })
+            }else{
+                alert('没有可提现金额')
+            }
         }
     }
 }

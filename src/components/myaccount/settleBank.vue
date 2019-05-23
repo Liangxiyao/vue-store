@@ -9,7 +9,7 @@
                 <div class="mui-refunMoney">
                     <em>￥</em><input type="number" placeholder="输入提现金额" value="" v-model="money" @input="checkMoney"/>
                 </div>
-                <div class="mui-money">可提现金额：{{availableMoney}}<span class="allMoneyBtn">全部提现</span></div>
+                <div class="mui-money">可提现金额：{{settleMoney}}<span class="allMoneyBtn" @click="allCash">全部提现</span></div>
             </div>
             <div class="mui-refunConter">
                 <div class="mui-card">
@@ -41,99 +41,61 @@ export default {
         return{
             money:'',
             btnActive:false,
-            payType:'4'
-        }
-    },
-    computed: {
-        availableMoney(){
-            return localStorage.getItem('availableMoney')
+            payType:'4',
+            settleMoney:this.$route.params.money
         }
     },
     methods:{
-        
         checkMoney(){
-            console.log(typeof Number(this.availableMoney))
-            console.log(Number(this.money) > Number(this.availableMoney));
-            
             let res = /^(([1-9]\d*)|\d)(\.\d{1,2})?$/
-            if(this.money != ''){
-                if(res.test(this.money)){
-                    this.btnActive = true;
+            if(this.money == ''){
+                this.btnActive = false;
+                return;
+            }else{
+               if(res.test(this.money)){
+                    if(Number(this.money) > Number(this.settleMoney)){
+                        this.btnActive = false;
+                        alert('超出最大金额')
+                        return;
+                    }else if(Number(this.money) <= 0 ){
+                        this.btnActive = false;
+                        alert('金额输入有误')
+                        return;
+                    }else{
+                        this.btnActive = true;
+                    }
                 }else{
                     this.btnActive = false;
                     alert('金额输入有误')
                     return;
-                }
-            }else{
-                this.btnActive = false;
-                return;
-            }
-            if(Number(this.money) > Number(this.availableMoney)){
-                this.btnActive = false;
-                alert('超出最大金额')
-                return;
-            }
+                } 
+            } 
+            
         },
         toPay(){
             if(!this.btnActive){
                 return;
             }
-            let data = {
-                money:this.money,
-                payment_id:this.payType
-            }
-            this._getPay(data)  //去支付
+
+            this._getPay()  //去支付
         },
-        _getPay(data){
-            apiSettleBank(data).then((result) => {
+        _getPay(){
+            apiSettleBank({
+                money:this.money
+            }).then((result) => {
                 console.log(result)
                 if(result.status == 1){
-                    let jdkdata = {
-                        "appId": result.orderStr.appid,     //公众号名称，由商户传入
-                        "timeStamp": result.orderStr.timestamp,         //时间戳，自1970年以来的秒数
-                        "nonceStr": result.orderStr.noncestr, //随机串
-                        "package": result.orderStr.package,
-                        "signType": result.orderStr.signType,         //微信签名方式：
-                        "paySign": result.orderStr.sign //微信签名
-                    }
-                    this.callpay(jdkdata)   //支付接口
-                    
+                    this.$router.push('/settleResult')
+                }else{
+                    alert('提现失败')
                 }
             }).catch((err) => {
-                
+                console.log(err)
             });
         },
-        onBridgeReady(data) {
-            WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', 
-                data,
-                function (res) {
-                    if (res.err_msg == "get_brand_wcpay_request:ok") {
-                        sessionStorage.removeItem("orderDetail");
-                        window.location.href = "success_pay.html";
-                    } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
-                        alert("确定要取消支付吗？");
-                       
-                    } else {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-                        alert(JSON.stringify(res));
-                        alert(res.err_msg);
-                        
-                    }
-                }
-            );
-
-        },
-        callpay: function (data) {
-            if (typeof WeixinJSBridge == "undefined") {
-                if (document.addEventListener) {
-                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-                } else if (document.attachEvent) {
-                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-                }
-            } else {
-                this.onBridgeReady(data);
-            }
+        allCash(){  //全部提现
+            this.money = this.settleMoney
+            this.btnActive = true;
         }
     }
     

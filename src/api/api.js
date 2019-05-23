@@ -36,6 +36,12 @@ export const apiRecharge = p => post('/api/charge/pay', p)
 
 export const apiSettleBank = p => post('/api/Account/settleBank', p)
 
+export const apiSettleMoney = p => post('/api/Account/getSettleMoney', p)
+
+export const apiSettleList = p => post('/api/Account/settleList', p)
+
+export const apiSettleDetail = p => post('/api/Account/settleDetail', p)
+
 export const apiMybank = p => post('/api/user/bank', p)
 
 export const apiWaitSureList = p => post('/api/Agent/unaccept', p)

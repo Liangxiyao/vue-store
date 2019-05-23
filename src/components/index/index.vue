@@ -148,7 +148,7 @@ export default {
     }
 }
 </script>
-<style lang="" scope>
+<style scope>
 .m-index{padding-bottom:60px;max-width: 640px;margin:0 auto;}
 .mui-bar{background-color:rgba(255,255,255,1);margin:0 auto;}
 .mui-bar-nav{-webkit-box-shadow:none;box-shadow:none;padding:0 15px;}

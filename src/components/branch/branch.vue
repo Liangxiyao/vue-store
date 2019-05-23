@@ -39,7 +39,9 @@ export default {
     methods:{
         ...mapMutations(['branchData']),
         getBranch(){
-            apiBranch(1).then((result) => {
+            apiBranch({
+                p:1
+            }).then((result) => {
                 console.log(result)
                 if(result.status == 1){
                     this.branch = result.data

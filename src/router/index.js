@@ -35,8 +35,9 @@ import MyAccount from 'component/myaccount/myaccount'
 import Recharge from 'component/myaccount/recharge'
 import DoCharge from 'component/myaccount/doCharge'
 import MyBank from 'component/myaccount/mybank';
-import SettleBank from 'component/myaccount/SettleBank';
-
+import SettleBank from 'component/myaccount/settleBank';
+import SettleList from 'component/myaccount/settleList';
+import SettleDetail from 'component/myaccount/settleDetail';
 
 Vue.use(Router)
 
@@ -133,6 +134,17 @@ const router =  new Router({
             path: '/settleBank',
             name: 'settleBank',
             component: SettleBank
+        },
+        {
+            path: '/settleList',
+            name: 'settleList',
+            component: SettleList
+        },
+        {
+            path: '/settleDetail/:id',
+            name: 'settleDetail',
+            component: SettleDetail,
+            props:true
         },
         {
             path: '/myBank',

@@ -10,7 +10,7 @@
                     <div class="info wbox-flex">
                         <h3 class="name">{{bank.bankname}}</h3>
                         <div class="types">储蓄卡</div>
-                        <div class="cardNum"><span class="txt">*******</span> {{bank.cardno.substr(bank.cardno.length-4)}}</div>
+                        <div class="cardNum"><span class="txt">*******</span> {{cardNo}}</div>
                     </div>	
                 </div>
             </li>
@@ -41,8 +41,7 @@ export default {
     computed: {
         cardNo() {
             let str = this.bank.cardno
-            console.log(str)
-            //return str.substr(0,4) 
+            return str.substr(bank.cardno.length-4)
         }
     },
     methods: {
@@ -62,12 +61,12 @@ export default {
 </script>
 
 <style>
-.myBank{margin:15px auto;max-width:640px;padding:15px;}
+.myBank{margin:0 auto;max-width:640px;padding:59px 15px 15px 15px;}
+.myBank .mui-content{padding-top:0}
 .myBank .item{margin-bottom:15px;position:relative;}
 .myBank .item .bank-bg{width:100%;height:1%;}
 .myBank .item .bank-info{position:absolute;top:0;left:0;width:100%;height:100%;padding:15px;color:#fff;}
-.myBank .item .bank-info .pic{width:20%;height:0;padding-top:20%;border-radius:50%;margin-right:15px;position: relative;}
-.myBank .item .bank-info .pic img{position: absolute;top:0;right:0;bottom:0;left:0;}
+.myBank .item .bank-info .pic{width:55px;height:55px;border-radius:50%;margin-right:15px;position: relative;background: #fff;padding:10px;}
 .myBank .item .bank-info .info{overflow:hidden;display: -webkit-flex;display: flex;-webkit-flex-flow:row wrap;flex-flow:row wrap;-webkit-align-content: space-around;
 align-content: space-around;flex-direction: row;}
 .myBank .item .bank-info .name{font-size:18px;width:100%;}

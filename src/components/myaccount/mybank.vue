@@ -41,7 +41,7 @@ export default {
     computed: {
         cardNo() {
             let str = this.bank.cardno
-            return str.substr(bank.cardno.length-4)
+            return str.substr(str.length-4)
         }
     },
     methods: {

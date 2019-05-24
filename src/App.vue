@@ -1,6 +1,6 @@
 <template>
   <div id="app" @touchstart="touchstart">
-    <keep-alive :include="['index']">
+    <keep-alive>
       <router-view/>
     </keep-alive>
     <van-loading type="spinner" size="80px" color="white" v-if="loading"/>

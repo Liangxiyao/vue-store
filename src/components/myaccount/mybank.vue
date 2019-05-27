@@ -4,9 +4,9 @@
     <div class="mui-content">
         <ul class="lists">
             <li class="item">
-                <img class="bank-bg" src="../..//common/images/zhaoshang.png" >
+                <img class="bank-bg"  :src="'/static/images/'+kind+'.png'" >
                 <div class="bank-info wbox">
-                    <div class="pic"><img  src="../../common/images/bank.png" ></div>
+                    <div class="pic"><img  :src="`/static/images/icon-${kind}.png`" ></div>
                     <div class="info wbox-flex">
                         <h3 class="name">{{bank.bankname}}</h3>
                         <div class="types">储蓄卡</div>
@@ -20,7 +20,7 @@
 </template>
 <script>
 import mHeader from "base/header/header";
-import { apiMybank } from 'api/api';
+import { apiMybank, apiBanklist } from 'api/api';
 
 export default {
     components: {
@@ -32,6 +32,53 @@ export default {
                 bank_id:'',
                 bankname:'',
                 cardno:'',
+            },
+            kind:'',
+        }
+    },
+    watch: {
+        bank(newValue, oldValue) {
+            let id = newValue.bank_id
+            switch(id){
+                case '9':
+                    this.kind = 'gongshang';
+                    break;
+                case '10':
+                    this.kind = 'jianshe';
+                    break;
+                case '11':
+                    this.kind = 'zhaoshang';
+                    break;
+                case '12':
+                    this.kind = 'nongye';
+                    break;
+                case '13':
+                    this.kind = 'jiaotong';
+                    break;
+                case '14':
+                    this.kind = 'zhongxin';
+                    break;
+                case '15':
+                    this.kind = 'pufa';
+                    break;
+                case '16':
+                    this.kind = 'minsheng';
+                    break;
+                case '17':
+                    this.kind = 'pingan';
+                    break;
+                case '18':
+                    this.kind = 'zhanghang';
+                    break;
+                case '19':
+                    this.kind = 'youzheng';
+                    break;
+                case '20':
+                    this.kind = 'xingye';
+                    break;
+                case '21':
+                    this.kind = 'huaxia';
+                    break;
             }
         }
     },
@@ -50,6 +97,15 @@ export default {
                 if(result.status == 1){
                     console.log(result)
                     this.bank = result.data
+                }
+            }).catch((err) => {
+                
+            });
+        },
+        getBankList(){
+            apiBanklist().then((result) => {
+                if(result){
+
                 }
             }).catch((err) => {
                 

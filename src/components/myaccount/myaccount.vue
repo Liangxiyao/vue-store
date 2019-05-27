@@ -11,14 +11,14 @@
                     <div class="tip mb">*{{info.bondMoneyStr}}</div>
                 </div>
                 <div class="wbox bt-wrap">
-                    <a class="item wbox-flex mui-navigate-right" href="">
-                        <div class="txt">可用贷款余额（元）</div>
+                    <router-link tag="div" class="item wbox-flex mui-navigate-right" to="/surplusList">
+                        <div class="txt" >可用贷款余额（元）</div>
                         <span class="">{{availableMoney}}</span>
-                    </a>
-                    <a class="item wbox-flex mui-navigate-right" href="">
+                    </router-link>
+                    <router-link class="item wbox-flex mui-navigate-right" to="/surplusList">
                         <div class="txt">订单锁定余额（元）</div>
                         <span class="">{{info.orderLockAmount}}</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="bd">

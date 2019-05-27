@@ -42,18 +42,16 @@ import mHeader from 'base/header/header';
 import { apiSettleDetail } from 'api/api';
 
 export default {
-    props:['id'],
+   // props:['id'],
     components: {
         mHeader,
     },
     data() {
         return {
-            detail: {
-                detail:{}
-            }
+            detail: {}
         }
     },
-    created () {
+    activated() {
         this._getSettleDetail()
     },
     computed:{
@@ -73,11 +71,10 @@ export default {
     methods: {
         _getSettleDetail() {
             apiSettleDetail({
-                settle_id:this.id
+                settle_id:this.$route.params.id
             }).then((result) => {
                 if(result.status == 1){
-                    this.detail = result.data
-                    
+                    this.detail = result.data         
                 }
             }).catch((err) => {
                 

@@ -42,7 +42,11 @@ export const apiSettleList = p => post('/api/Account/settleList', p)
 
 export const apiSettleDetail = p => post('/api/Account/settleDetail', p)
 
+export const apiSurplusList = p => post('/api/Account/surplusList', p)
+
 export const apiMybank = p => post('/api/user/bank', p)
+
+export const apiBanklist = p => post('/api/user/banklist', p)
 
 export const apiWaitSureList = p => post('/api/Agent/unaccept', p)
 
@@ -53,7 +57,6 @@ export const apigradeShopDetail = p => post('/api/Agent/upgradeDetail', p)
 export const apiRefuseUpgrade = p => post('/api/Agent/refuseUpgrade', p)
 
 export const apiAcceptUpgrade = p => post('/api/Agent/acceptUpgrade', p)
-
 
 export const apiOrderLists = p => post('/api/order/lists', p)
 

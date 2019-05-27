@@ -1,7 +1,6 @@
 <template>
 <header class="mui-bar mui-bar-nav">
-	<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" v-if="gobackBtn" href="javascript:history.go(-1);"></a> -->
-    <span class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" @click="$router.back()"  v-if="gobackBtn" ></span>
+    <span class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"   v-if="gobackBtn"  @click="prev" ></span>
 	<h1 class="mui-title"><slot name="header-cont"></slot></h1>
 	<!-- <a class="mui-btn-link mui-pull-right operate" href="javascript:;">管理</a> -->
     <slot name="header-right"></slot>
@@ -14,7 +13,12 @@ export default {
             type:Boolean,
             default:true
         }
-    }
+    },
+    methods: {
+        prev() {
+            this.$router.go(-1)
+        }
+    },
 }
 </script>
 <style>

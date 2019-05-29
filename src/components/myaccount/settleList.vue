@@ -5,7 +5,7 @@
         <router-link tag="div" class="mui-record-list bdb" v-for="item in lists" :key="item.id" :to="'/settleDetail/'+item.id" >
             <div class="mui-record-left">
                 <p>提现到银行卡</p>
-                <span>{{item.ctime}}</span>
+                <span>{{item.ctime.replace(/\//g, '-')}}</span>
             </div>
             <div class="mui-record-right mui-record-height">
                 <span class="status">{{item.status_msg}}</span>

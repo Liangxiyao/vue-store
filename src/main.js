@@ -5,11 +5,11 @@ import App from './App'
 import router from './router'
 import mui from 'common/js/mui.min.js'
 import store from './store'
-import { Loading,Dialog } from 'vant'
+import { Loading,Dialog,Popup,DatetimePicker } from 'vant'
 
 Vue.config.productionTip = false
 Vue.config.mui = mui
-Vue.use(Loading).use(Dialog);
+Vue.use(Loading).use(Dialog).use(Popup).use(DatetimePicker);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
@@ -18,3 +18,6 @@ new Vue({
     components: { App },
     template: '<App/>'
 })
+
+
+

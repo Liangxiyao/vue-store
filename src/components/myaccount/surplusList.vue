@@ -2,7 +2,7 @@
 <div class="surplusList">
     <m-header>
         <span slot="header-cont">贷款余额记录</span>
-        <span slot="header-right" class="mui-btn-link mui-pull-right filterBtn">筛选<i class="iconfont icon-triangle"></i></span>
+        <span slot="header-right" class="mui-btn-link mui-pull-right filterBtn" @click="filter">筛选<i class="iconfont icon-triangle"></i></span>
     </m-header>
     <div class="mui-content branchStore  loanLists">
         <div class="tab-bar">
@@ -20,6 +20,7 @@
             </keep-alive>
         </div>
     </div>
+    <filter-dialog :show='showDialog' :lists='filterItem'></filter-dialog>
 </div>
 </template>
 
@@ -28,12 +29,16 @@ import mHeader from 'base/header/header'
 import all_surplus from './all_surplus'
 import income_surplus from './income_surplus'
 import outcome_surplus from './outcome_surplus'
+import filterDialog from './filter';
+import { apiFilterMap } from 'api/api';
+
 export default {
     components: {
         mHeader,
         all_surplus,
         income_surplus,
-        outcome_surplus
+        outcome_surplus,
+        filterDialog
     },
     data() {
         return {
@@ -41,12 +46,30 @@ export default {
             tabArr:['all_surplus','income_surplus','outcome_surplus'],
             tabView: 'all_surplus',
             cur:0,
+            showDialog:false, //筛选弹窗
+            currentDate: new Date(),
+            filterItem:[]
         }
     },
     methods: {
         tabChange(index) {
             this.cur = index
             this.tabView = this.tabArr[index]
+        },
+        _getFilterItem(){
+            apiFilterMap().then((result) => {
+                if(result.status == 1){
+                    this.filterItem = [{type:'all',event:'全部'},...result.data.income, ...result.data.outcome]                    
+                }
+                
+            }).catch((err) => {
+                
+            });
+        },
+        filter(){
+            this._getFilterItem()
+            this.showDialog = true
+
         }
     },
 }
@@ -58,6 +81,7 @@ export default {
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{border:0;color:#333;}
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after{content:'';position:absolute;bottom:0px;left:50%;margin-left:-14px;
 width:28px;height:2px;background-color:#00A43E;color:#fff;}
+
 
 .mui-bar .filterBtn{margin-right:-5px;}
 .mui-bar .filterBtn.cur{color:#00A43E;}

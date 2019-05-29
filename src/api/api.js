@@ -44,6 +44,10 @@ export const apiSettleDetail = p => post('/api/Account/settleDetail', p)
 
 export const apiSurplusList = p => post('/api/Account/surplusList', p)
 
+export const apiFilterMap = p => post('/api/Account/filterMap', p)
+
+export const apiSurplusDetail = p => post('/api/Account/surplusDetail', p)
+
 export const apiMybank = p => post('/api/user/bank', p)
 
 export const apiBanklist = p => post('/api/user/banklist', p)

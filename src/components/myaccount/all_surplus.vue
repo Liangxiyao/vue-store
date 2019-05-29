@@ -1,10 +1,10 @@
 <template>
 <ul v-if="lists.length">
     <li class="item pr bdb" v-for="item in lists">
-        <router-link tag="div" to="/surplusDetail">
+        <div @click="routerTo(item)">
             <div class="">
                 <div>{{item.event}}</div>
-                <span class="time">2019-01-20 04:20:20</span>
+                <span class="time">{{item.ctime.replace(/\//g, '-')}}</span>
             </div>
             <div class="money">
                 <span class="num" :class="{green:item.beforemoney < item.aftermoney}">
@@ -12,7 +12,7 @@
                 </span>
                 <i class="iconfont icon-jiantou"></i>
             </div>
-        </router-link>
+        </div>
     </li>
 </ul>
 </template>
@@ -39,6 +39,17 @@ export default {
             }).catch((err) => {
                 
             });
+        },
+        routerTo(item){
+            //income代表减，outcome代表加        
+            let status = item.beforemoney < item.aftermoney?'income':'outcome'
+            this.$router.push({
+                name:'surplusDetail',
+                params:{
+                    status:status,
+                    id:item.id
+                }
+            })
         }
     },
 }

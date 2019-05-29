@@ -23,15 +23,15 @@
         </div>
     </div>
     <ul>
-        <li class="item pr bdb" v-for="item in lists">
-            <router-link tag="div" to="/surplusDetail">
+        <li class="item pr bdb" v-for="item in lists" >
+            <router-link tag="div" :to="`/surplusDetail/outcome/${item.id}`">
                 <div class="">
                     <div>{{item.event}}</div>
-                    <span class="time">2019-01-20 04:20:20</span>
+                    <span class="time">{{item.ctime.replace(/\//g, '-')}}</span>
                 </div>
                 <div class="money">
-                    <span class="num" :class="{green:item.beforemoney < item.aftermoney}">
-                        {{item.beforemoney < item.aftermoney?'+'+item.money:'-'+item.money}}
+                    <span class="num">
+                        -{{item.money}}
                     </span>
                     <i class="iconfont icon-jiantou"></i>
                 </div>

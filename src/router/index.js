@@ -35,10 +35,12 @@ import MyAccount from 'component/myaccount/myaccount'
 import Recharge from 'component/myaccount/recharge'
 import DoCharge from 'component/myaccount/doCharge'
 import MyBank from 'component/myaccount/mybank'
+import BindBank from 'component/myaccount/bindBank'
 import SettleBank from 'component/myaccount/settleBank'
 import SettleList from 'component/myaccount/settleList'
 import SettleDetail from 'component/myaccount/settleDetail'
-import SurplusList from 'component/myaccount/surplusList';
+import SurplusList from 'component/myaccount/surplusList'
+import SurplusDetail from 'component/myaccount/surplusDetail'
 
 Vue.use(Router)
 
@@ -145,6 +147,12 @@ const router =  new Router({
             path: '/settleDetail/:id',
             name: 'settleDetail',
             component: SettleDetail,
+            props:true
+        },
+        {
+            path: '/bindBank',
+            name: 'bindBank',
+            component:BindBank
         },
         {
             path: '/myBank',
@@ -155,6 +163,12 @@ const router =  new Router({
             path: '/surplusList',
             name: 'surplusList',
             component:SurplusList
+        }, 
+        {
+            path: '/surplusDetail/:status/:id',
+            name: 'surplusDetail',
+            component: SurplusDetail,
+            props:true
         }, 
         {
             path: '/mybranch',

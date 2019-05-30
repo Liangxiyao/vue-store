@@ -1,8 +1,8 @@
 <template>
 <van-popup v-model="show" position="bottom" class="filterDialog" :close-on-click-overlay="false">
     <i class="icon-close" @click="close"></i>
-    <div class="filter-groups  loan-filter">
-        <div class="scroll-cont">
+    <div class="mui-scroll-wrapper ">
+        <div class="mui-scroll filter-groups  loan-filter">
             <dl class="item">
                 <dt class="tit">选择日期</dt>
                 <dd class="list wbox date-wrap">
@@ -36,11 +36,14 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 export default {
     props:['show','lists'],
+    components: {
+        BScroll,
+    },
     data() {
         return {
-            //isShow:this.show,
             dateShow:false,
             currentDate: new Date(),
             minDate:new Date(),
@@ -51,15 +54,23 @@ export default {
             activeItem:0
         }
     },
+    mounted() {
+        this.$nextTick(()=>{
+            mui.init();
+            mui('.mui-scroll-wrapper').scroll({
+                indicators: true, //是否显示滚动条
+            });
+        })
+    },
     methods: {
         close(){
-            console.log(this.show);
-            
+            this.$emit('closeDialog')
         },
         dateTime(num) {
             if(num==1){
                 if(this.startDate == ''){
-                    returnz
+                    alert('请先选择开始时间')
+                    return;
                 }else{
                     let date = this.startDate.split('-')
                     this.minDate = new Date(date) //设置结束日期的开始时间                  
@@ -96,21 +107,24 @@ export default {
 <style>
 .filterDialog{border-radius:10px 10px 0 0;top:50%;overflow: hidden;}
 .icon-close{position: absolute;top:10px;right:8px;width:30px;height:30px;background: url(../../common/images/icon2.png) no-repeat 0 0;background-size:35px;z-index: 100;}
+.filterDialog .dialog-body .mui-scroll-wrapper{top:15px;}
+.filterDialog .mui-scroll-wrapper{bottom:66px;top:20px;}
 .filterDialog .dialog-btn{position:absolute;bottom:0;left:0;right:0;padding:10px 15px;bottom: constant(safe-area-inset-bottom);bottom: env(safe-area-inset-bottom)}
 .filterDialog .dialog-btn .wrap{width:100%;border-radius:5px;overflow: hidden;}
 .filterDialog .dialog-btn .btn{display: block;width:50%;height:40px;line-height:40px;background: #f0f0f0;font-size:16px;color:#333;text-align: center;border-radius:0;}
 .filterDialog .dialog-btn .sure{color:#fff;background-color:#00a43e;}
-.filter-groups{font-size:13px;padding:15px;margin-top:20px}
+.filter-groups{padding-right:15px;padding-left:5px;font-size:13px;box-sizing: border-box;}
+.filter-groups .scroll-cont{padding-bottom:20px;}
 .filter-groups .item{margin-bottom:10px;}
-.filter-groups .item .tit{color:#999;line-height:13px;margin-bottom:15px;}
-.filter-groups .item .s-item{float:left;color:#333;line-height:14px;padding:8px 15px;text-align: center;min-width:80px;margin-bottom:10px;margin-right:10px;
+.filter-groups .item .tit{color:#999;line-height:13px;margin-bottom:15px;padding:0 10px;}
+.filter-groups .item .s-item{float:left;color:#333;line-height:14px;padding:8px 15px;text-align: center;min-width:80px;margin-left:10px;margin-bottom:10px;
 border-radius:5px;background-color:#f0f0f0;}
 .filter-groups .item .s-item.cur{background-color:#e3f6eb;color:#009933;}
 
 .loan-filter .item{margin-bottom:25px;}
 .dialog-body .loan-filter .item .tit{color:#999;}
 .date-wrap span{display:inline-block;width:35px;text-align:center;line-height:33px;font-size:13px;}
-.date-wrap .mui-btn{border-color:#ddd;}
+.date-wrap .mui-btn{border-color:#ddd;line-height:25px;height:35px;}
 
 .van-picker{transform:translateY(100%);position: absolute;top: 0;bottom: 0;width: 100%;background: #fff;z-index:999;transition:all .3s}
 .van-picker.show{transform:translateY(0);}

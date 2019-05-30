@@ -20,7 +20,7 @@
             </keep-alive>
         </div>
     </div>
-    <filter-dialog :show='showDialog' :lists='filterItem'></filter-dialog>
+    <filter-dialog :show='showDialog' :lists='filterItem' @closeDialog='closeDialog' ref="filter"></filter-dialog>
 </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
         _getFilterItem(){
             apiFilterMap().then((result) => {
                 if(result.status == 1){
-                    this.filterItem = [{type:'all',event:'全部'},...result.data.income, ...result.data.outcome]                    
+                    this.filterItem = [{type:'all',event:'全部'},...result.data.income, ...result.data.outcome]           
                 }
                 
             }).catch((err) => {
@@ -70,6 +70,10 @@ export default {
             this._getFilterItem()
             this.showDialog = true
 
+        },
+        closeDialog(){
+
+            this.showDialog = false
         }
     },
 }

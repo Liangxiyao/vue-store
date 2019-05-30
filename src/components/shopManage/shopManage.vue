@@ -102,7 +102,7 @@ export default {
     
 }
 </script>
-<style>
+<style scoped>
 .mui-shop_img{background: #fff; width: 100%;padding-top:10px}
 .mui-card-shopBox{ width: 92%; margin: 0 auto; height: 100px;background: url(../../common/images/shopbg.png) no-repeat;
  background-size: 100% 100%; border-radius: 6px;box-shadow: 4px 4px 16px #ddd;color:#fff;padding:15px;}
@@ -121,7 +121,7 @@ export default {
 .mui-shop_img .mui-dayBox ul li:last-child{ border-left: 1px solid #eee;}
 .mui-shop_img .mui-dayBox ul li span{ color: #333;font-weight: 600;}
 .mui-content_jiu .mui-contBox .mui-grid-view.mui-grid-9{background: #fff; padding: 15px 0;}
-.mui-grid-view.mui-grid-9 .mui-media .mui-icon2{display: block; width: 75px; height: 75px;  margin: 0 auto;  background: url(../../common/images/icon02.png) no-repeat; background-size: 100%;position: relative; background-size:230px; background-position: 0 0;}
+.mui-grid-view.mui-grid-9 .mui-media .mui-icon2{display: block; width: 75px; height: 75px;  margin: 0 auto;  background: url(../../common/images/shop-icon.png) no-repeat; background-size: 100%;position: relative; background-size:230px; background-position: 0 0;}
 .mui-grid-view.mui-grid-9 .mui-media .mui-icon2 .mui-badge {font-size: 10px; line-height: 1.4;position: absolute; top: 2px; right: 0; margin-left: -10px; padding: 1px 6px; color: #fff;background: #00a43e;border-radius: 100px;box-shadow: 0px 1px 8px #81c49a;}
 .mui-grid-view.mui-grid-9 .mui-media .mui-icon2-share{background-position: -74px -74px;}
 .mui-grid-view.mui-grid-9 .mui-media .mui-icon2-statistics{background-position: -148px 0px;}

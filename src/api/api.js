@@ -48,6 +48,8 @@ export const apiFilterMap = p => post('/api/Account/filterMap', p)
 
 export const apiSurplusDetail = p => post('/api/Account/surplusDetail', p)
 
+export const apiOrderLockList = p => post('/api/Account/orderLockList', p)
+
 export const apiMybank = p => post('/api/user/bank', p)
 
 export const apiBanklist = p => post('/api/user/banklist', p)

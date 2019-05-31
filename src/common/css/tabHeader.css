@@ -1,0 +1,5 @@
+/* tab-header */
+.mui-title{height:100%;}
+.mui-title .tab-header .mui-segmented-control{border:1px solid #999;border-radius:5px;}
+.tab-header .mui-segmented-control .mui-control-item{width:95px;height:28px;line-height:28px;font-size:13px;color:#000;border:none;}
+.tab-header .mui-segmented-control .mui-control-item.mui-active{background-color:#333;color:#fff;}

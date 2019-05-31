@@ -26,7 +26,11 @@
         <li class="item pr bdb" v-for="item in lists" >
             <router-link tag="div" :to="`/surplusDetail/outcome/${item.id}`">
                 <div class="">
-                    <div>{{item.event}}</div>
+                    <div>
+                        <img class="pic" v-if="item.type == 'receivetransfer' || item.type == 'docharge'" 
+                                    :src="item.agentinfo.headimgurl" alt="">
+                        {{item.event}}
+                    </div>
                     <span class="time">{{item.ctime.replace(/\//g, '-')}}</span>
                 </div>
                 <div class="money">

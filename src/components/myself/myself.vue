@@ -106,7 +106,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .myself .mui-content{padding-top:0}
 .mui-title .header-cont{opacity:0;transition:all .2s;}
 .mui-active .header-cont{opacity:1;}

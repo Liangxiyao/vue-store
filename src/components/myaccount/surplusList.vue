@@ -72,7 +72,6 @@ export default {
 
         },
         closeDialog(){
-
             this.showDialog = false
         }
     },
@@ -94,6 +93,7 @@ width:28px;height:2px;background-color:#00A43E;color:#fff;}
 .loanLists .bd{margin-top:10px;}
 .loanLists .bd .item{padding:15px;padding-right:120px;font-size:15px;color:#333;background-color:#fff;}
 .loanLists .bd .item:last-of-type:after{display:none;}
+.loanLists .bd .item .pic{width:20px;height:20px;border-radius:50%;}
 .loanLists .bd .time{font-size:12px;color:#999;}
 .loanLists .bd .money{position:absolute;right:12px;top:50%;line-height:40px;margin-top:-20px;}
 .loanLists .bd .money .iconfont{color:#ccc;}

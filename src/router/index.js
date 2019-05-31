@@ -42,6 +42,9 @@ import SettleDetail from 'component/myaccount/settleDetail'
 import SurplusList from 'component/myaccount/surplusList'
 import SurplusDetail from 'component/myaccount/surplusDetail'
 
+//数据统计
+import Statistics from 'component/statistics/statistics';
+
 Vue.use(Router)
 
 const router =  new Router({
@@ -231,6 +234,11 @@ const router =  new Router({
             name: 'logistics',
             component: Logistics
         },
+        {
+            path: '/statistics',
+            name: 'statistics',
+            component:Statistics
+        }
 
     ]
 })

@@ -70,12 +70,14 @@ export const apiOrderDeatil = p => post('/api/order/orderDetail', p)
 
 export const apiLogistics = p => post('/api/order/deliveryList', p)
 
-export const apiCloseOrder = p => post('/api/order/closeOrder')
+export const apiCloseOrder = p => post('/api/order/closeOrder', p)
 
-export const apiOrderConfirm = p =>post('/api/order/apiOrderConfirm')
+export const apiOrderConfirm = p =>post('/api/order/apiOrderConfirm', p)
 
 export const apiSystemMsg = p => post('/api/msg/index', p)
 
 export const apiMsgLists = p => post('/api/msg/lists', p)
+
+export const apiOrderStatics = p => post('/api/data/orderStatics', p)
 
 

@@ -6,7 +6,9 @@ import router from './router'
 import mui from 'common/js/mui.min.js'
 import store from './store'
 import { Loading,Dialog,Popup,DatetimePicker } from 'vant'
+import echarts from 'echarts'
 
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.config.mui = mui
 Vue.use(Loading).use(Dialog).use(Popup).use(DatetimePicker);

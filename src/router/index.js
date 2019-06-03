@@ -238,7 +238,11 @@ const router =  new Router({
             path: '/statistics',
             name: 'statistics',
             component:Statistics
-        }
+        },
+
+
+
+        {path:'*',component:()=> import('component/notFound/notFound')}
 
     ]
 })

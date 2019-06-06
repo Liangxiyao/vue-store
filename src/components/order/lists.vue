@@ -8,7 +8,7 @@
                     <span class="state fr">{{shop.order_state}}</span>
                 </div>
                 <div class="pro-item">						
-                    <router-link  class="wbox item-wrap" :to="{path:'/orderDetail',query:{id:item.order_id}}" v-for="(item,index) in shop.items" :key="index">
+                    <router-link tag="div" class="wbox item-wrap" :to="`/orderDetail/${item.order_id}`" v-for="(item,index) in shop.items" :key="index">
                         <img class="pro-img" :src="item.pic" alt="">
                         <div class="pro-info wbox-flex ">                               
                             <span class="pro-name ofellipsis2 block">{{item.goods_name}}</span>                               

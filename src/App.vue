@@ -3,7 +3,7 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    <van-loading type="spinner" size="80px" color="white" v-if="loading"/>
+    <van-loading type="spinner" size='40px' color="white" v-if="loading"/>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
-  padding: 20px;
+  padding: 40px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }

@@ -132,7 +132,7 @@ export default {
     methods: {
         _getOrderDetail() {
             apiOrderDeatil({
-                order_id:this.$route.query.id
+                order_id:this.$route.params.id
             }).then((result) => {
                 console.log(result);
                 

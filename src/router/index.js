@@ -1,49 +1,52 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Register from 'component/user/register'
-import Login from 'component/user/login'
-import CodeLogin from 'component/user/codeLogin'
-import ForgetPwd from 'component/user/forgetPwd'
-import SetNewPwd from 'component/user/setNewPwd'
-import Index from 'component/index/index'
-import GoodsDetail from 'component/goodsDetail/goodsDetail'
-import ShopCart from 'component/shopCart/shopCart'
-import ShopManage from 'component/shopManage/shopManage'
-import Myself from 'component/myself/myself'
-import SystemInfo from 'component/systemInfo/system'
-import SystemLists from 'component/systemInfo/systemLists'
+
+const Register = () => import('component/user/register')
+const Login = () => import('component/user/login')
+const CodeLogin = () => import('component/user/codeLogin')
+const ForgetPwd = () => import('component/user/forgetPwd')
+const SetNewPwd = () => import('component/user/setNewPwd')
+
+const Index = () => import('component/index/index')
+const GoodsDetail = () => import('component/goodsDetail/goodsDetail')
+const ShopCart = () => import('component/shopCart/shopCart')
+const ShopManage = () => import('component/shopManage/shopManage')
+const Myself = () => import('component/myself/myself')
+const SystemInfo = () => import('component/systemInfo/system')
+const SystemLists = () => import('component/systemInfo/systemLists')
 
 //店铺管理
-import Myshop from 'component/myshop/myshop'
-
+const Myshop = () => import('component/myshop/myshop')
 
 //分店
-import Branch from 'component/branch/branch'
-import BranchList from 'component/branch/branchList'
-import WaitSure from 'component/branch/waitSure'
-import UpgradeShop from 'component/branch/upgradeShop'
-import UnacceptShop from 'component/branch/unacceptShop'
-import MybranchDetail from 'component/branch/detail'
+const Branch = () => import('component/branch/branch')
+const BranchList = () => import('component/branch/branchList')
+const WaitSure = () => import('component/branch/waitSure')
+const UpgradeShop = () => import('component/branch/upgradeShop')
+const UnacceptShop = () => import('component/branch/unacceptShop')
+const MybranchDetail = () => import('component/branch/detail')
+
 
  //订单
-import Order from 'component/order/order'  
-import OrderDetail from 'component/order/orderDetail'
-import Logistics from 'component/order/logistics'
+const Order = () => import('component/order/order')
+const OrderDetail = () => import('component/order/orderDetail')
+const Logistics = () => import('component/order/logistics')
 
 //我的账户
-import MyAccount from 'component/myaccount/myaccount'
-import Recharge from 'component/myaccount/recharge'
-import DoCharge from 'component/myaccount/doCharge'
-import MyBank from 'component/myaccount/mybank'
-import BindBank from 'component/myaccount/bindBank'
-import SettleBank from 'component/myaccount/settleBank'
-import SettleList from 'component/myaccount/settleList'
-import SettleDetail from 'component/myaccount/settleDetail'
-import SurplusList from 'component/myaccount/surplusList'
-import SurplusDetail from 'component/myaccount/surplusDetail'
+const MyAccount = () => import('component/myaccount/myaccount')
+const Recharge = () => import('component/myaccount/recharge')
+const DoCharge = () => import('component/myaccount/doCharge')
+const MyBank = () => import('component/myaccount/mybank')
+const BindBank = () => import('component/myaccount/bindBank')
+const SettleBank = () => import('component/myaccount/SettleBank')
+const SettleList = () => import('component/myaccount/settleList')
+const SettleDetail = () => import('component/myaccount/settleDetail')
+const SurplusList = () => import('component/myaccount/surplusList')
+const SurplusDetail = () => import('component/myaccount/surplusDetail')
 
 //数据统计
-import Statistics from 'component/statistics/statistics';
+const Statistics = () => import('component/statistics/statistics')
+
 
 Vue.use(Router)
 
@@ -52,7 +55,7 @@ const router =  new Router({
     routes: [
         {
             path: '/',
-            redirect: '/register',
+            redirect: '/index',
         },
         {
             path: '/register',
@@ -221,13 +224,12 @@ const router =  new Router({
         {
             path: '/order',
             name: 'order',
-            component: Order
+            component: Order,
         },
         {
-            path: '/orderDetail',
+            path: '/orderDetail/:id',
             name: 'orderDetail',
             component: OrderDetail,
-            props:true
         },
         {
             path: '/logistics',

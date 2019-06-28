@@ -7,7 +7,7 @@ const CodeLogin = () => import('component/user/codeLogin')
 const ForgetPwd = () => import('component/user/forgetPwd')
 const SetNewPwd = () => import('component/user/setNewPwd')
 
-const Index = () => import('component/index/index')
+const Index = () => import('component/index/index2')
 const GoodsDetail = () => import('component/goodsDetail/goodsDetail')
 const ShopCart = () => import('component/shopCart/shopCart')
 const ShopManage = () => import('component/shopManage/shopManage')

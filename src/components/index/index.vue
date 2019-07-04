@@ -10,7 +10,7 @@
     <div class="mui-content m-index">
         <slider :lists="bannerList"></slider>
       
-        <ul class="mui-table-view mui-grid-view mui-grid-9 m-center-nav">
+        <!-- <ul class="mui-table-view mui-grid-view mui-grid-9 m-center-nav">
             <li class="mui-table-view-cell mui-media mui-col-xs-4">
                 <a href="#">
                     <span class="m-icon m-icon1"></span>
@@ -29,7 +29,7 @@
                     <div class="mui-media-body">订单管理</div>
                 </a>
             </li>
-        </ul>
+        </ul> -->
         <goods-list :lists="goodsList" :dialogLock='dialogLock' @dialogFn='dialogFn' @showItemFn='showItemFn'></goods-list>
         <!-- <div class="m-recomand-list clearFix">
             <div class="m-title">

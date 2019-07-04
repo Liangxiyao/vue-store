@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import  storage  from 'common/js/storage'
 
 const Register = () => import('component/user/register')
 const Login = () => import('component/user/login')
@@ -7,7 +8,7 @@ const CodeLogin = () => import('component/user/codeLogin')
 const ForgetPwd = () => import('component/user/forgetPwd')
 const SetNewPwd = () => import('component/user/setNewPwd')
 
-const Index = () => import('component/index/index2')
+const Index = () => import('component/index/index')
 const GoodsDetail = () => import('component/goodsDetail/goodsDetail')
 const ShopCart = () => import('component/shopCart/shopCart')
 const ShopManage = () => import('component/shopManage/shopManage')
@@ -60,44 +61,51 @@ const router =  new Router({
         {
             path: '/register',
             name: '/register',
-            component: Register
+            component: Register,
+            meta:{noLogin:true}
         },
         {
             path: '/login',
             name: '/login',
-            component: Login
+            component: Login,
+            meta:{noLogin:true}
         },
         {
             path: '/codeLogin',
             name: '/codeLogin',
-            component: CodeLogin
+            component: CodeLogin,
+            meta:{noLogin:true}
         },
         {
             path: '/forgetPwd',
             name: '/forgetPwd',
-            component: ForgetPwd
+            component: ForgetPwd,
+            meta:{noLogin:true}
         },
         {
             path: '/setNewPwd',
             name: '/setNewPwd',
-            component: SetNewPwd
+            component: SetNewPwd,
+            meta:{noLogin:true}
         },
         {
             path: '/index',
             name: 'index',
-            component: Index
+            component: Index,
+            meta:{noLogin:true}
         },
         {
             path: '/goodsDetail/:id',
             name: 'goodsDetail',
             component: GoodsDetail,
-            props:true
+            props: true,
+            meta:{noLogin:true}
         },
         {
             path: '/shopCart',
             name: 'shopCart',
-            meta:{redirectLogin:true},
-            component: ShopCart
+            component: ShopCart,
+            meta:{isLogin:true}
         },
         {
             path: '/shopManage',
@@ -107,12 +115,12 @@ const router =  new Router({
         {
             path: '/myself',
             name: 'myself',
-            component: Myself
+            component: Myself,
         },
         {
             path: '/systemMessage',
             name: 'systemInfo',
-            component: SystemInfo
+            component: SystemInfo,
         },
         {
             path: '/systemLists',
@@ -242,17 +250,25 @@ const router =  new Router({
             component:Statistics
         },
 
-
-
         {path:'*',component:()=> import('component/notFound/notFound')}
 
     ]
 })
-// router.beforeEach((to, from, next) => { 
-//     next()
-//     console.log(to);
-//     console.log(from);
-// })
+//每次路由激活之前都会执行回调函数
+router.beforeEach((to, from, next) => { 
+    if (to.meta.noLogin) {
+        next()
+    } else {
+        let userState = storage.get('userInfo')
+        if (!userState) {
+            let params = to.path.substring(1)
+            next('/login?redirect='+ params)
+        } else {
+            next()
+        }
+    }
+    
+})
 
 
 export default router

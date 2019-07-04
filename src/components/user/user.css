@@ -12,7 +12,7 @@ html,body,#app{height:100%;min-height:100%}
     border-radius: 6px; margin-top: 15px;opacity: .5;}
 .mui-content .login-form .submit.active{opacity:1}
 .mui-input{width: 100%; overflow: hidden;}
-.mui-input .link-area a{ font-size: 13px; color:#666;}
+.mui-input .link-area .link{ font-size: 13px; color:#666;}
 .mui-weilogin{padding-bottom:50px;margin:0 auto;}
 .mui-weilogin a{border:1px solid #ccc; font-size: 14px;color: #666; width: 150px;background: #f0f0f0;;padding:9px 0; display: block; border-radius:100px; text-align: center;}
 .mui-weilogin .icon-iconfontweixin{ color: #00ca4b; font-size: 20px;padding-right: 5px;}

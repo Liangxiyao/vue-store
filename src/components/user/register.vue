@@ -1,7 +1,7 @@
 <template>
 <div class="register user-module">
     <m-header>
-        <a slot="header-right" class="mui-btn-link mui-pull-right" href="/login">登录</a>
+        <router-link tag="span" slot="header-right" class="mui-btn-link mui-pull-right" to="/login">登录</router-link>
     </m-header>
     <div class="mui-content">
         <h1>注册姜力账号</h1>

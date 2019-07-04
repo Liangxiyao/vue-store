@@ -17,7 +17,7 @@
     <ul class="list-wrap clearFix">
         <li class="item mui-pull-left" v-for="item in lists" :key="item.main_goods_id">
             <div class="hd">
-                <router-link :to="'/goodsDetail/'+item.main_goods_id">
+                <router-link tag="div" :to="'/goodsDetail/'+item.main_goods_id" class="pro-item">
                     <img :src="item.pics">
                 </router-link>
             </div>
@@ -74,7 +74,7 @@ export default {
 .m-recomand-list .list-wrap{padding-right:10px;}
 .m-recomand-list .list-wrap .item{width:50%;padding:0 0 15px 15px;margin-right:-5px;}
 .m-recomand-list .item .hd{width:100%;overflow: hidden;margin-bottom:10px;}
-.m-recomand-list .item .hd a{display:block;width:100%;padding:50% 0;position:relative;border-radius:5px;overflow: hidden;}
+.m-recomand-list .item .hd .pro-item{display:block;width:100%;padding:50% 0;position:relative;border-radius:5px;overflow: hidden;}
 .m-recomand-list .item .hd img{position:absolute;top:0;left:0;height:100%;}
 .m-recomand-list .item .dec{padding:0 2px;}
 .m-recomand-list .item .dec .name{font-size:14px;color:#333;margin-bottom:10px;line-height:14px;}

@@ -6,12 +6,12 @@
         <div class="mui-content myorder">
             <div class="tab-bar">
                 <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-                    <a class="mui-control-item" :class="[currentState == 0?'cur':'']" href="javascript:;" @tap="_getOrderLists(0)"><span>全部</span></a>
-                    <a class="mui-control-item" :class="[currentState == 1?'cur':'']" href="javascript:;" @tap="_getOrderLists(1)"><span>待支付</span></a>
-                    <a class="mui-control-item" :class="[currentState == 5?'cur':'']" href="javascript:;" @tap="_getOrderLists(5)"><span>审核中</span></a>
-                    <a class="mui-control-item" :class="[currentState == 2?'cur':'']" href="javascript:;" @tap="_getOrderLists(2)"><span>待发货</span></a>
-                    <a class="mui-control-item" :class="[currentState == 3?'cur':'']" href="javascript:;" @tap="_getOrderLists(3)"><span>已发货</span></a>
-                    <a class="mui-control-item" :class="[currentState == 4?'cur':'']" href="javascript:;" @tap="_getOrderLists(4)"><span>已完成</span></a>
+                    <li class="mui-control-item" :class="[currentState == 0?'cur':'']" @tap="_getOrderLists(0)"><span>全部</span></li>
+                    <li class="mui-control-item" :class="[currentState == 1?'cur':'']" @tap="_getOrderLists(1)"><span>待支付</span></li>
+                    <li class="mui-control-item" :class="[currentState == 5?'cur':'']" @tap="_getOrderLists(5)"><span>审核中</span></li>
+                    <li class="mui-control-item" :class="[currentState == 2?'cur':'']" @tap="_getOrderLists(2)"><span>待发货</span></li>
+                    <li class="mui-control-item" :class="[currentState == 3?'cur':'']" @tap="_getOrderLists(3)"><span>已发货</span></li>
+                    <li class="mui-control-item" :class="[currentState == 4?'cur':'']" @tap="_getOrderLists(4)"><span>已完成</span></li>
                     <!-- <a class="mui-control-item" :class="[currentState == 10?'cur':'']" href="javascript:;" @tap="_getOrderLists(10)"><span>已取消</span></a> -->
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="no-cont" v-else>
                 <img class="icon" src="../../common/images/no-order.png" >
                 <p class="tip">暂无相关订单</p>
-                <a class="btn" href="">点击跳转</a>
+                <!-- <a class="btn" href="">点击跳转</a> -->
             </div>
         </div>
     </div>

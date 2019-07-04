@@ -1,7 +1,7 @@
 <template>
     <div class="login user-module">
         <m-header>
-            <a slot="header-right" class="mui-btn-link mui-pull-right" href="/register">注册账号</a>
+            <router-link tag="span" slot="header-right" class="mui-btn-link mui-pull-right" to="/register">注册账号</router-link>
         </m-header>
         <div class="mui-content">
             <h1>欢迎登录姜力</h1>
@@ -20,14 +20,14 @@
 
             <div class="mui-input">
                 <div class="link-area">
-                    <a href="/forgetPwd" class="forgetPassword fl">忘记密码</a>
-                    <a href="/codeLogin" class="forgetCode fr">短信验证码登录</a>
+                    <router-link tag="span" to="/forgetPwd" class="link forgetPassword fl">忘记密码</router-link>
+                    <router-link tag="span" :to="`/codeLogin${pathParams}`" class="link forgetCode fr">短信验证码登录</router-link>
                 </div>
             </div>
         </div>
-        <div class="mui-weilogin">
+        <!-- <div class="mui-weilogin">
             <a href="/codeLogin"><i class="iconfont icon-iconfontweixin"></i>微信登录</a>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -41,6 +41,7 @@ export default {
     },
     data(){
         return{
+            pathParams:'',
             phone:'',
             pwd:'',
             submitState:false,
@@ -61,6 +62,13 @@ export default {
                 }
             }
         },
+    },
+    created () {
+        //先判断登录后是否需要重定向
+        let query = this.$route.query.redirect;
+        if(query){
+            this.pathParams = '?redirect='+query
+        }
     },
     methods:{
         checkPhone(){  
@@ -123,11 +131,11 @@ export default {
         },
         returnUrl(){
             let url = window.location.href;
-            let return_url = url.split("callback=")[1];
+            let return_url = url.split("redirect=")[1];
             if(return_url){
                     window.location.href = return_url;
             }else{
-                window.location.href = '/index'
+                window.location.href = '/'
                 this.$refs.myForm.reset();
             }
         }

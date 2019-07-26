@@ -105,7 +105,7 @@ const router =  new Router({
             path: '/shopCart',
             name: 'shopCart',
             component: ShopCart,
-            meta:{isLogin:true}
+            //meta:{isLogin:true}
         },
         {
             path: '/shopManage',
@@ -267,7 +267,6 @@ router.beforeEach((to, from, next) => {
             next()
         }
     }
-    
 })
 
 

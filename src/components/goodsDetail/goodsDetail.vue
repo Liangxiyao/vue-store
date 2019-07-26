@@ -9,7 +9,7 @@
         <a slot="header-right" class="mui-icon  mui-pull-right iconfont icon-share" href="javascript:;"></a>
     </m-header>
     <div class="mui-content">
-        <slider :lists="bannerImgs"></slider>
+        <slider :lists="goodsInfo.imgs"></slider>
         <div class="goods-desc">
             <div class="name ofellipsis2">{{goodsInfo.goods_name}}</div>
             <div class="price-wrap clearFix">
@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <choose-sku :show="dialogShow" :skuDialog="skuDialog" @toggleDialog="toggleDialog"></choose-sku>
+    <choose-sku :show="dialogShow" :skuDialog="goodsInfo" @toggleDialog="toggleDialog"></choose-sku>
 </div>
 </template>
 <script>
@@ -76,19 +76,19 @@ export default {
   data() {
     return {
       dialogShow: false,
-      goodsInfo: {},
-      bannerImgs: [], //banner 图片
-      skuDialog: {}
+      goodsInfo: {
+          imgs:[]
+      },
     };
   },
-  watch: {
-    goodsInfo(val) {
-      this.bannerImgs.push({ src: val.imgs });
-      this.skuDialog = val;
-    }
+  created(){
+      this._getGoodsDetail();
   },
-  created() {
-    this._getGoodsDetail();
+  activated() {
+      this._getGoodsDetail();
+  },
+  deactivated() {
+    this.goodsInfo = {} //清空上个产品图片，避免出现闪烁
   },
   methods: {
     _getGoodsDetail() {
@@ -99,6 +99,8 @@ export default {
             if(result.status == 1){
                 let info = result.data;
                 this.goodsInfo = info;
+                console.log(info);
+                
             }else{
                 alert(result.msg)
             }
@@ -109,6 +111,9 @@ export default {
     },
     toggleDialog(val) {
       this.dialogShow = val;
+    },
+    addCart(){
+        
     }
   }
 };

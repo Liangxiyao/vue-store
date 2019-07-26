@@ -1,20 +1,20 @@
 <template>
   <div class="slider-wrap">
 		<div class="mui-slider">
-			<div class="mui-slider-group mui-slider-loop" v-if="lists.length">
+			<div class="mui-slider-group mui-slider-loop" v-if="imgArr.length">
 				<!-- 复制最后一张 -->
-				<div class="mui-slider-item mui-slider-item-duplicate" v-if="lists.length>1">
-					<a href=""><img :src="lists[lists.length-1].src"></a>
+				<div class="mui-slider-item mui-slider-item-duplicate" v-if="imgArr.length>1">
+					<a href="javascript:;"><img :src="imgArr[imgArr.length-1].src"></a>
 				</div>
-				<div class="mui-slider-item" v-for="(item,index) in lists" :key="index">
-					<a href=""><img :src="item.src"></a>
+				<div class="mui-slider-item" v-for="(item,index) in imgArr" :key="index">
+					<a href="javascript:;"><img :src="item.src"></a>
 				</div>
 				<!-- 复制第一张 -->
-				<div class="mui-slider-item mui-slider-item-duplicate" v-if="lists.length>1">
-					<a href=""><img :src="lists[0].src"></a>
+				<div class="mui-slider-item mui-slider-item-duplicate" v-if="imgArr.length>1">
+					<a href="javascript:;"><img :src="imgArr[0].src"></a>
 				</div>
 			</div>
-			<div class="mui-slider-indicator" v-if="lists.length>1">
+			<div class="mui-slider-indicator" v-if="imgArr.length>1">
 				<div class="mui-indicator mui-active"></div>
 				<div class="mui-indicator"></div>
 			</div>    
@@ -33,14 +33,28 @@ export default {
       return{  
           objectClass:{
               muiSliderLoop:'mui-slider-loop'
-          }
+          },
+          imgArr:[]
+      }
+  },
+  created () {
+      console.log(this.lists);
+  },
+  watch:{
+      lists(val){
+          let arr = []
+          val.map((item,index)=>{
+              if(!item.src){
+                  arr.push({"src":item})
+              }else{
+                  arr.push(item)
+              }
+          })
+          this.imgArr = arr
       }
   },
   updated(){
-     
-          this.sliderFn()
-     
-   
+        this.sliderFn()
   },
    methods:{
        sliderFn() {
@@ -48,14 +62,7 @@ export default {
                 interval: 3000 //自动轮播周期
             });	
         },
-   }
-
-//   watch:{
-//       lists(val){
-//           this.list = val
-//           console.log(this.list)
-//       }
-//   }
+   },
 }
 </script>
 <style>

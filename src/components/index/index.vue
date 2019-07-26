@@ -8,7 +8,7 @@
         <a class="m-icon-news mui-pull-right cur" href="systemMessage"></a>
     </header>
     <div class="mui-content m-index">
-        <slider :lists="bannerList"></slider>
+        <slider :lists="indexInfo.banner"></slider>
       
         <!-- <ul class="mui-table-view mui-grid-view mui-grid-9 m-center-nav">
             <li class="mui-table-view-cell mui-media mui-col-xs-4">
@@ -51,8 +51,8 @@
     <m-footer></m-footer>
     <filter-dialog  @closeDialog="closeDialog" 
                     :show="dialogLock"
-                    :brand="brandList"
-                    :tag="tagList"
+                    :brand="indexInfo.brand"
+                    :tag="indexInfo.tag"
                     @showItemFn='showItemFn'
                     @dialogFn="dialogFn"
                     ></filter-dialog>
@@ -77,15 +77,22 @@ export default {
     data(){
         return{
             dialogLock:false,
+            indexInfo:{
+                banner:[],
+                brand:[],
+                tag:[]
+            },
             goodsList:[],
-            bannerList:[],
-            brandList:[],
-            tagList:[],
         }
     },
+    beforeCreate () {
+        console.log(this.dialogLock);
+        
+    },
+    
     created(){
         this._getGoodsList()
-        this._getIndexData()
+        this._getIndexData()     
     },
     computed:{
         //   sku(){
@@ -96,16 +103,7 @@ export default {
         _getIndexData(){
             apiIndexInfo().then((result) => {
                 if(result.status == 1){
-                    let data = result.data
-                    if(data.banner.length){
-                        this.bannerList = data.banner
-                    }
-                    if(data.brand.length){
-                        this.brandList = data.brand
-                    }
-                    if(data.tag.length){
-                        this.tagList = data.tag
-                    }
+                    this.indexInfo = result.data
                 }else{
                     console.log(result)
                 }

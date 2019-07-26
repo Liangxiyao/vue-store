@@ -164,20 +164,6 @@ export default {
         setTimeout(()=>{
             this.countDown(time)
         },1000);  
-        var str = '()(1(#)$($))';
-        var arr = []
-        for(var i = 0;i<str.length;i++){
-            if(str[i] == '('){
-                arr.push(str[i])
-            }else if(str[i] == ')'){
-                if(arr.length){
-                    var len = arr.length;
-                    arr.pop();
-                }else{
-                    alert(i)
-                }
-            }
-        }
     },
     
   }

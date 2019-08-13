@@ -6,42 +6,6 @@ import Store from "../store";
 axios.defaults.timeout = 10000
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
-// token
-let userInfo = storage.get('userInfo')  //获取token
-//axios.defaults.headers.post['access-token'] = userInfo?userInfo.token:'' //设置请求头
-
-//请求拦截器
-axios.interceptors.request.use(
-    req => {
-        req.headers['access-token'] = userInfo ? userInfo.token : '';   //设置请求头
-        if (req.showLoading) {
-            ShowLoading()
-        }
-        return req
-    },
-    err => {
-        return Promise.reject(err)
-    }
-);
-//响应拦截器
-axios.interceptors.response.use(
-    res => {
-        if (res.config.showLoading) {
-            HideLoading()
-        }
-        return res;
-    },
-    err => {
-        return Promise.reject(err)
-    }
-)
-
-/*
-**  每次调用ShowLoading方法 requestCount + 1。
-**  调用HideLoading方法，requestCount - 1。
-**  requestCount为 0 时，结束 loading。
-*/
-
 
 let requestCount = 0    //请求数量
 //显示loading
@@ -62,6 +26,42 @@ export function HideLoading() {
     }
 }
 
+
+//请求拦截器
+axios.interceptors.request.use(
+    req => {
+        // token
+        let userInfo = storage.get('userInfo')  //获取token
+        req.headers['access-token'] = userInfo ? userInfo.token : '';   //设置请求头
+        if (req.showLoading) {
+            ShowLoading()
+        }
+        return req
+    },
+    err => {
+        return Promise.reject(err)
+    }
+);
+//响应拦截器
+axios.interceptors.response.use(
+    res => {
+        console.log(res)
+        if (res.config.showLoading) {
+            HideLoading()
+        }
+        return res;
+    },
+    err => {
+        return Promise.reject(err)
+    }
+)
+
+/*
+**  每次调用ShowLoading方法 requestCount + 1。
+**  调用HideLoading方法，requestCount - 1。
+**  requestCount为 0 时，结束 loading。
+*/
+
 //封装post请求，若请求不需要loading，则将showLoading设为false
 export function post(url, data = {},loading = { showLoading: true }) {
     return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ export function post(url, data = {},loading = { showLoading: true }) {
         .then(res => {       
             resolve(res.data)        
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }
@@ -83,7 +83,7 @@ export function get(url,params={},loading = { showLoading: true }){
             resolve(res.data)
         })
         .catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })  
   }

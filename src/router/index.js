@@ -262,7 +262,10 @@ router.beforeEach((to, from, next) => {
         let userState = storage.get('userInfo')
         if (!userState) {
             let params = to.path.substring(1)
-            next('/login?redirect='+ params)
+            next({
+                path: '/login',
+                redirect:params
+            })
         } else {
             next()
         }

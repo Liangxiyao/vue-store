@@ -85,14 +85,9 @@ export default {
             goodsList:[],
         }
     },
-    beforeCreate () {
-        console.log(this.dialogLock);
-        
-    },
-    
     created(){
         this._getGoodsList()
-        this._getIndexData()     
+        this._getIndexData()  
     },
     computed:{
         //   sku(){
@@ -112,12 +107,13 @@ export default {
                 console.log(err)
             })
         },
-        _getGoodsList(data){
-            apiIndexGoodsList(data).then((result) => {
+        _getGoodsList(){
+            apiIndexGoodsList()
+            .then((result) => {
                 if(result.status == 1){
                     let lists = result.data
                     if(lists != -1){
-                    this.goodsList = lists.list
+                        this.goodsList = lists.list
                     }else{
                         alert('没有数据')
                     }
@@ -140,13 +136,14 @@ export default {
                 brand_id:val.brand?val.brand.id:'',
                 tag_id:val.tag?val.tag.id:''
             }
+            console.log(data)
             this._getGoodsList(data)
             
         },
     }
 }
 </script>
-<style scoped>
+<style>
 .m-index{padding-bottom:60px;max-width: 640px;margin:0 auto;}
 .mui-bar{background-color:rgba(255,255,255,1);margin:0 auto;}
 .mui-bar-nav{-webkit-box-shadow:none;box-shadow:none;padding:0 15px;}
@@ -166,6 +163,5 @@ export default {
 .mui-grid-view.m-center-nav .m-icon2{background-position-y:-50px;}
 .mui-grid-view.m-center-nav .m-icon3{background-position-y:-95px;}
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size:13px;}
-
 
 </style>

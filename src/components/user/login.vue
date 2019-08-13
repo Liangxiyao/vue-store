@@ -118,7 +118,8 @@ export default {
                         storage.set('userInfo',userInfo)
 
                         //判断跳转路径 有callback返回callback，否则返回index
-                        this.returnUrl()
+                        const path = this.$route.query.redirect || '/'
+                        this.$router.push(path)
 
                     }else{
                         alert(result.msg)
@@ -129,16 +130,6 @@ export default {
 
             }
         },
-        returnUrl(){
-            let url = window.location.href;
-            let return_url = url.split("redirect=")[1];
-            if(return_url){
-                    window.location.href = return_url;
-            }else{
-                window.location.href = '/'
-                this.$refs.myForm.reset();
-            }
-        }
     }
 
 }

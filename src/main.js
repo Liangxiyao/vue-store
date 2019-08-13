@@ -21,12 +21,3 @@ new Vue({
     template: '<App/>'
 })
 
-
-function Fn() {
-    
-}
-console.log(Fn.prototype._proto_);
-
-
-var ss = new Fn()
-console.log(Fn.prototype.constructor === ss.constructor)

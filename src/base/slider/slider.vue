@@ -38,7 +38,6 @@ export default {
       }
   },
   created () {
-      console.log(this.lists);
   },
   watch:{
       lists(val){

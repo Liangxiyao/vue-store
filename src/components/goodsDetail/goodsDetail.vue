@@ -81,9 +81,6 @@ export default {
       },
     };
   },
-  created(){
-      this._getGoodsDetail();
-  },
   activated() {
       this._getGoodsDetail();
   },
@@ -128,8 +125,8 @@ export default {
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{border:none;}
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active span{display:inline-block;border-bottom:2px solid #00A43E;color:#333;}
 .mui-segmented-control .mui-control-item{line-height:42px;}
-.mui-icon:before{display: block;width: 33px;height:33px;line-height:33px;background:rgba(255,255,255,.4);border-radius:50%;text-align: center;font-size:20px;}
-.mui-action-back:before{font-size:24px;}
+.goodsDetail .mui-icon:before{display: block;width: 33px;height:33px;line-height:33px;background:rgba(255,255,255,.4);border-radius:50%;text-align: center;font-size:20px;}
+.goodsDetail .mui-action-back:before{font-size:24px;}
 
 .goodsDetail .mui-content{padding-top:0}
 .goodsDetail .mui-slider  .mui-slider-item{padding:100% 0 0 0;}

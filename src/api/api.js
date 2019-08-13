@@ -1,8 +1,9 @@
 import { get, post } from "./http"
+import { Loading } from "vant";
 
 export const apiIndexInfo = p => post('/api/index/index', p)
 
-export const apiIndexGoodsList = p => post('/api/index/goodslist', p)
+export const apiIndexGoodsList = p => post('/api/index/goodslist', p,{showLoading:false})
 
 export const apiGoodsDetail = p => post('/api/shop/item', p)
 

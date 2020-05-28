@@ -125,7 +125,7 @@ export default {
                         alert(result.msg)
                     }
                 }).catch((err) => {
-                    
+                    alert(err)
                 });
 
             }

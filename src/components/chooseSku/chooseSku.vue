@@ -8,11 +8,11 @@
 		    </div> 
 		    <div class="content wbox-flex">
 		        <div class="price-wrap"> 
-		             <span class="price">¥{{skuDialog.price}}</span>
-					 <s class="old-price">¥{{skuDialog.market_price}}</s>
+		            <span class="price">¥{{skuDialog.price}}</span>
+					      <s class="old-price">¥{{skuDialog.market_price}}</s>
 		        </div>
 		        <div class="sku-dtips">已选择: 
-		              <span class="showsku" v-for="sku in selectedSkuItem">{{sku}}</span>
+		            <span class="showsku" v-for="sku in selectedSkuItem">{{sku}}</span>
 		        </div>
 		    </div> 
 		</div>
@@ -33,8 +33,8 @@
 					<dl class="buy-item buy-num bdt">
 						<dt class="tit fl">购买数量</dt>
 						<dd class="wrap fr">
-							<span id="cut" class="btn cut" :class="{no:buyNum >= 1}" @click="numCut()">-</span>
-							<input class="fl num goodsNum" type="text" readonly="readonly" :value="buyNum">
+							<span id="cut" class="btn cut" :class="{'no':buyNum >= 1}" @click="numCut()">-</span>
+							<input class="fl num goodsNum" type="text" readonly="readonly" v-model="buyNum">
 							<span id="add" class="btn add" @click="numAdd()">+</span>
 						</dd>
 					</dl>
@@ -70,8 +70,9 @@ export default {
     watch:{
         skuDialog(val){         
             this.dialogInfo = val.sku
+            this.buyNum = val.canbuy
         }
-    }, 
+    },
     updated(){
         this.$nextTick(()=>{
             mui('.mui-scroll-wrapper').scroll({

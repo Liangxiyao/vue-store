@@ -1,7 +1,7 @@
 <template>
   <div class="slider-wrap">
 		<div class="mui-slider">
-			<div class="mui-slider-group mui-slider-loop" v-if="imgArr.length">
+			<div class="mui-slider-group " :class="{'mui-slider-loop':imgArr.length>1}" v-if="imgArr.length">
 				<!-- 复制最后一张 -->
 				<div class="mui-slider-item mui-slider-item-duplicate" v-if="imgArr.length>1">
 					<a href="javascript:;"><img :src="imgArr[imgArr.length-1].src"></a>
@@ -26,7 +26,7 @@ export default {
   props:{
       lists:{
           type:Array,
-          default:[]
+          default:()=>[]
       }
   },
   data(){
